@@ -1,36 +1,25 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   input_add_back.c                                   :+:      :+:    :+:   */
+/*   init_struct_env.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mcogne-- <mcogne--@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/12/14 14:35:40 by mcogne--          #+#    #+#             */
-/*   Updated: 2024/12/14 14:45:39 by mcogne--         ###   ########.fr       */
+/*   Created: 2024/12/14 22:32:41 by mcogne--          #+#    #+#             */
+/*   Updated: 2024/12/14 22:33:40 by mcogne--         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-void	input_add_back(t_input **input, t_input *new)
+/*
+** Init env structure, and init gc
+*/
+short	init_struct_env(t_minishell *env)
 {
-	t_input	*tmp;
-
-	if (!input || !new)
-		return ;
-	if (*input == NULL)
-	{
-		*input = new;
-		new->next = NULL;
-		new->prev = NULL;
-	}
-	else
-	{
-		tmp = *input;
-		while (tmp->next)
-			tmp = tmp->next;
-		tmp->next = new;
-		new->prev = tmp;
-		new->next = NULL;
-	}
+	env->gc = gc_init();
+	if (!env->gc)
+		return (1);
+	env->input = NULL;
+	return (0);
 }

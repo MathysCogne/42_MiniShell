@@ -8,13 +8,17 @@ OBJDIR = obj
 INCDIR = include
 
 SRC = minishell.c \
-			exec/exec.c \
-			parsing/get_input.c \
-			parsing/struct/ft_clean_input.c \
-			parsing/struct/struct_utils.c \
-			parsing/struct/input_add_back.c \
-			parsing/debug.c \
-			utils/ft_split_sep.c
+\
+		parsing/parsing.c \
+			parsing/handle_input/delete_input.c \
+			parsing/handle_input/get_input.c \
+			parsing/handle_input/put_input.c \
+			parsing/utils/init_struct_env.c \
+			parsing/utils/debug.c \
+\
+		exec/exec.c \
+\
+		utils/ft_split_sep.c \
 
 
 OBJ = $(SRC:.c=.o)
@@ -26,8 +30,8 @@ BUILD = $(OBJDIR)/.build
 LIBFT_DIR := libft
 LIBFT := $(LIBFT_DIR)/libft.a
 LIBFT_INCLUDE := $(LIBFT_DIR)/include
-LDFLAGS =  -L$(LIBFT_DIR) -lreadline
-LIBS =  $(LIBFT)
+LDFLAGS =  -L$(LIBFT_DIR)
+LIBS =  $(LIBFT) -lreadline -lhistory
 
 
 CC = cc
@@ -61,7 +65,7 @@ all: $(NAME)
 
 $(NAME): $(BUILD)
 
-$(BUILD): $(OBJ) $(LIBFT)
+$(BUILD): $(LIBFT) $(OBJ)
 	$(V)$(CC) $(CFLAGS) $(LDFLAGS) $(OBJ) $(BONUS_OBJ) $(LIBS) $(MLXFLAGS) -o $(NAME)
 	$(V)echo $(GREEN)"[$(NAME)] Executable created ✅"$(RESET)
 	@touch $@

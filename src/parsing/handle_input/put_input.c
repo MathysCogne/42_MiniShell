@@ -1,19 +1,45 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   struct_utils.c                                     :+:      :+:    :+:   */
+/*   put_input.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mcogne-- <mcogne--@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/12/14 07:27:48 by mcogne--          #+#    #+#             */
-/*   Updated: 2024/12/14 14:44:04 by mcogne--         ###   ########.fr       */
+/*   Created: 2024/12/14 22:28:09 by mcogne--          #+#    #+#             */
+/*   Updated: 2024/12/14 22:30:50 by mcogne--         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
 /*
-** Malloc and init node of token
+** Add value of token
+*/
+void	input_add_back(t_input **input, t_input *new)
+{
+	t_input	*tmp;
+
+	if (!input || !new)
+		return ;
+	if (*input == NULL)
+	{
+		*input = new;
+		new->next = NULL;
+		new->prev = NULL;
+	}
+	else
+	{
+		tmp = *input;
+		while (tmp->next)
+			tmp = tmp->next;
+		tmp->next = new;
+		new->prev = tmp;
+		new->next = NULL;
+	}
+}
+
+/*
+** Init node of token
 */
 t_token	*create_token(t_minishell *env, char *value, t_token_type type)
 {
@@ -29,8 +55,7 @@ t_token	*create_token(t_minishell *env, char *value, t_token_type type)
 }
 
 /*
-** Malloc and init node of input
-**
+** Init node of input
 */
 t_input	*create_input(t_minishell *env, t_token *token, size_t pos)
 {
@@ -46,14 +71,20 @@ t_input	*create_input(t_minishell *env, t_token *token, size_t pos)
 }
 
 /*
-** Init Garbage Colec
-** Set Null INPUT
+** Manage put token
+** Create Node token and input before add
 */
-short	init_struct_env(t_minishell *env)
+short	add_token(t_minishell *env, char *value, t_token_type type, size_t pos)
 {
-	env->gc = gc_init();
-	if (!env->gc)
+	t_token	*new_token;
+	t_input	*new_input;
+
+	new_token = create_token(env, value, type);
+	if (!new_token)
 		return (1);
-	env->input = NULL;
+	new_input = create_input(env, new_token, pos);
+	if (!new_input)
+		return (1);
+	input_add_back(&env->input, new_input);
 	return (0);
 }

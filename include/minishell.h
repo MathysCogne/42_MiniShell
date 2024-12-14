@@ -6,7 +6,7 @@
 /*   By: mcogne-- <mcogne--@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/13 12:52:28 by mcogne--          #+#    #+#             */
-/*   Updated: 2024/12/14 14:45:01 by mcogne--         ###   ########.fr       */
+/*   Updated: 2024/12/14 22:44:29 by mcogne--         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,9 +21,16 @@
 # include <readline/readline.h>
 # include <stdio.h>
 
+/*******************************/
+/*            MACROS           */
+/*******************************/
+
 # define TOKEN_SEPARATOR " \t\r"
 # define SHELL_NAME "bzh » "
 
+/*******************************/
+/*          STRUCTURE          */
+/*******************************/
 typedef enum e_token_type
 {
 	TOKEN_COMMAND,
@@ -55,22 +62,15 @@ typedef struct s_minishell
 }					t_minishell;
 
 /*******************************/
-/*          MINI_SHELL         */
-/*******************************/
-
-/*******************************/
 /*           PARSING           */
 /*******************************/
+short				parsing(t_minishell *env);
 short				ft_get_input(t_minishell *env);
-void				input_add_back(t_input **input, t_input *new);
 short				init_struct_env(t_minishell *env);
 void				debug_print_input(t_input *input);
 void				ft_clean_input(t_minishell *env);
-t_input				*create_input(t_minishell *env, t_token *token, size_t pos);
 short				add_token(t_minishell *env, char *value, t_token_type type,
 						size_t pos);
-t_token				*create_token(t_minishell *env, char *value,
-						t_token_type type);
 
 /*******************************/
 /*            EXEC             */
@@ -79,7 +79,6 @@ t_token				*create_token(t_minishell *env, char *value,
 /*******************************/
 /*            UTILS            */
 /*******************************/
-
 char				**ft_split_sep(char const *s, char *sep);
 
 /*******************************/

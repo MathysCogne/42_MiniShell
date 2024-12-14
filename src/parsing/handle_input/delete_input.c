@@ -1,45 +1,32 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   minishell.c                                        :+:      :+:    :+:   */
+/*   delete_input.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mcogne-- <mcogne--@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/12/13 12:52:35 by mcogne--          #+#    #+#             */
-/*   Updated: 2024/12/14 22:44:13 by mcogne--         ###   ########.fr       */
+/*   Created: 2024/12/14 22:27:24 by mcogne--          #+#    #+#             */
+/*   Updated: 2024/12/14 22:27:27 by mcogne--         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-static short	minishell(t_minishell *env)
+/*
+** Clean and free input and token after use
+*/
+void	ft_clean_input(t_minishell *env)
 {
-	while (1)
-	{
-		if (parsing(env))
-			return (1);
-	}
-	return (0);
-}
+	t_input	*current;
+	t_input	*next;
 
-int	main(int argc, char **argv)
-{
-	t_minishell	env;
-
-	if (argc != 1)
+	current = env->input;
+	while (current)
 	{
-		ft_printf("Usage: %s\n", argv[0]);
-		return (1);
+		next = current->next;
+		free(current->token);
+		free(current);
+		current = next;
 	}
-	if (init_struct_env(&env))
-		return (1);
-	if (minishell(&env))
-	{
-		ft_printf("DEBUG: EXIT IN MAIN\n");
-		gc_clean(env.gc);
-		if (env.input)
-			ft_clean_input(&env);
-		return (1);
-	}
-	return (0);
+	env->input = NULL;
 }

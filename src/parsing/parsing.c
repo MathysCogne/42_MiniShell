@@ -1,32 +1,22 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_clean_input.c                                   :+:      :+:    :+:   */
+/*   parsing.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mcogne-- <mcogne--@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/12/14 12:53:08 by mcogne--          #+#    #+#             */
-/*   Updated: 2024/12/14 12:53:50 by mcogne--         ###   ########.fr       */
+/*   Created: 2024/12/14 22:38:55 by mcogne--          #+#    #+#             */
+/*   Updated: 2024/12/14 22:43:56 by mcogne--         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-/*
-** Clean and free input and token after use
-*/
-void	ft_clean_input(t_minishell *env)
+short	parsing(t_minishell *env)
 {
-	t_input	*current;
-	t_input	*next;
-
-	current = env->input;
-	while (current)
-	{
-		next = current->next;
-		free(current->token);
-		free(current);
-		current = next;
-	}
-	env->input = NULL;
+	if (ft_get_input(env))
+		return (1);
+	debug_print_input(env->input);
+	ft_clean_input(env);
+	return (0);
 }
