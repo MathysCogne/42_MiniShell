@@ -7,9 +7,15 @@ SRCDIR = src
 OBJDIR = obj
 INCDIR = include
 
-SRC = minishell.c
-#			 src/exec/
-#			 src/parsing/ 
+SRC = minishell.c \
+			exec/exec.c \
+			parsing/get_input.c \
+			parsing/struct/ft_clean_input.c \
+			parsing/struct/struct_utils.c \
+			parsing/struct/input_add_back.c \
+			parsing/debug.c \
+			utils/ft_split_sep.c
+
 
 OBJ = $(SRC:.c=.o)
 SRC := $(addprefix $(SRCDIR)/, $(SRC))
