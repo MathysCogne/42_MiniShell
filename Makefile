@@ -7,8 +7,7 @@ SRCDIR = src
 OBJDIR = obj
 INCDIR = include
 
-SRC = main.c \
-		minishell.c
+SRC = minishell.c
 #			 src/exec/
 #			 src/parsing/ 
 
@@ -21,8 +20,9 @@ BUILD = $(OBJDIR)/.build
 LIBFT_DIR := libft
 LIBFT := $(LIBFT_DIR)/libft.a
 LIBFT_INCLUDE := $(LIBFT_DIR)/include
-LDFLAGS =  -L$(LIBFT_DIR)
+LDFLAGS =  -L$(LIBFT_DIR) -lreadline
 LIBS =  $(LIBFT)
+
 
 CC = cc
 CFLAGS = -Wall -Wextra -Werror -I$(INCDIR) -g3 -I$(LIBFT_INCLUDE)
@@ -46,6 +46,12 @@ RED     := "\033[1;31m"
 GREEN   := "\033[1;32m"
 RESET   := "\033[0m"
 
+
+#################################
+#            EXECUTABLE         #
+#################################
+
+all: $(NAME)
 
 $(NAME): $(BUILD)
 
@@ -98,7 +104,11 @@ fclean: clean
 #             NORME             #
 #################################
 norme:
-	$(V)norminette | grep -B1 "Error"
+	@if norminette | grep -B1 "Error"; then \
+		echo $(RED)"Norme KO"$(RESET); \
+	else \
+		echo $(GREEN)"Norme ok ✅"$(RESET); \
+	fi
 
 re: fclean all
 
