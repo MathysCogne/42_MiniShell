@@ -6,7 +6,7 @@
 /*   By: mcogne-- <mcogne--@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/14 22:28:09 by mcogne--          #+#    #+#             */
-/*   Updated: 2024/12/14 22:30:50 by mcogne--         ###   ########.fr       */
+/*   Updated: 2024/12/14 23:11:55 by mcogne--         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 /*
 ** Add value of token
 */
-void	input_add_back(t_input **input, t_input *new)
+static void	input_add_back(t_input **input, t_input *new)
 {
 	t_input	*tmp;
 
@@ -41,7 +41,7 @@ void	input_add_back(t_input **input, t_input *new)
 /*
 ** Init node of token
 */
-t_token	*create_token(t_minishell *env, char *value, t_token_type type)
+static t_token	*create_token(t_minishell *env, char *value, t_token_type type)
 {
 	t_token	*new_token;
 
@@ -57,7 +57,7 @@ t_token	*create_token(t_minishell *env, char *value, t_token_type type)
 /*
 ** Init node of input
 */
-t_input	*create_input(t_minishell *env, t_token *token, size_t pos)
+static t_input	*create_input(t_minishell *env, t_token *token, size_t pos)
 {
 	t_input	*new_input;
 
@@ -74,7 +74,7 @@ t_input	*create_input(t_minishell *env, t_token *token, size_t pos)
 ** Manage put token
 ** Create Node token and input before add
 */
-short	add_token(t_minishell *env, char *value, t_token_type type, size_t pos)
+short	put_input(t_minishell *env, char *value, t_token_type type, size_t pos)
 {
 	t_token	*new_token;
 	t_input	*new_input;

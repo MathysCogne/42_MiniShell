@@ -6,7 +6,7 @@
 /*   By: mcogne-- <mcogne--@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/14 22:27:24 by mcogne--          #+#    #+#             */
-/*   Updated: 2024/12/14 22:27:27 by mcogne--         ###   ########.fr       */
+/*   Updated: 2024/12/14 23:12:26 by mcogne--         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 /*
 ** Clean and free input and token after use
 */
-void	ft_clean_input(t_minishell *env)
+void	delete_input(t_minishell *env)
 {
 	t_input	*current;
 	t_input	*next;

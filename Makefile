@@ -13,12 +13,16 @@ SRC = minishell.c \
 			parsing/handle_input/delete_input.c \
 			parsing/handle_input/get_input.c \
 			parsing/handle_input/put_input.c \
+			parsing/handle_input/tokenization.c \
 			parsing/utils/init_struct_env.c \
+			parsing/utils/is_external_command.c \
+			parsing/utils/is_internal_command.c \
 			parsing/utils/debug.c \
 \
 		exec/exec.c \
 \
-		utils/ft_split_sep.c \
+		utils/ft_split_minishell.c \
+		utils/free_split.c
 
 
 OBJ = $(SRC:.c=.o)
@@ -56,7 +60,6 @@ RED     := "\033[1;31m"
 GREEN   := "\033[1;32m"
 RESET   := "\033[0m"
 
-
 #################################
 #            EXECUTABLE         #
 #################################
@@ -65,11 +68,11 @@ all: $(NAME)
 
 $(NAME): $(BUILD)
 
+
 $(BUILD): $(LIBFT) $(OBJ)
 	$(V)$(CC) $(CFLAGS) $(LDFLAGS) $(OBJ) $(BONUS_OBJ) $(LIBS) $(MLXFLAGS) -o $(NAME)
 	$(V)echo $(GREEN)"[$(NAME)] Executable created ✅"$(RESET)
 	@touch $@
-
 
 #################################
 #        OBJ & DEP FILES        #
@@ -84,7 +87,6 @@ $(OBJDIR)/%.o: $(SRCDIR)/%.c | $(OBJDIR)
 	$(V)$(CC) $(CFLAGS) -MMD -MP -c $< -o $@
 
 -include $(DEP)
-
 
 #################################
 #             LIBFT             #
@@ -101,7 +103,7 @@ $(LIBFT):
 #             CLEAN             #
 #################################
 clean:
-	$(V)echo $(RED)'[$(NAME)] Cleaning objects'd$(RESET)
+	$(V)echo $(RED)'[$(NAME)] Cleaning objects'$(RESET)
 	$(V)rm -rf $(OBJDIR)
 
 fclean: clean
@@ -120,10 +122,18 @@ norme:
 		echo $(GREEN)"Norme ok ✅"$(RESET); \
 	fi
 
+#################################
+#             TEST              #
+#################################
+test: norme
+	$(V)echo $(GREEN)"Running pgrm with valgrind..."$(RESET)
+	$(V)valgrind --leak-check=full --show-leak-kinds=all --suppressions=valgrind.supp ./$(NAME)
+
+
 re: fclean all
 
 regen:
 	makemyfile
 
-.PHONY: all clean fclean re bonus regen norme
+.PHONY: all clean fclean re bonus regen norme test install uninstall distclean format lint docs
 .DEFAULT_GOAL := all

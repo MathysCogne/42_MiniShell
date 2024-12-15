@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_split_sep.c                                     :+:      :+:    :+:   */
+/*   ft_split_minishell.c                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mcogne-- <mcogne--@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/14 08:34:25 by mcogne--          #+#    #+#             */
-/*   Updated: 2024/12/14 09:06:21 by mcogne--         ###   ########.fr       */
+/*   Updated: 2024/12/15 00:52:22 by mcogne--         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,19 @@ static short	is_sep(char c, char *sep)
 	return (0);
 }
 
-static size_t	c_w(const char *str, char *sep)
+static size_t	handle_quotes(const char *str, size_t i)
+{
+	char	quote;
+
+	quote = str[i++];
+	while (str[i] && str[i] != quote)
+		i++;
+	if (str[i] == quote)
+		i++;
+	return (i);
+}
+
+static size_t	count_words(const char *str, char *sep)
 {
 	size_t	i;
 	size_t	w;
@@ -38,13 +50,18 @@ static size_t	c_w(const char *str, char *sep)
 		{
 			w++;
 			while (str[i] && !is_sep(str[i], sep))
-				i++;
+			{
+				if (str[i] == '"' || str[i] == '\'')
+					i = handle_quotes(str, i);
+				else
+					i++;
+			}
 		}
 	}
 	return (w);
 }
 
-static char	*malloc_worlds(const char *str, char *sep)
+static char	*allocate_word(const char *str, char *sep)
 {
 	size_t	len;
 	size_t	i;
@@ -52,7 +69,12 @@ static char	*malloc_worlds(const char *str, char *sep)
 
 	len = 0;
 	while (str[len] && !is_sep(str[len], sep))
-		len++;
+	{
+		if (str[len] == '"' || str[len] == '\'')
+			len = handle_quotes(str, len);
+		else
+			len++;
+	}
 	w = malloc(sizeof(char) * (len + 1));
 	if (!w)
 		return (NULL);
@@ -66,7 +88,7 @@ static char	*malloc_worlds(const char *str, char *sep)
 	return (w);
 }
 
-static char	**worlds(char const *s, char *sep, char **tab)
+static char	**split_words(char const *s, char *sep, char **tab)
 {
 	size_t	w;
 	size_t	i;
@@ -79,37 +101,39 @@ static char	**worlds(char const *s, char *sep, char **tab)
 			i++;
 		if (s[i] && !is_sep(s[i], sep))
 		{
-			tab[w] = malloc_worlds(&s[i], sep);
+			tab[w] = allocate_word(&s[i], sep);
 			if (!tab[w])
 			{
-				free(tab[w]);
-				while (--w != 0)
-					free(tab[w]);
+				while (w > 0)
+					free(tab[--w]);
+				free(tab);
 				return (NULL);
 			}
 			w++;
 			while (s[i] && !is_sep(s[i], sep))
-				i++;
+			{
+				if (s[i] == '"' || s[i] == '\'')
+					i = handle_quotes(s, i);
+				else
+					i++;
+			}
 		}
 	}
 	return (tab);
 }
 
-char	**ft_split_sep(char const *s, char *sep)
+char	**ft_split_minishell(char const *s, char *sep)
 {
 	char	**tab;
 
 	if (!s)
 		return (NULL);
-	tab = malloc(sizeof(char *) * (c_w(s, sep) + 1));
+	tab = malloc(sizeof(char *) * (count_words(s, sep) + 1));
 	if (!tab)
 		return (NULL);
-	tab = worlds(s, sep, tab);
+	tab = split_words(s, sep, tab);
 	if (!tab)
-	{
-		free(tab);
 		return (NULL);
-	}
-	tab[c_w(s, sep)] = NULL;
+	tab[count_words(s, sep)] = NULL;
 	return (tab);
 }

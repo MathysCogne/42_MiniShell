@@ -6,7 +6,7 @@
 /*   By: mcogne-- <mcogne--@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/13 12:52:28 by mcogne--          #+#    #+#             */
-/*   Updated: 2024/12/14 22:44:29 by mcogne--         ###   ########.fr       */
+/*   Updated: 2024/12/15 02:18:01 by mcogne--         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,8 @@
 /*            MACROS           */
 /*******************************/
 
-# define TOKEN_SEPARATOR " \t\r"
+// SPACE(3)
+# define TOKEN_SEPARATOR " \t\n\v\f\r"
 # define SHELL_NAME "bzh » "
 
 /*******************************/
@@ -33,11 +34,13 @@
 /*******************************/
 typedef enum e_token_type
 {
+	TOKEN_BUILTIN,
 	TOKEN_COMMAND,
 	TOKEN_ARGUMENT,
 	TOKEN_REDIRECTION_IN,
 	TOKEN_REDIRECTION_OUT,
-	TOKEN_REDIRECTION_APPEND,
+	TOKEN_HEREDOC,
+	TOKEN_REDIRECTION_APPEND_OUT,
 	TOKEN_PIPE
 }					t_token_type;
 
@@ -65,12 +68,16 @@ typedef struct s_minishell
 /*           PARSING           */
 /*******************************/
 short				parsing(t_minishell *env);
-short				ft_get_input(t_minishell *env);
+short				get_input(t_minishell *env);
+void				delete_input(t_minishell *env);
+short				put_input(t_minishell *env, char *value, t_token_type type,
+						size_t pos);
+t_token_type		tokenization(char *token);
+// Utils Parsing
 short				init_struct_env(t_minishell *env);
 void				debug_print_input(t_input *input);
-void				ft_clean_input(t_minishell *env);
-short				add_token(t_minishell *env, char *value, t_token_type type,
-						size_t pos);
+short				is_external_command(char *token);
+short				is_internal_command(char *token);
 
 /*******************************/
 /*            EXEC             */
@@ -79,7 +86,8 @@ short				add_token(t_minishell *env, char *value, t_token_type type,
 /*******************************/
 /*            UTILS            */
 /*******************************/
-char				**ft_split_sep(char const *s, char *sep);
+char				**ft_split_minishell(char const *s, char *sep);
+void				free_split(char **tab);
 
 /*******************************/
 /*            COLORS           */

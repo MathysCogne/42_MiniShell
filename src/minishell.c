@@ -6,7 +6,7 @@
 /*   By: mcogne-- <mcogne--@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/13 12:52:35 by mcogne--          #+#    #+#             */
-/*   Updated: 2024/12/14 22:44:13 by mcogne--         ###   ########.fr       */
+/*   Updated: 2024/12/15 01:33:30 by mcogne--         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,7 @@ int	main(int argc, char **argv)
 		ft_printf("DEBUG: EXIT IN MAIN\n");
 		gc_clean(env.gc);
 		if (env.input)
-			ft_clean_input(&env);
+			delete_input(&env);
 		return (1);
 	}
 	return (0);
