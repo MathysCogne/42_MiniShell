@@ -6,13 +6,13 @@
 /*   By: mcogne-- <mcogne--@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/15 15:36:28 by mcogne--          #+#    #+#             */
-/*   Updated: 2024/12/15 23:50:21 by mcogne--         ###   ########.fr       */
+/*   Updated: 2024/12/16 00:26:47 by mcogne--         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-// SI TU PASSE PAR LA ANNE-SOPHIE NE REGARDE PAS ICI FAUT QUE JE RANGE ET REFACTO TOUT CA
+// SI TU PASSE PAR LA NE REGARDE PAS ICI FAUT QUE JE RANGE ET REFACTO TOUT CA
 
 t_command	*create_command(t_token *token)
 {
@@ -110,7 +110,7 @@ static short	process_command(t_input **current_input, t_command *command)
 
 	input = *current_input;
 	while (input)
-		// DEBUG PROTEC SI ARG APRES UNE REDIR (GERER ICI OU HANDLE LES ERRREUR DE SYNTAXE AVANT ?)
+	// DEBUG PROTEC SI ARG APRES UNE REDIR (GERER ICI OU HANDLE LES ERRREUR DE SYNTAXE AVANT ?)
 	{
 		if (input->token->type == TOKEN_ARGUMENT)
 		{

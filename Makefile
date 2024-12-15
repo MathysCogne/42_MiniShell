@@ -137,5 +137,5 @@ re: fclean all
 regen:
 	makemyfile
 
-.PHONY: all clean fclean re bonus regen norme test install uninstall distclean format lint docs
+.PHONY: all clean fclean re bonus regen norme test
 .DEFAULT_GOAL := all
