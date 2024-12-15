@@ -6,7 +6,7 @@
 /*   By: mcogne-- <mcogne--@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/13 13:09:07 by mcogne--          #+#    #+#             */
-/*   Updated: 2024/12/15 00:42:33 by mcogne--         ###   ########.fr       */
+/*   Updated: 2024/12/15 21:35:47 by mcogne--         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ static short	parse_token(t_minishell *env, char **tab)
 	i = 0;
 	while (tab[i])
 	{
-		if (put_input(env, tab[i], tokenization(tab[i]), i))
+		if (put_input(env, tab[i], tokenization(tab[i])))
 			return (1);
 		i++;
 	}
@@ -29,7 +29,7 @@ static short	parse_token(t_minishell *env, char **tab)
 /*
 ** Manage input user
 ** 	Get input user with readline
-** 	Post input in hystory
+** 	Post input in hystory./	
 ** 	Split input by token with separator
 */
 // TODO ATTENTION AU LEAKS DE SPLIT

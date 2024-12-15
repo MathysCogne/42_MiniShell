@@ -12,7 +12,7 @@ SRC = minishell.c \
 			parsing/handle_input/put_input.c \
 			parsing/handle_input/tokenization.c \
 \
-			analys_semantic/analys_semantic.c \
+			parsing/analys_semantic/analys_semantic.c \
 \
 			parsing/utils/init_struct_env.c \
 			parsing/utils/is_external_command.c \
@@ -64,10 +64,9 @@ RESET   := "\033[0m"
 #            EXECUTABLE         #
 #################################
 
-all: $(NAME)
+all: clear $(NAME)
 
 $(NAME): $(BUILD)
-
 
 $(BUILD): $(LIBFT) $(OBJ)
 	$(V)$(CC) $(CFLAGS) $(LDFLAGS) $(OBJ) $(BONUS_OBJ) $(LIBS) $(MLXFLAGS) -o $(NAME)
@@ -102,6 +101,9 @@ $(LIBFT):
 #################################
 #             CLEAN             #
 #################################
+clear:
+	@clear
+
 clean:
 	$(V)echo $(RED)'[$(NAME)] Cleaning objects'$(RESET)
 	$(V)rm -rf $(OBJDIR)
