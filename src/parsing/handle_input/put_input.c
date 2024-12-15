@@ -6,7 +6,7 @@
 /*   By: mcogne-- <mcogne--@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/14 22:28:09 by mcogne--          #+#    #+#             */
-/*   Updated: 2024/12/14 23:11:55 by mcogne--         ###   ########.fr       */
+/*   Updated: 2024/12/15 15:16:47 by mcogne--         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,8 +49,11 @@ static t_token	*create_token(t_minishell *env, char *value, t_token_type type)
 	if (!new_token)
 		return (NULL);
 	gc_add(env->gc, new_token);
+	// TODO PAS SUR QUE ADD AU GC SOIS UNE BONNE IDEE
 	new_token->value = value;
 	new_token->type = type;
+	new_token->target_file = NULL;
+	new_token->fd = 1;
 	return (new_token);
 }
 
@@ -65,6 +68,7 @@ static t_input	*create_input(t_minishell *env, t_token *token, size_t pos)
 	if (!new_input)
 		return (NULL);
 	gc_add(env->gc, new_input);
+	// TODO PAS SUR QUE ADD AU GC SOIS UNE BONNE IDEE
 	new_input->token = token;
 	new_input->pos = pos;
 	return (new_input);

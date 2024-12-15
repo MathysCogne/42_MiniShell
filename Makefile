@@ -11,6 +11,9 @@ SRC = minishell.c \
 			parsing/handle_input/get_input.c \
 			parsing/handle_input/put_input.c \
 			parsing/handle_input/tokenization.c \
+\
+			analys_semantic/analys_semantic.c \
+\
 			parsing/utils/init_struct_env.c \
 			parsing/utils/is_external_command.c \
 			parsing/utils/is_internal_command.c \

@@ -6,7 +6,7 @@
 /*   By: mcogne-- <mcogne--@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/13 12:52:28 by mcogne--          #+#    #+#             */
-/*   Updated: 2024/12/15 02:18:01 by mcogne--         ###   ########.fr       */
+/*   Updated: 2024/12/15 16:34:18 by mcogne--         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,6 +32,16 @@
 /*******************************/
 /*          STRUCTURE          */
 /*******************************/
+typedef struct s_command
+{
+	t_token			*command;
+	t_token			**args;
+	t_token			*out_file;
+	t_token			*in_file;
+	int				is_pipe;
+	char			*error_msg;
+}					t_command;
+
 typedef enum e_token_type
 {
 	TOKEN_BUILTIN,
@@ -48,6 +58,8 @@ typedef struct s_token
 {
 	char			*value;
 	t_token_type	type;
+	char			*target_file;
+	int				fd;
 }					t_token;
 
 typedef struct s_input
@@ -61,6 +73,7 @@ typedef struct s_input
 typedef struct s_minishell
 {
 	t_input			*input;
+	t_command		**commands;
 	t_gc			*gc;
 }					t_minishell;
 
