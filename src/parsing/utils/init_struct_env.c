@@ -1,45 +1,26 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   minishell.c                                        :+:      :+:    :+:   */
+/*   init_struct_env.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mcogne-- <mcogne--@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/12/13 12:52:35 by mcogne--          #+#    #+#             */
-/*   Updated: 2024/12/15 22:37:08 by mcogne--         ###   ########.fr       */
+/*   Created: 2024/12/14 22:32:41 by mcogne--          #+#    #+#             */
+/*   Updated: 2024/12/15 21:43:30 by mcogne--         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-static short	minishell(t_minishell *env)
+/*
+** Init env structure, and init gc
+*/
+short	init_struct_env(t_minishell *env)
 {
-	while (1)
-	{
-		if (parsing(env))
-			return (1);
-	}
-	return (0);
-}
-
-int	main(int argc, char **argv)
-{
-	t_minishell	env;
-
-	if (argc != 1)
-	{
-		ft_printf("Usage: %s\n", argv[0]);
+	env->gc = gc_init();
+	if (!env->gc)
 		return (1);
-	}
-	if (init_struct_env(&env))
-		return (1);
-	if (minishell(&env))
-	{
-		ft_printf("DEBUG: EXIT IN MAIN\n");
-		gc_clean(env.gc);
-		if (env.input)
-			delete_input(&env);
-		return (1);
-	}
+	env->input = NULL;
+	env->commands = NULL;
 	return (0);
 }

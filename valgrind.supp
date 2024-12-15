@@ -1,0 +1,9 @@
+
+{
+   ignore_readline_leaks
+   Memcheck:Leak
+   ...
+   fun:readline
+   fun:history
+   ...
+}
