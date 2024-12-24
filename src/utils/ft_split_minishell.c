@@ -6,34 +6,11 @@
 /*   By: mcogne-- <mcogne--@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/14 08:34:25 by mcogne--          #+#    #+#             */
-/*   Updated: 2024/12/24 21:34:54 by mcogne--         ###   ########.fr       */
+/*   Updated: 2024/12/24 21:57:32 by mcogne--         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
-
-static short	is_sep(char c, char *sep)
-{
-	while (*sep)
-	{
-		if (c == *sep)
-			return (1);
-		sep++;
-	}
-	return (0);
-}
-
-static size_t	handle_quotes(const char *str, size_t i)
-{
-	char	quote;
-
-	quote = str[i++];
-	while (str[i] && str[i] != quote)
-		i++;
-	if (str[i] == quote)
-		i++;
-	return (i);
-}
 
 static size_t	count_words(const char *str, char *sep)
 {
@@ -89,6 +66,14 @@ static char	*allocate_word(const char *str, char *sep)
 	return (w);
 }
 
+static char	**free_error_alloc(size_t i, char **tab)
+{
+	while (i > 0)
+		free(tab[--i]);
+	free(tab);
+	return (NULL);
+}
+
 static char	**split_words(char const *s, char *sep, char **tab)
 {
 	size_t	w;
@@ -104,12 +89,7 @@ static char	**split_words(char const *s, char *sep, char **tab)
 		{
 			tab[w] = allocate_word(&s[i], sep);
 			if (!tab[w])
-			{
-				while (w > 0)
-					free(tab[--w]);
-				free(tab);
-				return (NULL);
-			}
+				return (free_error_alloc(w, tab));
 			w++;
 			while (s[i] && !is_sep(s[i], sep))
 			{

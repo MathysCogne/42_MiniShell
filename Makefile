@@ -13,6 +13,7 @@ SRC = minishell.c \
 			parsing/handle_input/tokenization.c \
 \
 			parsing/analys_semantic/analys_semantic.c \
+			parsing/analys_semantic/utils.c \
 \
 			parsing/utils/init_struct_env.c \
 			parsing/utils/is_external_command.c \
@@ -23,7 +24,7 @@ SRC = minishell.c \
 			exec/signal/signal.c \
 \
 		utils/ft_split_minishell.c \
-		utils/free_split.c
+		utils/utils_split_minishell.c
 
 
 OBJ = $(SRC:.c=.o)
@@ -65,11 +66,12 @@ RESET   := "\033[0m"
 #            EXECUTABLE         #
 #################################
 
-all: clear $(NAME)
+all: $(NAME)
 
 $(NAME): $(BUILD)
 
 $(BUILD): $(LIBFT) $(OBJ)
+	@clear
 	$(V)$(CC) $(CFLAGS) $(LDFLAGS) $(OBJ) $(BONUS_OBJ) $(LIBS) $(MLXFLAGS) -o $(NAME)
 	$(V)echo $(GREEN)"[$(NAME)] Executable created ✅"$(RESET)
 	@touch $@
@@ -102,9 +104,7 @@ $(LIBFT):
 #################################
 #             CLEAN             #
 #################################
-clear:
-	@clear
-
+	
 clean:
 	$(V)echo $(RED)'[$(NAME)] Cleaning objects'$(RESET)
 	$(V)rm -rf $(OBJDIR)
@@ -115,21 +115,26 @@ fclean: clean
 	$(V)echo $(RED)'[libft] Remove directory'$(RESET)
 	@rm -rf $(LIBFT_DIR)
 
+
 #################################
 #             NORME             #
 #################################
 norme:
-	@if norminette | grep -B1 "Error"; then \
-		echo $(RED)"Norme KO"$(RESET); \
+	@if norminette | grep "Error" > norminette_errors.txt; then \
+		echo $(RED)"[$(NAME)] Norme KO"$(RESET); \
+		cat norminette_errors.txt | awk 'BEGIN {FS=":"; OFS=":"} \
+		/^src/ || /^libft/ {print "\n" $$0} \
+		/^Error/ {sub(/^Error: /, ""); print "  ➜ " $$0}'; \
 	else \
-		echo $(GREEN)"Norme ok ✅"$(RESET); \
+		echo $(GREEN)"[$(NAME)] Norme ok ✅"$(RESET); \
 	fi
+	@rm -f norminette_errors.txt
 
 #################################
 #             TEST              #
 #################################
 test: all norme
-	$(V)echo $(GREEN)"Running pgrm with valgrind..."$(RESET)
+	$(V)echo $(GREEN)"[$(NAME)] Running $(NAME) with valgrind"$(RESET)
 	$(V)valgrind --leak-check=full --show-leak-kinds=all --suppressions=valgrind.supp ./$(NAME)
 
 

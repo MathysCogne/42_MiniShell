@@ -6,7 +6,7 @@
 /*   By: mcogne-- <mcogne--@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/13 12:52:28 by mcogne--          #+#    #+#             */
-/*   Updated: 2024/12/24 20:58:57 by mcogne--         ###   ########.fr       */
+/*   Updated: 2024/12/24 21:51:21 by mcogne--         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -108,6 +108,8 @@ void					setup_signal(void);
 /*******************************/
 char					**ft_split_minishell(char const *s, char *sep);
 void					free_split(char **tab);
+short					is_sep(char c, char *sep);
+size_t					handle_quotes(const char *str, size_t i);
 
 /*******************************/
 /*            COLORS           */

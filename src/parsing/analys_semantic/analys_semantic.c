@@ -6,33 +6,13 @@
 /*   By: mcogne-- <mcogne--@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/15 15:36:28 by mcogne--          #+#    #+#             */
-/*   Updated: 2024/12/16 00:26:47 by mcogne--         ###   ########.fr       */
+/*   Updated: 2024/12/24 22:36:32 by mcogne--         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-// SI TU PASSE PAR LA NE REGARDE PAS ICI FAUT QUE JE RANGE ET REFACTO TOUT CA
-
-t_command	*create_command(t_token *token)
-{
-	t_command	*command;
-
-	command = malloc(sizeof(t_command));
-	if (!command)
-		return (NULL);
-	command->command = token;
-	command->args = NULL;
-	command->out_file = NULL;
-	command->in_file = NULL;
-	command->is_pipe = 0;
-	command->error_msg = NULL;
-	command->next = NULL;
-	command->prev = NULL;
-	return (command);
-}
-
-static void	add_back_command(t_command **commands, t_command *new_command)
+void	add_back_command(t_command **commands, t_command *new_command)
 {
 	t_command	*last;
 
@@ -76,23 +56,17 @@ static short	add_arg_command(t_token *token, t_command *command)
 	return (0);
 }
 
-static short	handle_redirection(t_input *input, t_command *command)
+static short	handler_redirection(t_input *input, t_command *command)
 {
 	t_token	*token;
 	t_token	*next;
 
 	token = input->token;
 	if (!input->next)
-	{
-		command->error_msg = ft_strdup("Error: Missing file for redirection");
-		// return (1); TODO GERER LES ERREURS
-	}
+		command->error_msg = ft_strdup("Missing file for redirection");
 	next = input->next->token;
 	if (!(next->type >= TOKEN_BUILTIN || next->type <= TOKEN_ARGUMENT))
-	{
-		command->error_msg = ft_strdup("Error: Invalid argument for redirection");
-		// return (1); TODO GERER LES ERREURS
-	}
+		command->error_msg = ft_strdup("Invalid argument for redirection");
 	if (token->type == TOKEN_REDIRECTION_IN)
 		command->in_file = next;
 	else if (token->type == TOKEN_REDIRECTION_OUT)
@@ -104,13 +78,15 @@ static short	handle_redirection(t_input *input, t_command *command)
 	return (0);
 }
 
+// DEBUG PROTEC SI ARG APRES UNE REDIR
+// (GERER ICI OU HANDLER LES ERRREUR DE SYNTAXE AVANT ?)
+// MOI DU PASSER DIT APRES LORS DE LEXEC
 static short	process_command(t_input **current_input, t_command *command)
 {
 	t_input	*input;
 
 	input = *current_input;
 	while (input)
-	// DEBUG PROTEC SI ARG APRES UNE REDIR (GERER ICI OU HANDLE LES ERRREUR DE SYNTAXE AVANT ?)
 	{
 		if (input->token->type == TOKEN_ARGUMENT)
 		{
@@ -120,10 +96,9 @@ static short	process_command(t_input **current_input, t_command *command)
 		else if (input->token->type >= TOKEN_REDIRECTION_IN
 			&& input->token->type <= TOKEN_PIPE)
 		{
-			if (handle_redirection(input, command))
+			if (handler_redirection(input, command))
 				return (1);
 			if (input->token->type != TOKEN_PIPE)
-				// PAS PROPRE A GERER A PART LES PIPES
 				input = input->next;
 		}
 		else

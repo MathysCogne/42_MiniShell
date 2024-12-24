@@ -1,46 +1,52 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   minishell.c                                        :+:      :+:    :+:   */
+/*   utils_split_minishell.c                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mcogne-- <mcogne--@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/12/13 12:52:35 by mcogne--          #+#    #+#             */
-/*   Updated: 2024/12/24 22:31:40 by mcogne--         ###   ########.fr       */
+/*   Created: 2024/12/14 23:32:38 by mcogne--          #+#    #+#             */
+/*   Updated: 2024/12/24 21:52:55 by mcogne--         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-static short	minishell(t_minishell *env)
+void	free_split(char **tab)
 {
-	setup_signal();
-	while (1)
+	int	i;
+
+	if (!tab)
+		return ;
+	i = 0;
+	while (tab[i])
 	{
-		if (parsing(env))
+		free(tab[i]);
+		i++;
+	}
+	free(tab[i]);
+	free(tab);
+}
+
+short	is_sep(char c, char *sep)
+{
+	while (*sep)
+	{
+		if (c == *sep)
 			return (1);
+		sep++;
 	}
 	return (0);
 }
 
-int	main(int argc, char **argv)
+size_t	handle_quotes(const char *str, size_t i)
 {
-	t_minishell	env;
+	char	quote;
 
-	if (argc != 1)
-	{
-		ft_printf(RED BOLD "Usage: %s\n" C_RESET, argv[0]);
-		return (1);
-	}
-	if (init_struct_env(&env))
-		return (1);
-	if (minishell(&env))
-	{
-		ft_printf("exit\n");
-		gc_clean(env.gc);
-		if (env.input)
-			delete_input(&env);
-		return (1);
-	}
-	return (0);
+	quote = str[i++];
+	while (str[i] && str[i] != quote)
+		i++;
+	if (str[i] == quote)
+		i++;
+	return (i);
 }

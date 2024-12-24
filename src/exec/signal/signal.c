@@ -6,7 +6,7 @@
 /*   By: mcogne-- <mcogne--@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/24 20:05:06 by mcogne--          #+#    #+#             */
-/*   Updated: 2024/12/24 21:12:07 by mcogne--         ###   ########.fr       */
+/*   Updated: 2024/12/24 22:29:43 by mcogne--         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,21 +29,17 @@
 */
 void	handler_sigquit(int sig)
 {
-	if (1 == 2 /*IN INTERACTIVE MODE*/)
-		return ;
 	(void)sig;
 }
 
 /*
 ** CTRL-C
-** Clear line and Prompt a new line 
+** Clear line and Prompt a new line
 ** Interactive mode: TODO
 */
 void	handler_sigint(int sig)
 {
 	(void)sig;
-	if (1 == 2 /*IN INTERACTIVE MODE*/)
-		return ;
 	rl_replace_line("", 0);
 	rl_on_new_line();
 	ft_printf("\n");
