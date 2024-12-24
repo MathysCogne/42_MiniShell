@@ -6,12 +6,15 @@
 /*   By: mcogne-- <mcogne--@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/13 12:52:28 by mcogne--          #+#    #+#             */
-/*   Updated: 2024/12/15 22:12:07 by mcogne--         ###   ########.fr       */
+/*   Updated: 2024/12/24 20:58:57 by mcogne--         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef MINISHELL_H
 # define MINISHELL_H
+
+# define _POSIX_SOURCE 1
+# define _POSIX_C_SOURCE 200809L
 
 # include "ft_printf.h"
 # include "get_next_line.h"
@@ -19,7 +22,9 @@
 # include "libft_extra.h"
 # include <readline/history.h>
 # include <readline/readline.h>
+# include <signal.h>
 # include <stdio.h>
+# include <sys/types.h>
 
 /*******************************/
 /*            MACROS           */
@@ -97,7 +102,7 @@ short					is_internal_command(char *token);
 /*******************************/
 /*            EXEC             */
 /*******************************/
-
+void					setup_signal(void);
 /*******************************/
 /*            UTILS            */
 /*******************************/

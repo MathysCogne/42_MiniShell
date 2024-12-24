@@ -6,7 +6,7 @@
 /*   By: mcogne-- <mcogne--@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/14 22:27:24 by mcogne--          #+#    #+#             */
-/*   Updated: 2024/12/15 23:39:54 by mcogne--         ###   ########.fr       */
+/*   Updated: 2024/12/24 21:47:46 by mcogne--         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,6 +49,7 @@ void	delete_input(t_minishell *env)
 	while (current)
 	{
 		next = current->next;
+		free(current->token->value);
 		free(current->token);
 		free(current);
 		current = next;

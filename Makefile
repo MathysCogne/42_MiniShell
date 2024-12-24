@@ -20,6 +20,7 @@ SRC = minishell.c \
 			parsing/utils/debug.c \
 \
 		exec/exec.c \
+			exec/signal/signal.c \
 \
 		utils/ft_split_minishell.c \
 		utils/free_split.c
@@ -127,7 +128,7 @@ norme:
 #################################
 #             TEST              #
 #################################
-test: norme
+test: all norme
 	$(V)echo $(GREEN)"Running pgrm with valgrind..."$(RESET)
 	$(V)valgrind --leak-check=full --show-leak-kinds=all --suppressions=valgrind.supp ./$(NAME)
 

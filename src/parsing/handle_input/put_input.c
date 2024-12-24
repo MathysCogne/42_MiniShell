@@ -6,7 +6,7 @@
 /*   By: mcogne-- <mcogne--@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/14 22:28:09 by mcogne--          #+#    #+#             */
-/*   Updated: 2024/12/15 21:34:30 by mcogne--         ###   ########.fr       */
+/*   Updated: 2024/12/24 21:25:25 by mcogne--         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,11 +45,10 @@ static t_token	*create_token(t_minishell *env, char *value, t_token_type type)
 {
 	t_token	*new_token;
 
+	(void)env;
 	new_token = malloc(sizeof(t_token));
 	if (!new_token)
 		return (NULL);
-	gc_add(env->gc, new_token);
-	// TODO PAS SUR QUE ADD AU GC SOIS UNE BONNE IDEE
 	new_token->value = value;
 	new_token->type = type;
 	return (new_token);
@@ -62,11 +61,10 @@ static t_input	*create_input(t_minishell *env, t_token *token)
 {
 	t_input	*new_input;
 
+	(void)env;
 	new_input = malloc(sizeof(t_input));
 	if (!new_input)
 		return (NULL);
-	gc_add(env->gc, new_input);
-	// TODO PAS SUR QUE ADD AU GC SOIS UNE BONNE IDEE
 	new_input->token = token;
 	return (new_input);
 }
