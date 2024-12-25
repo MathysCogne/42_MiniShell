@@ -6,7 +6,7 @@
 /*   By: mcogne-- <mcogne--@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/15 15:36:28 by mcogne--          #+#    #+#             */
-/*   Updated: 2024/12/24 22:36:32 by mcogne--         ###   ########.fr       */
+/*   Updated: 2024/12/25 15:44:16 by mcogne--         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,7 +65,7 @@ static short	handler_redirection(t_input *input, t_command *command)
 	if (!input->next)
 		command->error_msg = ft_strdup("Missing file for redirection");
 	next = input->next->token;
-	if (!(next->type >= TOKEN_BUILTIN || next->type <= TOKEN_ARGUMENT))
+	if (!(next->type >= TOKEN_BUILTIN && next->type <= TOKEN_ARGUMENT))
 		command->error_msg = ft_strdup("Invalid argument for redirection");
 	if (token->type == TOKEN_REDIRECTION_IN)
 		command->in_file = next;

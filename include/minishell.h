@@ -6,7 +6,7 @@
 /*   By: mcogne-- <mcogne--@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/13 12:52:28 by mcogne--          #+#    #+#             */
-/*   Updated: 2024/12/24 21:51:21 by mcogne--         ###   ########.fr       */
+/*   Updated: 2024/12/25 15:44:51 by mcogne--         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -91,7 +91,9 @@ void					delete_input(t_minishell *env);
 short					put_input(t_minishell *env, char *value,
 							t_token_type type);
 t_token_type			tokenization(char *token);
+//
 short					analys_semantic(t_minishell *env);
+t_command				*create_command(t_token *token);
 // Utils Parsing
 short					init_struct_env(t_minishell *env);
 void					debug_print_input(t_input *input);

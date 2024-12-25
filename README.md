@@ -1,5 +1,5 @@
 <div align="center">
-<h1>42 - MiniTalk</h1>
+<h1>42 - MiniShell</h1>
 
 <img src="subject/cover.png" alt="Covers" width="650" />
 

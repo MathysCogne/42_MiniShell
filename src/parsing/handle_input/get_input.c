@@ -6,7 +6,7 @@
 /*   By: mcogne-- <mcogne--@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/13 13:09:07 by mcogne--          #+#    #+#             */
-/*   Updated: 2024/12/24 21:40:18 by mcogne--         ###   ########.fr       */
+/*   Updated: 2024/12/25 15:54:01 by mcogne--         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,6 @@ static short	parse_token(t_minishell *env, char **tab)
 ** 	Post input in hystory./
 ** 	Split input by token with separator
 */
-// TODO ATTENTION AU LEAKS DE SPLIT
 short	get_input(t_minishell *env)
 {
 	char	*input;
