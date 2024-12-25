@@ -93,10 +93,10 @@ $(OBJDIR)/%.o: $(SRCDIR)/%.c | $(OBJDIR)
 #################################
 #             LIBFT             #
 #################################
-# Libft - Branch 'V.mini_talk_07_12_2024' ### TODO BRANCH MINISHELL BEFORE PUSH
+# Libft - Branch 'V.mini_shell_24_12_2024' (No update before push)
 $(LIBFT):
 	@$(V)echo '[$(NAME)] Downloading my Libft from github.com...'$(RESET)
-	$(V)@git clone https://github.com/MathysCogne/MyLibft_GNL_Printf.git libft > /dev/null 2>&1
+	$(V)@git clone --branch V.mini_shell_24_12_2024 https://github.com/MathysCogne/MyLibft_GNL_Printf.git libft > /dev/null 2>&1
 	@$(V)echo '[$(NAME)] Compiling Libft...'$(RESET)
 	$(V)$(MAKE) --silent -C $(LIBFT_DIR)
 	@$(V)echo '[$(NAME)] Libft build successfully'
