@@ -6,7 +6,7 @@
 /*   By: mcogne-- <mcogne--@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/14 08:34:25 by mcogne--          #+#    #+#             */
-/*   Updated: 2024/12/24 21:57:32 by mcogne--         ###   ########.fr       */
+/*   Updated: 2024/12/31 23:53:47 by mcogne--         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,7 +62,6 @@ static char	*allocate_word(const char *str, char *sep)
 		i++;
 	}
 	w[i] = '\0';
-	ft_printf("%s\n", w);
 	return (w);
 }
 
