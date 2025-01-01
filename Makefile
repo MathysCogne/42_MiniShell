@@ -7,24 +7,27 @@ INCDIR = include
 SRC = minishell.c \
 \
 		parsing/parsing.c \
-			parsing/handle_input/delete_input.c \
-			parsing/handle_input/get_input.c \
-			parsing/handle_input/put_input.c \
-			parsing/handle_input/tokenization.c \
+			parsing/tokenization/delete_input.c \
+			parsing/tokenization/get_input.c \
+			parsing/tokenization/put_input.c \
+			parsing/tokenization/tokenization.c \
 \
 			parsing/analys_semantic/analys_semantic.c \
 			parsing/analys_semantic/utils.c \
+			parsing/analys_semantic/validate_token.c \
+			parsing/analys_semantic/handler_token.c \
+			parsing/analys_semantic/handler_quote_expand.c \
 \
 			parsing/utils/init_struct_env.c \
-			parsing/utils/is_external_command.c \
-			parsing/utils/is_internal_command.c \
 			parsing/utils/debug.c \
 \
 		exec/exec.c \
 			exec/signal/signal.c \
 \
 		utils/ft_split_minishell.c \
-		utils/utils_split_minishell.c
+		utils/utils_split_minishell.c \
+		utils/is_external_command.c \
+		utils/is_internal_command.c
 
 
 OBJ = $(SRC:.c=.o)

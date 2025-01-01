@@ -6,7 +6,7 @@
 /*   By: mcogne-- <mcogne--@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/24 20:05:06 by mcogne--          #+#    #+#             */
-/*   Updated: 2024/12/24 22:29:43 by mcogne--         ###   ########.fr       */
+/*   Updated: 2025/01/01 23:07:55 by mcogne--         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,10 +27,10 @@
 ** Nothing
 ** Interactive mode: TODO
 */
-void	handler_sigquit(int sig)
-{
-	(void)sig;
-}
+// void	handler_sigquit(int sig)
+// {
+// 	(void)sig;
+// }
 
 /*
 ** CTRL-C
@@ -54,6 +54,7 @@ void	setup_signal(void)
 	sa.sa_flags = SA_RESTART;
 	sa.sa_handler = handler_sigint;
 	sigaction(SIGINT, &sa, NULL);
-	sa.sa_handler = handler_sigquit;
+	// sa.sa_handler = handler_sigquit;
+	sa.sa_handler = SIG_IGN;
 	sigaction(SIGQUIT, &sa, NULL);
 }

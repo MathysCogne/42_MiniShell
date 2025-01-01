@@ -1,49 +1,42 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   minishell.c                                        :+:      :+:    :+:   */
+/*   handler_quote_expand.c                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mcogne-- <mcogne--@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/12/13 12:52:35 by mcogne--          #+#    #+#             */
-/*   Updated: 2025/01/01 22:41:09 by mcogne--         ###   ########.fr       */
+/*   Created: 2025/01/01 23:22:56 by mcogne--          #+#    #+#             */
+/*   Updated: 2025/01/01 23:54:43 by mcogne--         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-static short	minishell(t_minishell *env)
+short	handler_expand(t_token *token, t_command *command)
 {
-	setup_signal();
-	while (1)
-	{
-		if (parsing(env))
-			return (1);
-		if (exec(env))
-			return (1);
-		delete_input(env);
-	}
+	(void)token;
+	(void)command;
 	return (0);
 }
 
-int	main(int argc, char **argv)
+/*
+** If return -1, handler expand because is double quote
+*/
+short	handler_quote(t_token *token, t_command *command)
 {
-	t_minishell	env;
+	(void)token;
+	(void)command;
+	return (0);
+}
 
-	if (argc != 1)
-	{
-		ft_fprintf(2, RED BOLD "Usage: %s\n" C_RESET, argv[0]);
+short	handler_quote_expand(t_token *token, t_command *command)
+{
+	short	quote_code;
+
+	quote_code = handler_quote(token, command);
+	if (quote_code == 1)
 		return (1);
-	}
-	if (init_struct_env(&env))
-		return (1);
-	if (minishell(&env))
-	{
-		ft_fprintf(2, "exit\n");
-		gc_clean(env.gc);
-		if (env.input)
-			delete_input(&env);
-		return (1);
-	}
+	if (quote_code == -1)
+		handler_expand(token, command);
 	return (0);
 }

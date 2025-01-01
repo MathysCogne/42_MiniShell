@@ -6,81 +6,38 @@
 /*   By: mcogne-- <mcogne--@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/15 15:36:28 by mcogne--          #+#    #+#             */
-/*   Updated: 2024/12/25 15:44:16 by mcogne--         ###   ########.fr       */
+/*   Updated: 2025/01/01 23:59:46 by mcogne--         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-void	add_back_command(t_command **commands, t_command *new_command)
+static short	process_token(t_input **current_input, t_command *command)
 {
-	t_command	*last;
+	t_input	*input;
 
-	if (!*commands)
+	input = *current_input;
+	if (input->token->type == TOKEN_ARGUMENT)
 	{
-		*commands = new_command;
-		return ;
-	}
-	last = *commands;
-	while (last->next)
-		last = last->next;
-	last->next = new_command;
-	new_command->prev = last;
-}
-
-static short	add_arg_command(t_token *token, t_command *command)
-{
-	int	i;
-
-	if (!command || !token)
-		return (1);
-	if (!command->args)
-	{
-		command->args = malloc(sizeof(t_token *) * 2);
-		if (!command->args)
+		if (handler_argument(input, command))
 			return (1);
-		command->args[0] = token;
-		command->args[1] = NULL;
 	}
-	else
+	else if (input->token->type >= TOKEN_REDIRECTION_IN
+		&& input->token->type <= TOKEN_REDIRECTION_APPEND_OUT)
 	{
-		i = 0;
-		while (command->args[i])
-			i++;
-		command->args = realloc(command->args, sizeof(t_token *) * (i + 2));
-		if (!command->args)
+		if (handler_redirection(input, command))
 			return (1);
-		command->args[i] = token;
-		command->args[i + 1] = NULL;
+		if (!command->error_msg)
+			*current_input = input->next;
+	}
+	else if (input->token->type == TOKEN_PIPE)
+	{
+		if (handler_pipe(input, command))
+			return (1);
 	}
 	return (0);
 }
 
-static short	handler_redirection(t_input *input, t_command *command)
-{
-	t_token	*token;
-	t_token	*next;
-
-	token = input->token;
-	if (!input->next)
-		command->error_msg = ft_strdup("Missing file for redirection");
-	next = input->next->token;
-	if (!(next->type >= TOKEN_BUILTIN && next->type <= TOKEN_ARGUMENT))
-		command->error_msg = ft_strdup("Invalid argument for redirection");
-	if (token->type == TOKEN_REDIRECTION_IN)
-		command->in_file = next;
-	else if (token->type == TOKEN_REDIRECTION_OUT)
-		command->out_file = next;
-	else if (token->type == TOKEN_HEREDOC)
-		command->out_file = next;
-	if (token->type == TOKEN_PIPE)
-		command->is_pipe = 1;
-	return (0);
-}
-
-// DEBUG PROTEC SI ARG APRES UNE REDIR
-// (GERER ICI OU HANDLER LES ERRREUR DE SYNTAXE AVANT ?)
-// MOI DU PASSER DIT APRES LORS DE LEXEC
 static short	process_command(t_input **current_input, t_command *command)
 {
 	t_input	*input;
@@ -88,31 +45,41 @@ static short	process_command(t_input **current_input, t_command *command)
 	input = *current_input;
 	while (input)
 	{
-		if (input->token->type == TOKEN_ARGUMENT)
-		{
-			if (add_arg_command(input->token, command))
-				return (1);
-		}
-		else if (input->token->type >= TOKEN_REDIRECTION_IN
+		if (input->token->type >= TOKEN_ARGUMENT
 			&& input->token->type <= TOKEN_PIPE)
 		{
-			if (handler_redirection(input, command))
+			if (process_token(&input, command))
 				return (1);
-			if (input->token->type != TOKEN_PIPE)
-				input = input->next;
 		}
 		else
-			break ;
+			return (*current_input = input, 0);
 		input = input->next;
 	}
 	*current_input = input;
 	return (0);
 }
 
+short	handler_command(t_input **current_input, t_minishell *env)
+{
+	t_command	*current_command;
+
+	current_command = create_command((*current_input)->token);
+	if (!current_command)
+		return (1);
+	add_back_command(&env->commands, current_command);
+	handler_validate_command(*current_input, current_command);
+	*current_input = (*current_input)->next;
+	if (process_command(current_input, current_command))
+		return (1);
+	if (current_command->error_msg)
+		return (2);
+	return (0);
+}
+
 short	analys_semantic(t_minishell *env)
 {
-	t_input		*current_input;
-	t_command	*current_command;
+	t_input	*current_input;
+	short	error_code;
 
 	current_input = env->input;
 	while (current_input)
@@ -120,16 +87,18 @@ short	analys_semantic(t_minishell *env)
 		if (current_input->token->type == TOKEN_COMMAND
 			|| current_input->token->type == TOKEN_BUILTIN)
 		{
-			current_command = create_command(current_input->token);
-			if (!current_command)
+			error_code = handler_command(&current_input, env);
+			if (error_code == 1)
 				return (1);
-			add_back_command(&env->commands, current_command);
-			current_input = current_input->next;
-			if (process_command(&current_input, current_command))
-				return (1);
+			else if (error_code == 2)
+				break ;
 		}
 		else
-			current_input = current_input->next;
+		{
+			ft_fprintf(2, ERR_SYNTAX "unexpected command\n",
+				current_input->token->value);
+			return (0);
+		}
 	}
 	return (0);
 }
