@@ -1,0 +1,16 @@
+.
+..
+dwa
+.git
+.gitignore
+include
+libft
+Makefile
+minishell
+obj
+README.md
+src
+subject
+test.txt
+txt.txt
+valgrind.supp

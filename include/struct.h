@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   struct.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mcogne-- <mcogne--@student.42.fr>          +#+  +:+       +#+        */
+/*   By: achantra <achantra@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/01 14:45:47 by mcogne--          #+#    #+#             */
-/*   Updated: 2025/01/01 18:26:28 by mcogne--         ###   ########.fr       */
+/*   Updated: 2025/01/02 21:24:27 by achantra         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,8 +46,11 @@ typedef struct s_command
 	t_token				**args;
 	t_token				*out_file;
 	t_token				*in_file;
+	// REDIR AU LIEU OU ET IN
 	int					is_pipe;
 	char				*error_msg;
+	// CHAR CMD_FULL >> COMMAND + ARG;
+	// CHAR PATH_COMMAND;
 	struct s_command	*next;
 	struct s_command	*prev;
 }						t_command;
@@ -57,6 +60,7 @@ typedef struct s_minishell
 	t_input				*input;
 	t_command			*commands;
 	t_gc				*gc;
+	//char				*last_err_code;
 }						t_minishell;
 
 #endif
