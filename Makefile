@@ -21,7 +21,11 @@ SRC = minishell.c \
 			parsing/utils/init_struct_env.c \
 			parsing/utils/debug.c \
 \
-		exec/exec.c \
+		exec/process/exec.c \
+			exec/process/exec_error.c \
+			exec/process/exec_process.c \
+			exec/process/exec_tmp_parsing.c \
+			exec/process/here_doc.c \
 			exec/signal/signal.c \
 \
 		utils/ft_split_minishell.c \

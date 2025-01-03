@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   utils.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mcogne-- <mcogne--@student.42.fr>          +#+  +:+       +#+        */
+/*   By: achantra <achantra@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/24 22:36:10 by mcogne--          #+#    #+#             */
-/*   Updated: 2025/01/03 00:31:45 by mcogne--         ###   ########.fr       */
+/*   Updated: 2025/01/03 12:18:03 by achantra         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,13 +19,13 @@ t_command	*create_command(t_token *token)
 	command = malloc(sizeof(t_command));
 	if (!command)
 		return (NULL);
-	command->command = token;
+	command->cmd = token;
 	command->args = NULL;
-	command->out_file = NULL;
-	command->in_file = NULL;
+	command->outfile = NULL;
+	command->infile = NULL;
 	command->is_pipe = 0;
 	command->error_msg = NULL;
-	command->cmd_and_args = NULL;
+	command->exec_args = NULL;
 	command->next = NULL;
 	command->prev = NULL;
 	return (command);

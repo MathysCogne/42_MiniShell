@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   debug.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mcogne-- <mcogne--@student.42.fr>          +#+  +:+       +#+        */
+/*   By: achantra <achantra@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/14 12:50:51 by mcogne--          #+#    #+#             */
-/*   Updated: 2025/01/03 00:58:40 by mcogne--         ###   ########.fr       */
+/*   Updated: 2025/01/03 17:00:09 by achantra         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ void	debug_print_commands(t_command *commands)
 	while (commands)
 	{
 		ft_printf(RED "%d:" C_RESET, i);
-		ft_printf("\t- command: %s\n", commands->command->value);
+		ft_printf("\t- command: %s\n", commands->cmd->value);
 		ft_printf("\t- args: [");
 		j = 0;
 		while (commands->args && commands->args[j])
@@ -31,12 +31,12 @@ void	debug_print_commands(t_command *commands)
 			j++;
 		}
 		ft_printf("]\n\t- is_pipe: %d\n", commands->is_pipe);
-		if (commands->out_file)
-			ft_printf("\t- out_file: %s\n", commands->out_file->value);
-		if (commands->in_file)
-			ft_printf("\t- in_file: %s\n", commands->in_file->value);
+		if (commands->outfile)
+			ft_printf("\t- outfile: %s\n", commands->outfile->value);
+		if (commands->infile)
+			ft_printf("\t- infile: %s\n", commands->infile->value);
 		ft_printf("\t- error_msg: %s\n", commands->error_msg);
-		ft_printf("\t- cmd_and_args: %s\n\n", commands->cmd_and_args);
+		ft_printf("\t- exec_args: %s\n\n", commands->exec_args);
 		commands = commands->next;
 		i++;
 	}

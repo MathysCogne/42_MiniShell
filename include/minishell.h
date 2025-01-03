@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mcogne-- <mcogne--@student.42.fr>          +#+  +:+       +#+        */
+/*   By: achantra <achantra@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/13 12:52:28 by mcogne--          #+#    #+#             */
-/*   Updated: 2025/01/03 01:04:07 by mcogne--         ###   ########.fr       */
+/*   Updated: 2025/01/03 18:07:53 by achantra         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,11 +21,17 @@
 # include "libft.h"
 # include "libft_extra.h"
 # include "struct.h"
+# include <fcntl.h>
 # include <readline/history.h>
 # include <readline/readline.h>
 # include <signal.h>
 # include <stdio.h>
+# include <stdlib.h>
+# include <string.h>
+# include <sys/stat.h>
 # include <sys/types.h>
+# include <sys/wait.h>
+# include <unistd.h>
 
 /*******************************/
 /*            MACROS           */
@@ -58,7 +64,7 @@ short			handler_pipe(t_input *input, t_command *command);
 short			handler_argument(t_input *input, t_command *command);
 short			handler_quote_expand(t_token *token, t_command *command);
 // Utils Parsing
-short			init_struct_env(t_minishell *env);
+short			init_struct_env(t_minishell *env, char **envp);
 void			debug_print_input(t_input *input);
 void			debug_print_commands(t_command *commands);
 short			is_external_command(char *token);
@@ -67,7 +73,23 @@ short			is_internal_command(char *token);
 /*******************************/
 /*            EXEC             */
 /*******************************/
+
+# define FATAL_ERROR 2
+# define PERM_ERROR_END 10
+# define PERM_ERROR 11
+# define NOT_FOUND_ERROR 12
+# define NO_PATH 13
+# define NO_FILE 14
+# define EOF_HERE 15
+# define EXIT_NF 127
+
+int				find_heredoc(t_command *cmds);
 short			exec(t_minishell *env);
+void			pr_error(int e, char *element);
+int				test_input(char *input, int *error);
+int				find_cmd(t_command *cmd, char **envp);
+int				child_process(int *p_end, t_minishell *env, t_command *cmd);
+
 //
 void			setup_signal(void);
 

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mcogne-- <mcogne--@student.42.fr>          +#+  +:+       +#+        */
+/*   By: achantra <achantra@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/13 12:52:35 by mcogne--          #+#    #+#             */
-/*   Updated: 2025/01/01 22:41:09 by mcogne--         ###   ########.fr       */
+/*   Updated: 2025/01/03 17:31:11 by achantra         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,7 @@ static short	minishell(t_minishell *env)
 	{
 		if (parsing(env))
 			return (1);
+		env->last_fd0 = 0;
 		if (exec(env))
 			return (1);
 		delete_input(env);
@@ -26,7 +27,7 @@ static short	minishell(t_minishell *env)
 	return (0);
 }
 
-int	main(int argc, char **argv)
+int	main(int argc, char **argv, char **envp)
 {
 	t_minishell	env;
 
@@ -35,7 +36,7 @@ int	main(int argc, char **argv)
 		ft_fprintf(2, RED BOLD "Usage: %s\n" C_RESET, argv[0]);
 		return (1);
 	}
-	if (init_struct_env(&env))
+	if (init_struct_env(&env, envp))
 		return (1);
 	if (minishell(&env))
 	{

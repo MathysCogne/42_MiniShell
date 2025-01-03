@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parsing.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mcogne-- <mcogne--@student.42.fr>          +#+  +:+       +#+        */
+/*   By: achantra <achantra@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/14 22:38:55 by mcogne--          #+#    #+#             */
-/*   Updated: 2025/01/03 01:04:38 by mcogne--         ###   ########.fr       */
+/*   Updated: 2025/01/03 11:59:15 by achantra         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,6 @@ short	parsing(t_minishell *env)
 	debug_print_input(env->input);
 	if (analyse_semantic(env))
 		return (1);
-	debug_print_commands(env->commands);
+	debug_print_commands(env->cmds);
 	return (0);
 }

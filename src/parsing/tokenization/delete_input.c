@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   delete_input.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mcogne-- <mcogne--@student.42.fr>          +#+  +:+       +#+        */
+/*   By: achantra <achantra@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/14 22:27:24 by mcogne--          #+#    #+#             */
-/*   Updated: 2024/12/24 21:47:46 by mcogne--         ###   ########.fr       */
+/*   Updated: 2025/01/03 11:59:01 by achantra         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ void	delete_commands(t_minishell *env)
 	t_command	*next;
 	int			i;
 
-	current = env->commands;
+	current = env->cmds;
 	while (current)
 	{
 		next = current->next;
@@ -34,7 +34,7 @@ void	delete_commands(t_minishell *env)
 		free(current);
 		current = next;
 	}
-	env->commands = NULL;
+	env->cmds = NULL;
 }
 
 /*

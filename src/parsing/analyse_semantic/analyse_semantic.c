@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   analyse_semantic.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mcogne-- <mcogne--@student.42.fr>          +#+  +:+       +#+        */
+/*   By: achantra <achantra@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/15 15:36:28 by mcogne--          #+#    #+#             */
-/*   Updated: 2025/01/03 01:22:03 by mcogne--         ###   ########.fr       */
+/*   Updated: 2025/01/03 11:59:28 by achantra         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,7 +69,7 @@ short	handler_command(t_input **current_input, t_minishell *env)
 	current_command = create_command((*current_input)->token);
 	if (!current_command)
 		return (1);
-	add_back_command(&env->commands, current_command);
+	add_back_command(&env->cmds, current_command);
 	handler_validate_command(*current_input, current_command);
 	*current_input = (*current_input)->next;
 	if (process_command(current_input, current_command))
