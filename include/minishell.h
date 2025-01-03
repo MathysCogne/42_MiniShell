@@ -6,7 +6,7 @@
 /*   By: achantra <achantra@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/13 12:52:28 by mcogne--          #+#    #+#             */
-/*   Updated: 2025/01/03 18:07:53 by achantra         ###   ########.fr       */
+/*   Updated: 2025/01/03 18:10:19 by achantra         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,7 +90,6 @@ int				test_input(char *input, int *error);
 int				find_cmd(t_command *cmd, char **envp);
 int				child_process(int *p_end, t_minishell *env, t_command *cmd);
 
-//
 void			setup_signal(void);
 
 /*******************************/
