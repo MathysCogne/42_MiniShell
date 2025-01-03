@@ -6,7 +6,7 @@
 /*   By: mcogne-- <mcogne--@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/01 20:20:47 by mcogne--          #+#    #+#             */
-/*   Updated: 2025/01/01 23:59:22 by mcogne--         ###   ########.fr       */
+/*   Updated: 2025/01/03 01:23:01 by mcogne--         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,8 +62,7 @@ static short	validate_redirection_token(t_input *input, t_token *token,
 	}
 	if (!input->next || input->next->token->type != TOKEN_ARGUMENT)
 	{
-		command->error_msg = ft_strdup(ERR_SYNTAX
-				"missing argument for redirection");
+		command->error_msg = ft_strdup(ERR_SYNTAX "missing argument for redirection");
 		return (1);
 	}
 	if (input->next && input->next->token->type >= TOKEN_REDIRECTION_IN
@@ -99,8 +98,7 @@ static short	validate_pipe_token(t_input *input, t_token *token,
 	}
 	if (input->next && input->next->token->type == TOKEN_PIPE)
 	{
-		command->error_msg = ft_strdup(ERR_SYNTAX
-				"unexpected consecutive pipe");
+		command->error_msg = ft_strdup(ERR_SYNTAX "unexpected consecutive pipe");
 		return (1);
 	}
 	return (0);
@@ -112,6 +110,8 @@ short	handler_validate_command(t_input *input, t_command *command)
 	t_token	*token;
 
 	prev_token = NULL;
+	if (input->prev)
+		prev_token = input->prev->token;
 	while (input)
 	{
 		token = input->token;

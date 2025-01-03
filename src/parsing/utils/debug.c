@@ -6,7 +6,7 @@
 /*   By: mcogne-- <mcogne--@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/14 12:50:51 by mcogne--          #+#    #+#             */
-/*   Updated: 2024/12/15 23:46:09 by mcogne--         ###   ########.fr       */
+/*   Updated: 2025/01/03 00:58:40 by mcogne--         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,8 @@ void	debug_print_commands(t_command *commands)
 			ft_printf("\t- out_file: %s\n", commands->out_file->value);
 		if (commands->in_file)
 			ft_printf("\t- in_file: %s\n", commands->in_file->value);
-		ft_printf("\t- error_msg: %s\n\n", commands->error_msg);
+		ft_printf("\t- error_msg: %s\n", commands->error_msg);
+		ft_printf("\t- cmd_and_args: %s\n\n", commands->cmd_and_args);
 		commands = commands->next;
 		i++;
 	}

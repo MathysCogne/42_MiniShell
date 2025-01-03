@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   analys_semantic.c                                  :+:      :+:    :+:   */
+/*   analyse_semantic.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mcogne-- <mcogne--@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/15 15:36:28 by mcogne--          #+#    #+#             */
-/*   Updated: 2025/01/01 23:59:46 by mcogne--         ###   ########.fr       */
+/*   Updated: 2025/01/03 01:22:03 by mcogne--         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,8 +27,8 @@ static short	process_token(t_input **current_input, t_command *command)
 	{
 		if (handler_redirection(input, command))
 			return (1);
-		if (!command->error_msg)
-			*current_input = input->next;
+		// if (!command->error_msg)
+		// *current_input = input->next;
 	}
 	else if (input->token->type == TOKEN_PIPE)
 	{
@@ -46,13 +46,16 @@ static short	process_command(t_input **current_input, t_command *command)
 	while (input)
 	{
 		if (input->token->type >= TOKEN_ARGUMENT
-			&& input->token->type <= TOKEN_PIPE)
+			&& input->token->type <= TOKEN_PIPE
+			&& input->prev->token->type != TOKEN_PIPE)
 		{
 			if (process_token(&input, command))
 				return (1);
 		}
 		else
+		{
 			return (*current_input = input, 0);
+		}
 		input = input->next;
 	}
 	*current_input = input;
@@ -71,15 +74,12 @@ short	handler_command(t_input **current_input, t_minishell *env)
 	*current_input = (*current_input)->next;
 	if (process_command(current_input, current_command))
 		return (1);
-	if (current_command->error_msg)
-		return (2);
 	return (0);
 }
 
-short	analys_semantic(t_minishell *env)
+short	analyse_semantic(t_minishell *env)
 {
 	t_input	*current_input;
-	short	error_code;
 
 	current_input = env->input;
 	while (current_input)
@@ -87,17 +87,15 @@ short	analys_semantic(t_minishell *env)
 		if (current_input->token->type == TOKEN_COMMAND
 			|| current_input->token->type == TOKEN_BUILTIN)
 		{
-			error_code = handler_command(&current_input, env);
-			if (error_code == 1)
+			if (handler_command(&current_input, env))
 				return (1);
-			else if (error_code == 2)
-				break ;
 		}
 		else
 		{
-			ft_fprintf(2, ERR_SYNTAX "unexpected command\n",
-				current_input->token->value);
-			return (0);
+			// ft_fprintf(2, ERR_SYNTAX "unexpectedma command\n",
+			// current_input->token->value);
+			// return (0);
+			current_input = current_input->next;
 		}
 	}
 	return (0);

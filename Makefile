@@ -12,11 +12,11 @@ SRC = minishell.c \
 			parsing/tokenization/put_input.c \
 			parsing/tokenization/tokenization.c \
 \
-			parsing/analys_semantic/analys_semantic.c \
-			parsing/analys_semantic/utils.c \
-			parsing/analys_semantic/validate_token.c \
-			parsing/analys_semantic/handler_token.c \
-			parsing/analys_semantic/handler_quote_expand.c \
+			parsing/analyse_semantic/analyse_semantic.c \
+			parsing/analyse_semantic/utils.c \
+			parsing/analyse_semantic/validate_token.c \
+			parsing/analyse_semantic/handler_token.c \
+			parsing/analyse_semantic/handler_quote_expand.c \
 \
 			parsing/utils/init_struct_env.c \
 			parsing/utils/debug.c \

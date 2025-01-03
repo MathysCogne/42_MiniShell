@@ -6,7 +6,7 @@
 /*   By: mcogne-- <mcogne--@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/15 15:36:28 by mcogne--          #+#    #+#             */
-/*   Updated: 2025/01/01 23:02:28 by mcogne--         ###   ########.fr       */
+/*   Updated: 2025/01/03 00:49:48 by mcogne--         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,10 +40,23 @@ short	handler_pipe(t_input *input, t_command *command)
 	return (0);
 }
 
+// TODO: GERER LES LEAKS DE cmd_and_args du a (strjoin)
 short	handler_argument(t_input *input, t_command *command)
 {
-	if (command->error_msg)
+	if (input->prev->token->type == TOKEN_PIPE)
 		return (0);
+	if (!command->cmd_and_args)
+	{
+		command->cmd_and_args = ft_strjoin(command->command->value, " ");
+		command->cmd_and_args = ft_strjoin(command->cmd_and_args,
+				input->token->value);
+	}
+	else
+	{
+		command->cmd_and_args = ft_strjoin(command->cmd_and_args, " ");
+		command->cmd_and_args = ft_strjoin(command->cmd_and_args,
+				input->token->value);
+	}
 	add_arg_command(input->token, command);
 	return (0);
 }

@@ -6,7 +6,7 @@
 /*   By: mcogne-- <mcogne--@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/24 22:36:10 by mcogne--          #+#    #+#             */
-/*   Updated: 2025/01/01 18:08:20 by mcogne--         ###   ########.fr       */
+/*   Updated: 2025/01/03 00:31:45 by mcogne--         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,7 @@ t_command	*create_command(t_token *token)
 	command->in_file = NULL;
 	command->is_pipe = 0;
 	command->error_msg = NULL;
+	command->cmd_and_args = NULL;
 	command->next = NULL;
 	command->prev = NULL;
 	return (command);
