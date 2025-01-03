@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   is_external_command.c                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mcogne-- <mcogne--@student.42.fr>          +#+  +:+       +#+        */
+/*   By: achantra <achantra@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/15 00:18:43 by mcogne--          #+#    #+#             */
-/*   Updated: 2024/12/15 00:42:33 by mcogne--         ###   ########.fr       */
+/*   Updated: 2025/01/03 18:28:06 by achantra         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,7 +72,7 @@ static short	check_command_in_paths(char **paths, const char *command)
 /*
 ** Check if external commands
 */
-short	is_external_command(char *token)
+short	is_external_command(t_minishell *env, char *token)
 {
 	char	**paths;
 	int		is_command_found;
@@ -81,6 +81,7 @@ short	is_external_command(char *token)
 	if (!paths)
 		return (0);
 	is_command_found = check_command_in_paths(paths, token);
-	free_split(paths);
+	env->envp = paths;
+	// TODO FREE CLEAN SPLIT 
 	return (is_command_found);
 }

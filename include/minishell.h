@@ -6,7 +6,7 @@
 /*   By: achantra <achantra@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/13 12:52:28 by mcogne--          #+#    #+#             */
-/*   Updated: 2025/01/03 18:10:19 by achantra         ###   ########.fr       */
+/*   Updated: 2025/01/03 18:28:34 by achantra         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,7 +52,7 @@ short			parsing(t_minishell *env);
 short			get_input(t_minishell *env);
 void			delete_input(t_minishell *env);
 short			put_input(t_minishell *env, char *value, t_token_type type);
-t_token_type	tokenization(char *token);
+t_token_type	tokenization(t_minishell *env, char *token);
 // Analyse Semantic
 short			analyse_semantic(t_minishell *env);
 t_command		*create_command(t_token *token);
@@ -67,7 +67,7 @@ short			handler_quote_expand(t_token *token, t_command *command);
 short			init_struct_env(t_minishell *env, char **envp);
 void			debug_print_input(t_input *input);
 void			debug_print_commands(t_command *commands);
-short			is_external_command(char *token);
+short			is_external_command(t_minishell *env, char *token);
 short			is_internal_command(char *token);
 
 /*******************************/

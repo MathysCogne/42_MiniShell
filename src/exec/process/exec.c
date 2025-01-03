@@ -6,7 +6,7 @@
 /*   By: achantra <achantra@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/20 14:35:07 by achantra          #+#    #+#             */
-/*   Updated: 2025/01/03 17:54:29 by achantra         ###   ########.fr       */
+/*   Updated: 2025/01/03 18:35:02 by achantra         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,6 +42,8 @@ int	main_process(t_minishell *env, int *p_end)
 	}
 	return (0);
 }
+
+// UNLINK LES TMP
 
 short	exec(t_minishell *env)
 {

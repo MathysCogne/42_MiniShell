@@ -6,7 +6,7 @@
 /*   By: achantra <achantra@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/03 14:51:42 by achantra          #+#    #+#             */
-/*   Updated: 2025/01/03 17:59:53 by achantra         ###   ########.fr       */
+/*   Updated: 2025/01/03 18:32:48 by achantra         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,6 @@ int	create_doc(t_command *cmd)
 	fd = open(file, O_CREAT | O_WRONLY | O_TRUNC, 0644);
 	if (fd < 0)
 		return (perror(SHELL_NAME), EXIT_FAILURE);
-	//"However, it doesn’t have to update the history!" donc GNL plutot que readline ?
 	buffer = readline(0);
 	while (buffer && ft_strncmp(buffer, cmd->limiter, ft_strlen(buffer)))
 	{
