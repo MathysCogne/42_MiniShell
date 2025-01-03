@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   get_input.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mcogne-- <mcogne--@student.42.fr>          +#+  +:+       +#+        */
+/*   By: achantra <achantra@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/13 13:09:07 by mcogne--          #+#    #+#             */
-/*   Updated: 2024/12/25 15:54:01 by mcogne--         ###   ########.fr       */
+/*   Updated: 2025/01/03 18:26:56 by achantra         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ static short	parse_token(t_minishell *env, char **tab)
 	i = 0;
 	while (tab[i])
 	{
-		if (put_input(env, tab[i], tokenization(tab[i])))
+		if (put_input(env, tab[i], tokenization(env, tab[i])))
 			return (1);
 		i++;
 	}

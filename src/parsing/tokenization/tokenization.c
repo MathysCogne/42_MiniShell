@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   tokenization.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mcogne-- <mcogne--@student.42.fr>          +#+  +:+       +#+        */
+/*   By: achantra <achantra@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/14 22:59:31 by mcogne--          #+#    #+#             */
-/*   Updated: 2024/12/15 01:17:30 by mcogne--         ###   ########.fr       */
+/*   Updated: 2025/01/03 18:27:17 by achantra         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,11 +23,11 @@
 **	6: Redirection append out (">>")
 **	7: Pipe ("|")
 */
-t_token_type	tokenization(char *token)
+t_token_type	tokenization(t_minishell *env, char *token)
 {
 	if (is_internal_command(token))
 		return (TOKEN_BUILTIN);
-	else if (is_external_command(token))
+	else if (is_external_command(env, token))
 		return (TOKEN_COMMAND);
 	else if (!strcmp(token, "<"))
 		return (TOKEN_REDIRECTION_IN);

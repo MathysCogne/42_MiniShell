@@ -6,7 +6,7 @@
 /*   By: achantra <achantra@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/01 14:45:47 by mcogne--          #+#    #+#             */
-/*   Updated: 2025/01/03 15:21:33 by achantra         ###   ########.fr       */
+/*   Updated: 2025/01/03 18:40:08 by achantra         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,6 +31,7 @@ typedef struct s_token
 {
 	char				*value;
 	t_token_type		type;
+	// 
 }						t_token;
 
 typedef struct s_input
@@ -53,7 +54,7 @@ typedef struct s_command
 	char				**exec_args2;
 	// CHAR *PATH_COMMAND;
 	char				*cmd_path;
-	// CHAR *LIMITER;
+	// CHAR *LIMITER, argument apres <<
 	char				*limiter;
 	struct s_command	*next;
 	struct s_command	*prev;
