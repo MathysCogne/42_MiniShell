@@ -6,7 +6,7 @@
 /*   By: mcogne-- <mcogne--@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/15 15:36:28 by mcogne--          #+#    #+#             */
-/*   Updated: 2025/01/04 04:15:34 by mcogne--         ###   ########.fr       */
+/*   Updated: 2025/01/04 15:28:24 by mcogne--         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ short	handler_redirection(t_input *input, t_command *command)
 	else if (token->type == TOKEN_HEREDOC)
 		command->limiter_herdoc = next;
 	else if (token->type == TOKEN_REDIRECTION_APPEND_OUT)
-		command->outfile_append = next;
+		command->outfile = next;
 	return (0);
 }
 

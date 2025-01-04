@@ -6,7 +6,7 @@
 /*   By: mcogne-- <mcogne--@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/01 14:45:47 by mcogne--          #+#    #+#             */
-/*   Updated: 2025/01/03 22:35:47 by mcogne--         ###   ########.fr       */
+/*   Updated: 2025/01/04 15:28:32 by mcogne--         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,7 +46,6 @@ typedef struct s_command
 	t_token				*cmd;
 	t_token				**args;
 	t_token				*outfile;
-	t_token				*outfile_append;
 	t_token				*infile;
 	t_token				*limiter_herdoc;
 	int					is_pipe;

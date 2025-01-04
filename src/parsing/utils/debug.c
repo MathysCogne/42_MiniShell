@@ -6,7 +6,7 @@
 /*   By: mcogne-- <mcogne--@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/14 12:50:51 by mcogne--          #+#    #+#             */
-/*   Updated: 2025/01/03 22:03:59 by mcogne--         ###   ########.fr       */
+/*   Updated: 2025/01/04 15:29:19 by mcogne--         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,9 +57,6 @@ void	debug_print_commands(t_command *commands)
 		ft_printf("]\n\t- is_pipe: %d\n", commands->is_pipe);
 		if (commands->outfile)
 			ft_printf("\t- outfile: %s\n", commands->outfile->value);
-		if (commands->outfile_append)
-			ft_printf("\t- outfile_append: %s\n",
-				commands->outfile_append->value);
 		if (commands->infile)
 			ft_printf("\t- infile: %s\n", commands->infile->value);
 		if (commands->limiter_herdoc)

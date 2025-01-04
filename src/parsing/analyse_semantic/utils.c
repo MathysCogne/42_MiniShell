@@ -6,7 +6,7 @@
 /*   By: mcogne-- <mcogne--@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/24 22:36:10 by mcogne--          #+#    #+#             */
-/*   Updated: 2025/01/03 21:29:23 by mcogne--         ###   ########.fr       */
+/*   Updated: 2025/01/04 15:28:41 by mcogne--         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,6 @@ t_command	*create_command(void)
 	command->cmd = NULL;
 	command->args = NULL;
 	command->outfile = NULL;
-	command->outfile_append = NULL;
 	command->infile = NULL;
 	command->limiter_herdoc = NULL;
 	command->is_pipe = 0;
