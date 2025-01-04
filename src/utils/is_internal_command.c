@@ -6,7 +6,7 @@
 /*   By: mcogne-- <mcogne--@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/15 00:21:00 by mcogne--          #+#    #+#             */
-/*   Updated: 2024/12/15 01:41:47 by mcogne--         ###   ########.fr       */
+/*   Updated: 2025/01/03 23:25:54 by mcogne--         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ short	is_internal_command(char *token)
 	int		i;
 
 	builtin = (char *[]){"echo", "cd", "pwd", "export", "unset", "env", "exit",
-		"history", NULL};
+		NULL};
 	i = 0;
 	while (builtin[i])
 	{

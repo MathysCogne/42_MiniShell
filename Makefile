@@ -14,9 +14,10 @@ SRC = minishell.c \
 \
 			parsing/analyse_semantic/analyse_semantic.c \
 			parsing/analyse_semantic/utils.c \
-			parsing/analyse_semantic/validate_token.c \
 			parsing/analyse_semantic/handler_token.c \
-			parsing/analyse_semantic/handler_quote_expand.c \
+			parsing/analyse_semantic/extract_args.c \
+\
+			parsing/quote_expand/handler_quote_expand.c \
 \
 			parsing/utils/init_struct_env.c \
 			parsing/utils/debug.c \
@@ -31,7 +32,9 @@ SRC = minishell.c \
 		utils/ft_split_minishell.c \
 		utils/utils_split_minishell.c \
 		utils/is_external_command.c \
-		utils/is_internal_command.c
+		utils/is_internal_command.c \
+		utils/find_cmd_in_command.c \
+		utils/ft_tablen.c
 
 
 OBJ = $(SRC:.c=.o)

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   struct.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: achantra <achantra@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mcogne-- <mcogne--@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/01 14:45:47 by mcogne--          #+#    #+#             */
-/*   Updated: 2025/01/03 18:40:08 by achantra         ###   ########.fr       */
+/*   Updated: 2025/01/03 22:35:47 by mcogne--         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,7 @@ typedef struct s_token
 {
 	char				*value;
 	t_token_type		type;
-	// 
+	//
 }						t_token;
 
 typedef struct s_input
@@ -46,19 +46,24 @@ typedef struct s_command
 	t_token				*cmd;
 	t_token				**args;
 	t_token				*outfile;
+	t_token				*outfile_append;
 	t_token				*infile;
+	t_token				*limiter_herdoc;
 	int					is_pipe;
+	char				*cmd_path;
 	char				*error_msg;
+	char				**str_args;
+	// A SUPR J'AI GARDER SEULEMENT SINON SA FESSAIS DES ERREUR DANS TON CODE
 	char				*exec_args;
+	char				*limiter;
+	// CHAR *PATH_COMMAND;
+	// EXEC PART
 	// En attendant le correctif
 	char				**exec_args2;
-	// CHAR *PATH_COMMAND;
-	char				*cmd_path;
-	// CHAR *LIMITER, argument apres <<
-	char				*limiter;
+	pid_t				pid;
+	//
 	struct s_command	*next;
 	struct s_command	*prev;
-	pid_t				pid;
 }						t_command;
 
 typedef struct s_minishell

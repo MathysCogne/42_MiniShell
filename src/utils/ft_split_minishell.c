@@ -6,7 +6,7 @@
 /*   By: mcogne-- <mcogne--@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/14 08:34:25 by mcogne--          #+#    #+#             */
-/*   Updated: 2024/12/31 23:53:47 by mcogne--         ###   ########.fr       */
+/*   Updated: 2025/01/04 02:57:45 by mcogne--         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ static size_t	count_words(const char *str, char *sep)
 			w++;
 			while (str[i] && !is_sep(str[i], sep))
 			{
-				if (str[i] == '"' || str[i] == '\'')
+				if (is_quote(str, i))
 					i = handle_quotes(str, i);
 				else
 					i++;
@@ -47,7 +47,7 @@ static char	*allocate_word(const char *str, char *sep)
 	len = 0;
 	while (str[len] && !is_sep(str[len], sep))
 	{
-		if (str[len] == '"' || str[len] == '\'')
+		if (is_quote(str, len))
 			len = handle_quotes(str, len);
 		else
 			len++;
@@ -92,7 +92,7 @@ static char	**split_words(char const *s, char *sep, char **tab)
 			w++;
 			while (s[i] && !is_sep(s[i], sep))
 			{
-				if (s[i] == '"' || s[i] == '\'')
+				if (is_quote(s, i))
 					i = handle_quotes(s, i);
 				else
 					i++;

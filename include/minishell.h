@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: achantra <achantra@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mcogne-- <mcogne--@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/13 12:52:28 by mcogne--          #+#    #+#             */
-/*   Updated: 2025/01/03 18:28:34 by achantra         ###   ########.fr       */
+/*   Updated: 2025/01/04 02:56:44 by mcogne--         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,8 +38,6 @@
 /*******************************/
 
 # define TOKEN_SEPARATOR " \t\n\v\f\r"
-# define QUOTE_SINGLE '\''
-# define QUOTE_DOUBLE '"'
 
 # define SHELL_NAME "bzh » "
 # define ERR_SYNTAX "Syntax error: "
@@ -55,19 +53,20 @@ short			put_input(t_minishell *env, char *value, t_token_type type);
 t_token_type	tokenization(t_minishell *env, char *token);
 // Analyse Semantic
 short			analyse_semantic(t_minishell *env);
-t_command		*create_command(t_token *token);
+t_command		*create_command(void);
 void			add_back_command(t_command **commands, t_command *new_command);
 short			add_arg_command(t_token *token, t_command *command);
-short			handler_validate_command(t_input *input, t_command *command);
 short			handler_redirection(t_input *input, t_command *command);
 short			handler_pipe(t_input *input, t_command *command);
 short			handler_argument(t_input *input, t_command *command);
-short			handler_quote_expand(t_token *token, t_command *command);
+short			handler_quote_expand(t_input *input);
+short			extract_args(t_command *command);
+short			find_cmd_in_command(t_minishell *env, t_command *command);
 // Utils Parsing
 short			init_struct_env(t_minishell *env, char **envp);
 void			debug_print_input(t_input *input);
 void			debug_print_commands(t_command *commands);
-short			is_external_command(t_minishell *env, char *token);
+char			*is_external_command(t_minishell *env, char *token);
 short			is_internal_command(char *token);
 
 /*******************************/
@@ -98,7 +97,9 @@ void			setup_signal(void);
 char			**ft_split_minishell(char const *s, char *sep);
 void			free_split(char **tab);
 short			is_sep(char c, char *sep);
+short			is_quote(char const *str, size_t i);
 size_t			handle_quotes(const char *str, size_t i);
+size_t			ft_tablen(void **tab);
 
 /*******************************/
 /*            COLORS           */

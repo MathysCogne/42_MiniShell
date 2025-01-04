@@ -1,26 +1,23 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   parsing.c                                          :+:      :+:    :+:   */
+/*   ft_tablen.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mcogne-- <mcogne--@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/12/14 22:38:55 by mcogne--          #+#    #+#             */
-/*   Updated: 2025/01/04 04:02:20 by mcogne--         ###   ########.fr       */
+/*   Created: 2025/01/03 22:22:29 by mcogne--          #+#    #+#             */
+/*   Updated: 2025/01/03 23:25:29 by mcogne--         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-short	parsing(t_minishell *env)
+size_t	ft_tablen(void **tab)
 {
-	if (get_input(env))
-		return (1);
-	debug_print_input(env->input);
-	if (handler_quote_expand(env->input))
-		return (1);
-	if (analyse_semantic(env))
-		return (1);
-	debug_print_commands(env->cmds);
-	return (0);
+	size_t	i;
+
+	i = 0;
+	while (tab && tab[i])
+		i++;
+	return (i);
 }

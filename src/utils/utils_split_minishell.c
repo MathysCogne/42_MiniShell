@@ -6,7 +6,7 @@
 /*   By: mcogne-- <mcogne--@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/14 23:32:38 by mcogne--          #+#    #+#             */
-/*   Updated: 2024/12/24 21:52:55 by mcogne--         ###   ########.fr       */
+/*   Updated: 2025/01/04 02:56:29 by mcogne--         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,19 @@ void	free_split(char **tab)
 	}
 	free(tab[i]);
 	free(tab);
+}
+
+short	is_quote(char const *str, size_t i)
+{
+	if (!str[i - 1])
+	{
+		if (str[i] == '"' || str[i] == '\'')
+			return (1);
+	}
+	else if ((str[i] == '"' && str[i - 1] != '\\') || (str[i] == '\'' && str[i
+			- 1] != '\\'))
+		return (1);
+	return (0);
 }
 
 short	is_sep(char c, char *sep)

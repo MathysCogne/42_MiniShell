@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   is_external_command.c                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: achantra <achantra@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mcogne-- <mcogne--@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/15 00:18:43 by mcogne--          #+#    #+#             */
-/*   Updated: 2025/01/03 18:28:06 by achantra         ###   ########.fr       */
+/*   Updated: 2025/01/04 04:59:03 by mcogne--         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,7 +47,8 @@ static char	*join_path_and_command(const char *path, const char *command)
 ** Return if valid and executable command
 */
 // TODO ERREUR GESTION DES DROITS ??
-static short	check_command_in_paths(char **paths, const char *command)
+static char	*check_command_in_paths(t_minishell *env, char **paths,
+		const char *command)
 {
 	char	*cmd_path;
 	int		i;
@@ -57,31 +58,56 @@ static short	check_command_in_paths(char **paths, const char *command)
 	{
 		cmd_path = join_path_and_command(paths[i], command);
 		if (!cmd_path)
-			return (0);
+			return (NULL);
 		if (access(cmd_path, X_OK) == 0)
 		{
-			free(cmd_path);
-			return (1);
+			gc_add(env->gc, cmd_path);
+			return (cmd_path);
 		}
 		free(cmd_path);
 		i++;
 	}
-	return (0);
+	return (NULL);
+}
+
+static char	*check_absolute_or_relative_path(t_minishell *env,
+		const char *command)
+{
+	char	*cmd_path;
+
+	if (access(command, X_OK) == 0)
+	{
+		cmd_path = strdup(command);
+		if (!cmd_path)
+			return (NULL);
+		gc_add(env->gc, cmd_path);
+		return (cmd_path);
+	}
+	return (NULL);
 }
 
 /*
 ** Check if external commands
 */
-short	is_external_command(t_minishell *env, char *token)
+char	*is_external_command(t_minishell *env, char *token)
 {
 	char	**paths;
-	int		is_command_found;
+	char	*path_cmd;
 
+	if (!token || !token[0])
+		return (0);
+	path_cmd = NULL;
+	if (token[0] == '/' || ft_strncmp(token, "./", 2) == 0 || ft_strncmp(token,
+			"../", 3) == 0)
+	{
+		path_cmd = check_absolute_or_relative_path(env, token);
+		if (path_cmd)
+			return (path_cmd);
+	}
 	paths = get_paths_from_env();
 	if (!paths)
 		return (0);
-	is_command_found = check_command_in_paths(paths, token);
+	path_cmd = check_command_in_paths(env, paths, token);
 	env->envp = paths;
-	// TODO FREE CLEAN SPLIT 
-	return (is_command_found);
+	return (path_cmd);
 }

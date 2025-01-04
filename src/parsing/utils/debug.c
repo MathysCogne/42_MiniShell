@@ -3,46 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   debug.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: achantra <achantra@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mcogne-- <mcogne--@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/14 12:50:51 by mcogne--          #+#    #+#             */
-/*   Updated: 2025/01/03 17:00:09 by achantra         ###   ########.fr       */
+/*   Updated: 2025/01/03 22:03:59 by mcogne--         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
-
-void	debug_print_commands(t_command *commands)
-{
-	int	i;
-	int	j;
-
-	i = 0;
-	ft_printf(YELLOW "Commands List:\n" C_RESET);
-	while (commands)
-	{
-		ft_printf(RED "%d:" C_RESET, i);
-		ft_printf("\t- command: %s\n", commands->cmd->value);
-		ft_printf("\t- args: [");
-		j = 0;
-		while (commands->args && commands->args[j])
-		{
-			ft_printf("%s,", commands->args[j]->value);
-			j++;
-		}
-		ft_printf("]\n\t- is_pipe: %d\n", commands->is_pipe);
-		if (commands->outfile)
-			ft_printf("\t- outfile: %s\n", commands->outfile->value);
-		if (commands->infile)
-			ft_printf("\t- infile: %s\n", commands->infile->value);
-		ft_printf("\t- error_msg: %s\n", commands->error_msg);
-		ft_printf("\t- exec_args: %s\n\n", commands->exec_args);
-		commands = commands->next;
-		i++;
-	}
-}
-
-/**************************************************/
 
 static char	*token_type_to_str(t_token_type token)
 {
@@ -64,6 +32,43 @@ static char	*token_type_to_str(t_token_type token)
 		return ("ARGUMENT");
 	else
 		return ("Error: (Null)");
+}
+
+void	debug_print_commands(t_command *commands)
+{
+	int	i;
+	int	j;
+
+	i = 0;
+	ft_printf(YELLOW "Commands List:\n" C_RESET);
+	while (commands)
+	{
+		ft_printf(RED "%d:" C_RESET, i);
+		if (commands->cmd)
+			ft_printf("\t- cmd: %s \n\t- cmd->token->type: %s\n\t- cmd_path: %s\n",
+				commands->cmd->value, token_type_to_str(commands->cmd->type), commands->cmd_path);
+		ft_printf("\t- args: [");
+		j = 0;
+		while (commands->args && commands->args[j])
+		{
+			ft_printf("%s,", commands->args[j]->value);
+			j++;
+		}
+		ft_printf("]\n\t- is_pipe: %d\n", commands->is_pipe);
+		if (commands->outfile)
+			ft_printf("\t- outfile: %s\n", commands->outfile->value);
+		if (commands->outfile_append)
+			ft_printf("\t- outfile_append: %s\n",
+				commands->outfile_append->value);
+		if (commands->infile)
+			ft_printf("\t- infile: %s\n", commands->infile->value);
+		if (commands->limiter_herdoc)
+			ft_printf("\t- limiter_herdoc: %s\n",
+				commands->limiter_herdoc->value);
+		ft_printf("\t- error_msg: %s\n\n", commands->error_msg);
+		commands = commands->next;
+		i++;
+	}
 }
 
 /*

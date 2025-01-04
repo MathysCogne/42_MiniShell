@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   delete_input.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: achantra <achantra@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mcogne-- <mcogne--@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/14 22:27:24 by mcogne--          #+#    #+#             */
-/*   Updated: 2025/01/03 11:59:01 by achantra         ###   ########.fr       */
+/*   Updated: 2025/01/03 23:27:24 by mcogne--         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,4 +56,5 @@ void	delete_input(t_minishell *env)
 	}
 	env->input = NULL;
 	delete_commands(env);
+	free_split(env->envp);
 }

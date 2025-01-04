@@ -1,26 +1,32 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   parsing.c                                          :+:      :+:    :+:   */
+/*   extract_args.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mcogne-- <mcogne--@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/12/14 22:38:55 by mcogne--          #+#    #+#             */
-/*   Updated: 2025/01/04 04:02:20 by mcogne--         ###   ########.fr       */
+/*   Created: 2025/01/03 22:23:11 by mcogne--          #+#    #+#             */
+/*   Updated: 2025/01/03 22:23:30 by mcogne--         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-short	parsing(t_minishell *env)
+short	extract_args(t_command *command)
 {
-	if (get_input(env))
+	int		i;
+	t_token	**args;
+
+	i = 0;
+	args = command->args;
+	command->str_args = malloc(sizeof(char *) * (ft_tablen((void **)args) + 1));
+	if (!command->str_args)
 		return (1);
-	debug_print_input(env->input);
-	if (handler_quote_expand(env->input))
-		return (1);
-	if (analyse_semantic(env))
-		return (1);
-	debug_print_commands(env->cmds);
+	while (args && args[i])
+	{
+		command->str_args[i] = args[i]->value;
+		i++;
+	}
+	command->str_args[i] = NULL;
 	return (0);
 }

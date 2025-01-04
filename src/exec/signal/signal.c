@@ -6,7 +6,7 @@
 /*   By: mcogne-- <mcogne--@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/24 20:05:06 by mcogne--          #+#    #+#             */
-/*   Updated: 2025/01/02 00:01:01 by mcogne--         ###   ########.fr       */
+/*   Updated: 2025/01/03 23:25:24 by mcogne--         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,7 +54,6 @@ void	setup_signal(void)
 	sa.sa_flags = SA_RESTART;
 	sa.sa_handler = handler_sigint;
 	sigaction(SIGINT, &sa, NULL);
-	
 	sa.sa_handler = SIG_IGN;
 	sigaction(SIGQUIT, &sa, NULL);
 }

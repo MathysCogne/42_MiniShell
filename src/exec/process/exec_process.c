@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exec_process.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: achantra <achantra@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mcogne-- <mcogne--@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/20 15:34:29 by achantra          #+#    #+#             */
-/*   Updated: 2025/01/03 17:50:16 by achantra         ###   ########.fr       */
+/*   Updated: 2025/01/03 22:32:28 by mcogne--         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,6 +78,6 @@ int	child_process(int *p_end, t_minishell *env, t_command *cmd)
 	if (!cmd->cmd_path)
 		return (EXIT_NF);
 	// ----------------------------------
-	execve(cmd->cmd_path, cmd->exec_args2, env->envp);
+	execve(cmd->cmd_path, cmd->str_args, env->envp);
 	return (perror(SHELL_NAME), EXIT_FAILURE);
 }

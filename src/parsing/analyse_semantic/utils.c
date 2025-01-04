@@ -3,29 +3,31 @@
 /*                                                        :::      ::::::::   */
 /*   utils.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: achantra <achantra@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mcogne-- <mcogne--@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/24 22:36:10 by mcogne--          #+#    #+#             */
-/*   Updated: 2025/01/03 12:18:03 by achantra         ###   ########.fr       */
+/*   Updated: 2025/01/03 21:29:23 by mcogne--         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-t_command	*create_command(t_token *token)
+t_command	*create_command(void)
 {
 	t_command	*command;
 
 	command = malloc(sizeof(t_command));
 	if (!command)
 		return (NULL);
-	command->cmd = token;
+	command->cmd = NULL;
 	command->args = NULL;
 	command->outfile = NULL;
+	command->outfile_append = NULL;
 	command->infile = NULL;
+	command->limiter_herdoc = NULL;
 	command->is_pipe = 0;
+	command->cmd_path = NULL;
 	command->error_msg = NULL;
-	command->exec_args = NULL;
 	command->next = NULL;
 	command->prev = NULL;
 	return (command);

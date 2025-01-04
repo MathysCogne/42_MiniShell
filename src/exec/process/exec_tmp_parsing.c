@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exec_tmp_parsing.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: achantra <achantra@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mcogne-- <mcogne--@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/20 15:24:19 by achantra          #+#    #+#             */
-/*   Updated: 2025/01/03 18:07:20 by achantra         ###   ########.fr       */
+/*   Updated: 2025/01/03 22:35:45 by mcogne--         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -97,9 +97,6 @@ char	**split_arg(char *input)
 
 int	find_cmd(t_command *cmd, char **envp)
 {
-	int	error;
-
-	error = 0;
 	if (access(cmd->exec_args, F_OK) == 0 && ft_strchr(cmd->exec_args, '/'))
 		cmd->exec_args2 = ft_split(cmd->exec_args, '\0');
 	else
