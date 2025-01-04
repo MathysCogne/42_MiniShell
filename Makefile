@@ -25,7 +25,6 @@ SRC = minishell.c \
 		exec/process/exec.c \
 			exec/process/exec_error.c \
 			exec/process/exec_process.c \
-			exec/process/exec_tmp_parsing.c \
 			exec/process/here_doc.c \
 			exec/signal/signal.c \
 \

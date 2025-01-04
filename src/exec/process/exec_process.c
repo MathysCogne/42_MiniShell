@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exec_process.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mcogne-- <mcogne--@student.42.fr>          +#+  +:+       +#+        */
+/*   By: achantra <achantra@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/20 15:34:29 by achantra          #+#    #+#             */
-/*   Updated: 2025/01/03 22:32:28 by mcogne--         ###   ########.fr       */
+/*   Updated: 2025/01/04 16:02:13 by achantra         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,12 +42,27 @@ short	find_fd_in(t_minishell *env, t_command *cmd)
 	}
 	return (env->last_fd0);
 }
+/*
+int 	exec_builtin(env, cmd)
+{
+	char	**builtin;
+	int		i;
+
+	builtin = (char *[]){"echo", "cd", "pwd", "export", "unset", "env", "exit",
+		NULL};
+	i = 0;
+	while (builtin[i])
+	{
+		if (!ft_strcmp(token, builtin[i]))
+			break;
+		i++;
+	}
+}*/
 
 int	child_process(int *p_end, t_minishell *env, t_command *cmd)
 {
 	int	fd_in;
 	int	fd_out;
-	int	err;
 	
 	close(p_end[0]);
 	fd_in = find_fd_in(env, cmd);
@@ -72,12 +87,16 @@ int	child_process(int *p_end, t_minishell *env, t_command *cmd)
 		close(fd_out);
 	}
 	// Dans le parsing ------------------
-	err = find_cmd(cmd, env->envp);
-	if (err)
-		return (err);
-	if (!cmd->cmd_path)
-		return (EXIT_NF);
+	// err = find_cmd(cmd, env->envp);
+	// if (err)
+	// 	return (err);
+	// if (!cmd->cmd_path)
+	// 	return (EXIT_NF);
 	// ----------------------------------
+	if (cmd->cmd->type == TOKEN_ARGUMENT)
+		return (pr_error(NOT_FOUND_ERROR, cmd->cmd->value), EXIT_FAILURE);
+	//else if (cmd->cmd->type == TOKEN_BUILTIN)
+		//return (exec_builtin(env, cmd));
 	execve(cmd->cmd_path, cmd->str_args, env->envp);
 	return (perror(SHELL_NAME), EXIT_FAILURE);
 }

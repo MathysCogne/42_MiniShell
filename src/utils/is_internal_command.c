@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   is_internal_command.c                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mcogne-- <mcogne--@student.42.fr>          +#+  +:+       +#+        */
+/*   By: achantra <achantra@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/15 00:21:00 by mcogne--          #+#    #+#             */
-/*   Updated: 2025/01/03 23:25:54 by mcogne--         ###   ########.fr       */
+/*   Updated: 2025/01/04 16:02:27 by achantra         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,7 @@ short	is_internal_command(char *token)
 	i = 0;
 	while (builtin[i])
 	{
+		// MAUVAISE FONCTION 
 		if (!strcmp(token, builtin[i]))
 			return (1);
 		i++;
