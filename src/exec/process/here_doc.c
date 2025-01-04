@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   here_doc.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: achantra <achantra@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mcogne-- <mcogne--@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/03 14:51:42 by achantra          #+#    #+#             */
-/*   Updated: 2025/01/04 20:51:59 by achantra         ###   ########.fr       */
+/*   Updated: 2025/01/04 22:46:27 by mcogne--         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,10 +17,10 @@ t_token	*put_token(t_minishell *env, char *value, t_token_type type)
 	t_token	*new_token;
 	t_input	*new_input;
 
-	new_token = create_token(env, value, type);
+	new_token = create_token(value, type);
 	if (!new_token)
 		return (NULL);
-	new_input = create_input(env, new_token);
+	new_input = create_input(new_token);
 	if (!new_input)
 		return (NULL);
 	input_add_back(&env->input, new_input);

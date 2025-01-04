@@ -6,11 +6,28 @@
 /*   By: mcogne-- <mcogne--@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/14 22:27:24 by mcogne--          #+#    #+#             */
-/*   Updated: 2025/01/04 19:02:38 by mcogne--         ###   ########.fr       */
+/*   Updated: 2025/01/04 22:52:39 by mcogne--         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
+
+void	delete_input_redir(t_command *current_command)
+{
+	t_input	*current;
+	t_input	*next;
+
+	current = current_command->redir_lst;
+	while (current)
+	{
+		next = current->next;
+		free(current->token->value);
+		free(current->token);
+		free(current);
+		current = next;
+	}
+	current_command->redir_lst = NULL;
+}
 
 void	delete_commands(t_minishell *env)
 {
@@ -33,6 +50,8 @@ void	delete_commands(t_minishell *env)
 			free(current->error_msg);
 		if (current->str_args)
 			free(current->str_args);
+		if (current->redir_lst)
+			delete_input_redir(current);
 		free(current);
 		current = next;
 	}

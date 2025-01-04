@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: achantra <achantra@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mcogne-- <mcogne--@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/13 12:52:28 by mcogne--          #+#    #+#             */
-/*   Updated: 2025/01/04 21:16:47 by achantra         ###   ########.fr       */
+/*   Updated: 2025/01/04 22:46:06 by mcogne--         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,8 +50,8 @@ short			parsing(t_minishell *env);
 short			get_input(t_minishell *env);
 void			delete_input(t_minishell *env);
 void	        input_add_back(t_input **input, t_input *new);
-t_token	        *create_token(t_minishell *env, char *value, t_token_type type);
-t_input	        *create_input(t_minishell *env, t_token *token);
+t_token	        *create_token(char *value, t_token_type type);
+t_input	        *create_input(t_token *token);
 short			put_input(t_minishell *env, char *value, t_token_type type);
 t_token_type	tokenization(t_minishell *env, char *token);
 // Analyse Semantic

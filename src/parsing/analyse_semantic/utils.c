@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   utils.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: achantra <achantra@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mcogne-- <mcogne--@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/24 22:36:10 by mcogne--          #+#    #+#             */
-/*   Updated: 2025/01/04 18:20:05 by achantra         ###   ########.fr       */
+/*   Updated: 2025/01/04 22:40:03 by mcogne--         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,7 @@ t_command	*create_command(void)
 	command->outfile = NULL;
 	command->infile = NULL;
 	command->limiter_hd = NULL;
+	command->redir_lst = NULL;
 	command->is_pipe = 0;
 	command->cmd_path = NULL;
 	command->error_msg = NULL;

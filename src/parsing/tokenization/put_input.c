@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   put_input.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: achantra <achantra@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mcogne-- <mcogne--@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/14 22:28:09 by mcogne--          #+#    #+#             */
-/*   Updated: 2025/01/04 18:48:54 by achantra         ###   ########.fr       */
+/*   Updated: 2025/01/04 22:46:27 by mcogne--         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,11 +41,10 @@ void	input_add_back(t_input **input, t_input *new)
 /*
 ** Init node of token
 */
-t_token	*create_token(t_minishell *env, char *value, t_token_type type)
+t_token	*create_token(char *value, t_token_type type)
 {
 	t_token	*new_token;
 
-	(void)env;
 	new_token = malloc(sizeof(t_token));
 	if (!new_token)
 		return (NULL);
@@ -57,11 +56,10 @@ t_token	*create_token(t_minishell *env, char *value, t_token_type type)
 /*
 ** Init node of input
 */
-t_input	*create_input(t_minishell *env, t_token *token)
+t_input	*create_input(t_token *token)
 {
 	t_input	*new_input;
 
-	(void)env;
 	new_input = malloc(sizeof(t_input));
 	if (!new_input)
 		return (NULL);
@@ -78,10 +76,10 @@ short	put_input(t_minishell *env, char *value, t_token_type type)
 	t_token	*new_token;
 	t_input	*new_input;
 
-	new_token = create_token(env, value, type);
+	new_token = create_token(value, type);
 	if (!new_token)
 		return (1);
-	new_input = create_input(env, new_token);
+	new_input = create_input(new_token);
 	if (!new_input)
 		return (1);
 	input_add_back(&env->input, new_input);

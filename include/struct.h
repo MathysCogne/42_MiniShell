@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   struct.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: achantra <achantra@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mcogne-- <mcogne--@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/01 14:45:47 by mcogne--          #+#    #+#             */
-/*   Updated: 2025/01/04 18:20:05 by achantra         ###   ########.fr       */
+/*   Updated: 2025/01/04 22:50:06 by mcogne--         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,6 @@ typedef struct s_token
 {
 	char				*value;
 	t_token_type		type;
-	//
 }						t_token;
 
 typedef struct s_input
@@ -45,9 +44,7 @@ typedef struct s_command
 {
 	t_token				*cmd;
 	t_token				**args;
-	t_token				*outfile;
-	t_token				*infile;
-	t_token				*limiter_hd;
+	t_input				*redir_lst;
 	int					is_pipe;
 	char				*cmd_path;
 	char				*error_msg;
@@ -56,6 +53,10 @@ typedef struct s_command
 	//
 	struct s_command	*next;
 	struct s_command	*prev;
+	// A SUPR UNE FOIS EXEC MaJ
+	t_token				*outfile;
+	t_token				*infile;
+	t_token				*limiter_hd;
 }						t_command;
 
 typedef struct s_minishell

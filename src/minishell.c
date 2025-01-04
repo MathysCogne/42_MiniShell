@@ -6,7 +6,7 @@
 /*   By: mcogne-- <mcogne--@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/13 12:52:35 by mcogne--          #+#    #+#             */
-/*   Updated: 2025/01/04 18:44:06 by mcogne--         ###   ########.fr       */
+/*   Updated: 2025/01/04 22:56:04 by mcogne--         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,10 +18,16 @@ static short	minishell(t_minishell *env)
 	while (1)
 	{
 		if (parsing(env))
+		{
+			ft_printf(RED "DEBUG: Exit in parsing part\n" C_RESET);
 			return (1);
+		}
 		env->last_fd0 = 0;
 		if (exec(env))
+		{
+			ft_printf(RED "DEBUG: Exit in exec part\n" C_RESET);
 			return (1);
+		}
 		delete_input(env);
 	}
 	return (0);

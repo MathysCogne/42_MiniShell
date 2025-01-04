@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   debug.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: achantra <achantra@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mcogne-- <mcogne--@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/14 12:50:51 by mcogne--          #+#    #+#             */
-/*   Updated: 2025/01/04 21:21:17 by achantra         ###   ########.fr       */
+/*   Updated: 2025/01/04 23:10:16 by mcogne--         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,22 +55,20 @@ void	debug_print_commands(t_command *commands)
 			j++;
 		}
 		ft_printf("]\n\t- is_pipe: %d\n", commands->is_pipe);
-		if (commands->outfile)
-			ft_printf("\t- outfile: %s\n", commands->outfile->value);
-		if (commands->infile)
-			ft_printf("\t- infile: %s\n", commands->infile->value);
-		if (commands->limiter_hd)
-			ft_printf("\t- limiter_hd: %s\n",
-				commands->limiter_hd->value);
-		ft_printf("\t- error_msg: %s\n\n", commands->error_msg);
+		ft_printf("\t- error_msg: %s\n", commands->error_msg);
+		ft_printf("\t- redir_lst:\n");
+		while (commands->redir_lst)
+		{
+			ft_printf("\t  -> Value: %s", commands->redir_lst->token->value);
+			ft_printf(" --> %s\n", token_type_to_str(commands->redir_lst->token->type));
+			commands->redir_lst = commands->redir_lst->next;
+		}
+		ft_printf("\n");
 		commands = commands->next;
 		i++;
 	}
 }
 
-/*
-** Print all tokens
-*/
 void	debug_print_input(t_input *input)
 {
 	ft_printf(YELLOW "Token List:\n" C_RESET);
