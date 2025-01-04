@@ -6,7 +6,7 @@
 /*   By: achantra <achantra@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/20 15:34:29 by achantra          #+#    #+#             */
-/*   Updated: 2025/01/04 16:02:13 by achantra         ###   ########.fr       */
+/*   Updated: 2025/01/04 17:31:37 by achantra         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,15 +35,16 @@ short	find_fd_out(int *p_end, t_command *cmd)
 
 short	find_fd_in(t_minishell *env, t_command *cmd)
 {
-	if (cmd->infile && (cmd->infile->type == TOKEN_REDIRECTION_IN || cmd->infile->type == TOKEN_HEREDOC))
+	if (cmd->infile && (cmd->infile->type == TOKEN_REDIRECTION_IN
+			|| cmd->infile->type == TOKEN_HEREDOC))
 	{
 		close(env->last_fd0);
-		return(open(cmd->infile->value, O_RDONLY));
+		return (open(cmd->infile->value, O_RDONLY));
 	}
 	return (env->last_fd0);
 }
-/*
-int 	exec_builtin(env, cmd)
+
+int	exec_builtin(t_minishell *env, t_command *cmd)
 {
 	char	**builtin;
 	int		i;
@@ -53,17 +54,20 @@ int 	exec_builtin(env, cmd)
 	i = 0;
 	while (builtin[i])
 	{
-		if (!ft_strcmp(token, builtin[i]))
-			break;
+		if (!ft_strcmp(cmd->cmd->value, builtin[i]))
+			break ;
 		i++;
 	}
-}*/
+	gc_clean(env->gc);
+	delete_input(env);
+	return (0);
+}
 
 int	child_process(int *p_end, t_minishell *env, t_command *cmd)
 {
 	int	fd_in;
 	int	fd_out;
-	
+
 	close(p_end[0]);
 	fd_in = find_fd_in(env, cmd);
 	if (fd_in < 0)
@@ -86,17 +90,12 @@ int	child_process(int *p_end, t_minishell *env, t_command *cmd)
 		dup2(fd_out, STDOUT_FILENO);
 		close(fd_out);
 	}
-	// Dans le parsing ------------------
-	// err = find_cmd(cmd, env->envp);
-	// if (err)
-	// 	return (err);
-	// if (!cmd->cmd_path)
-	// 	return (EXIT_NF);
-	// ----------------------------------
 	if (cmd->cmd->type == TOKEN_ARGUMENT)
-		return (pr_error(NOT_FOUND_ERROR, cmd->cmd->value), EXIT_FAILURE);
-	//else if (cmd->cmd->type == TOKEN_BUILTIN)
-		//return (exec_builtin(env, cmd));
+		return (pr_error(NOT_FOUND_ERROR, cmd->cmd->value), gc_clean(env->gc),
+			delete_input(env), EXIT_FAILURE);
+	else if (cmd->cmd->type == TOKEN_BUILTIN)
+		return (exec_builtin(env, cmd));
 	execve(cmd->cmd_path, cmd->str_args, env->envp);
-	return (perror(SHELL_NAME), EXIT_FAILURE);
+	return (perror(SHELL_NAME), gc_clean(env->gc), delete_input(env),
+		EXIT_FAILURE);
 }

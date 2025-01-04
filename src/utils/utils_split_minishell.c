@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   utils_split_minishell.c                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mcogne-- <mcogne--@student.42.fr>          +#+  +:+       +#+        */
+/*   By: achantra <achantra@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/14 23:32:38 by mcogne--          #+#    #+#             */
-/*   Updated: 2025/01/04 02:56:29 by mcogne--         ###   ########.fr       */
+/*   Updated: 2025/01/04 17:15:22 by achantra         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,13 +30,13 @@ void	free_split(char **tab)
 
 short	is_quote(char const *str, size_t i)
 {
-	if (!str[i - 1])
+	if (i == 0)
 	{
 		if (str[i] == '"' || str[i] == '\'')
 			return (1);
 	}
-	else if ((str[i] == '"' && str[i - 1] != '\\') || (str[i] == '\'' && str[i
-			- 1] != '\\'))
+	else if ((str[i] == '"' && str[i - 1] != '\\') || (str[i] == '\''
+			&& str[i - 1] != '\\'))
 		return (1);
 	return (0);
 }

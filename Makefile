@@ -144,7 +144,7 @@ norme:
 #################################
 test: all norme
 	$(V)echo $(GREEN)"[$(NAME)] Running $(NAME) with valgrind"$(RESET)
-	$(V)valgrind --leak-check=full --show-leak-kinds=all --suppressions=valgrind.supp ./$(NAME)
+	$(V)valgrind --leak-check=full --show-leak-kinds=all --trace-children=yes --track-fds=yes --suppressions=valgrind.supp ./$(NAME)
 
 
 re: fclean all

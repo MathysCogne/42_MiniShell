@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   struct.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mcogne-- <mcogne--@student.42.fr>          +#+  +:+       +#+        */
+/*   By: achantra <achantra@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/01 14:45:47 by mcogne--          #+#    #+#             */
-/*   Updated: 2025/01/04 15:28:32 by mcogne--         ###   ########.fr       */
+/*   Updated: 2025/01/04 16:15:34 by achantra         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,13 +52,7 @@ typedef struct s_command
 	char				*cmd_path;
 	char				*error_msg;
 	char				**str_args;
-	// A SUPR J'AI GARDER SEULEMENT SINON SA FESSAIS DES ERREUR DANS TON CODE
-	char				*exec_args;
 	char				*limiter;
-	// CHAR *PATH_COMMAND;
-	// EXEC PART
-	// En attendant le correctif
-	char				**exec_args2;
 	pid_t				pid;
 	//
 	struct s_command	*next;
