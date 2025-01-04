@@ -1,26 +1,37 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   parsing.c                                          :+:      :+:    :+:   */
+/*   echo.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: achantra <achantra@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/12/14 22:38:55 by mcogne--          #+#    #+#             */
-/*   Updated: 2025/01/04 21:48:02 by achantra         ###   ########.fr       */
+/*   Created: 2025/01/04 21:07:12 by achantra          #+#    #+#             */
+/*   Updated: 2025/01/04 21:51:12 by achantra         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-short	parsing(t_minishell *env)
+int	echo(char **arg)
 {
-	if (get_input(env))
-		return (1);
-	//debug_print_input(env->input);
-	if (handler_quote_expand(env->input))
-		return (1);
-	if (analyse_semantic(env))
-		return (1);
-	//debug_print_commands(env->cmds);
+	int i;
+	int optn;
+
+	i = 1;
+	optn = 0;
+	if (arg[1] && !ft_strcmp(arg[1], "-n"))
+	{
+		optn = 1;
+		i++;
+	}
+	while (arg[i])
+	{
+		ft_putstr_fd(arg[i], 1);
+		i++;
+		if (arg[i])
+			ft_putchar_fd(' ', 1);
+	}
+	if (!optn)
+		ft_putchar_fd('\n', 1);
 	return (0);
 }

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mcogne-- <mcogne--@student.42.fr>          +#+  +:+       +#+        */
+/*   By: achantra <achantra@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/13 12:52:28 by mcogne--          #+#    #+#             */
-/*   Updated: 2025/01/04 02:56:44 by mcogne--         ###   ########.fr       */
+/*   Updated: 2025/01/04 21:16:47 by achantra         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,6 +49,9 @@ short			parsing(t_minishell *env);
 // Tokenization
 short			get_input(t_minishell *env);
 void			delete_input(t_minishell *env);
+void	        input_add_back(t_input **input, t_input *new);
+t_token	        *create_token(t_minishell *env, char *value, t_token_type type);
+t_input	        *create_input(t_minishell *env, t_token *token);
 short			put_input(t_minishell *env, char *value, t_token_type type);
 t_token_type	tokenization(t_minishell *env, char *token);
 // Analyse Semantic
@@ -82,14 +85,16 @@ short			is_internal_command(char *token);
 # define EOF_HERE 15
 # define EXIT_NF 127
 
-int				find_heredoc(t_command *cmds);
+// Exec process
+int				find_heredoc(t_minishell *env, t_command *cmds);
 short			exec(t_minishell *env);
 void			pr_error(int e, char *element);
 int				test_input(char *input, int *error);
-int				find_cmd(t_command *cmd, char **envp);
 int				child_process(int *p_end, t_minishell *env, t_command *cmd);
-
+// Signal
 void			setup_signal(void);
+// Builtins
+int             echo(char **args);
 
 /*******************************/
 /*            UTILS            */

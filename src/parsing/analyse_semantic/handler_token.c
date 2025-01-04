@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   handler_token.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mcogne-- <mcogne--@student.42.fr>          +#+  +:+       +#+        */
+/*   By: achantra <achantra@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/15 15:36:28 by mcogne--          #+#    #+#             */
-/*   Updated: 2025/01/04 15:28:24 by mcogne--         ###   ########.fr       */
+/*   Updated: 2025/01/04 18:20:05 by achantra         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,13 +22,25 @@ short	handler_redirection(t_input *input, t_command *command)
 		return (0);
 	next = input->next->token;
 	if (token->type == TOKEN_REDIRECTION_IN)
-		command->infile = next;
+	{
+		command->infile = next;	
+		command->infile->type = TOKEN_REDIRECTION_IN;
+	}
 	else if (token->type == TOKEN_REDIRECTION_OUT)
+	{
 		command->outfile = next;
+		command->outfile->type = TOKEN_REDIRECTION_OUT;
+	}
 	else if (token->type == TOKEN_HEREDOC)
-		command->limiter_herdoc = next;
+	{
+		command->limiter_hd = next;
+		command->limiter_hd->type = TOKEN_HEREDOC;
+	}
 	else if (token->type == TOKEN_REDIRECTION_APPEND_OUT)
+	{
 		command->outfile = next;
+		command->outfile->type = TOKEN_REDIRECTION_APPEND_OUT;
+	}
 	return (0);
 }
 

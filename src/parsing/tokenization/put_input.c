@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   put_input.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mcogne-- <mcogne--@student.42.fr>          +#+  +:+       +#+        */
+/*   By: achantra <achantra@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/14 22:28:09 by mcogne--          #+#    #+#             */
-/*   Updated: 2024/12/24 21:25:25 by mcogne--         ###   ########.fr       */
+/*   Updated: 2025/01/04 18:48:54 by achantra         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 /*
 ** Add value of token
 */
-static void	input_add_back(t_input **input, t_input *new)
+void	input_add_back(t_input **input, t_input *new)
 {
 	t_input	*tmp;
 
@@ -41,7 +41,7 @@ static void	input_add_back(t_input **input, t_input *new)
 /*
 ** Init node of token
 */
-static t_token	*create_token(t_minishell *env, char *value, t_token_type type)
+t_token	*create_token(t_minishell *env, char *value, t_token_type type)
 {
 	t_token	*new_token;
 
@@ -57,7 +57,7 @@ static t_token	*create_token(t_minishell *env, char *value, t_token_type type)
 /*
 ** Init node of input
 */
-static t_input	*create_input(t_minishell *env, t_token *token)
+t_input	*create_input(t_minishell *env, t_token *token)
 {
 	t_input	*new_input;
 

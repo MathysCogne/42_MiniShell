@@ -6,7 +6,7 @@
 /*   By: achantra <achantra@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/28 22:39:46 by achantra          #+#    #+#             */
-/*   Updated: 2025/01/03 17:44:06 by achantra         ###   ########.fr       */
+/*   Updated: 2025/01/04 18:56:42 by achantra         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,8 +27,8 @@ void	pr_error(int e, char *element)
 	{
 		// line a revoir
 		ft_fprintf(2,
-		"%s: warning: here-document at line %d delimited by end-of-file (wanted '%s')\n",
-		SHELL_NAME, 6, element);
+		"%s: warning: here-document delimited by end-of-file (wanted '%s')\n",
+		SHELL_NAME, element);
 	}
 }
 

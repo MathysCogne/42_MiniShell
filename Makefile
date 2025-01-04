@@ -33,7 +33,9 @@ SRC = minishell.c \
 		utils/is_external_command.c \
 		utils/is_internal_command.c \
 		utils/find_cmd_in_command.c \
-		utils/ft_tablen.c
+		utils/ft_tablen.c \
+\
+		builtins/echo.c \
 
 
 OBJ = $(SRC:.c=.o)

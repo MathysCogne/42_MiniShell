@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   utils.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mcogne-- <mcogne--@student.42.fr>          +#+  +:+       +#+        */
+/*   By: achantra <achantra@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/24 22:36:10 by mcogne--          #+#    #+#             */
-/*   Updated: 2025/01/04 15:28:41 by mcogne--         ###   ########.fr       */
+/*   Updated: 2025/01/04 18:20:05 by achantra         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ t_command	*create_command(void)
 	command->args = NULL;
 	command->outfile = NULL;
 	command->infile = NULL;
-	command->limiter_herdoc = NULL;
+	command->limiter_hd = NULL;
 	command->is_pipe = 0;
 	command->cmd_path = NULL;
 	command->error_msg = NULL;

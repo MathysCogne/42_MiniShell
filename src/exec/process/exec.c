@@ -6,7 +6,7 @@
 /*   By: achantra <achantra@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/20 14:35:07 by achantra          #+#    #+#             */
-/*   Updated: 2025/01/04 16:28:26 by achantra         ###   ########.fr       */
+/*   Updated: 2025/01/04 21:28:36 by achantra         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,23 +43,23 @@ int	main_process(t_minishell *env, int *p_end)
 	return (0);
 }
 
-// UNLINK LES TMP
-
 short	exec(t_minishell *env)
 {
 	int	p_end[2];
 	int	status;
 
-	// Probablement a deplacer dans le parsing
-	find_heredoc(env->cmds);
+	find_heredoc(env, env->cmds);
 	env->curr_cmd = env->cmds;
-	// ---------
 	if (main_process(env, p_end))
 		return (EXIT_FAILURE);
 	env->curr_cmd = env->cmds;
 	while (env->curr_cmd)
 	{
 		waitpid(env->curr_cmd->pid, &status, 0);
+		// Boucle supplementaire pour gerer les multiples heredoc dans la meme commande
+		if (env->curr_cmd->infile
+			&& env->curr_cmd->infile->type == TOKEN_HEREDOC)
+			unlink(env->curr_cmd->infile->value);
 		env->curr_cmd = env->curr_cmd->next;
 	}
 	env->last_err_code = WEXITSTATUS(status);

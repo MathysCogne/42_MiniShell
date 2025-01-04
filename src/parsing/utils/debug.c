@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   debug.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mcogne-- <mcogne--@student.42.fr>          +#+  +:+       +#+        */
+/*   By: achantra <achantra@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/14 12:50:51 by mcogne--          #+#    #+#             */
-/*   Updated: 2025/01/04 15:29:19 by mcogne--         ###   ########.fr       */
+/*   Updated: 2025/01/04 21:21:17 by achantra         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,9 +59,9 @@ void	debug_print_commands(t_command *commands)
 			ft_printf("\t- outfile: %s\n", commands->outfile->value);
 		if (commands->infile)
 			ft_printf("\t- infile: %s\n", commands->infile->value);
-		if (commands->limiter_herdoc)
-			ft_printf("\t- limiter_herdoc: %s\n",
-				commands->limiter_herdoc->value);
+		if (commands->limiter_hd)
+			ft_printf("\t- limiter_hd: %s\n",
+				commands->limiter_hd->value);
 		ft_printf("\t- error_msg: %s\n\n", commands->error_msg);
 		commands = commands->next;
 		i++;

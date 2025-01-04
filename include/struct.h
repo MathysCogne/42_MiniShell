@@ -6,7 +6,7 @@
 /*   By: achantra <achantra@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/01 14:45:47 by mcogne--          #+#    #+#             */
-/*   Updated: 2025/01/04 16:15:34 by achantra         ###   ########.fr       */
+/*   Updated: 2025/01/04 18:20:05 by achantra         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,12 +47,11 @@ typedef struct s_command
 	t_token				**args;
 	t_token				*outfile;
 	t_token				*infile;
-	t_token				*limiter_herdoc;
+	t_token				*limiter_hd;
 	int					is_pipe;
 	char				*cmd_path;
 	char				*error_msg;
 	char				**str_args;
-	char				*limiter;
 	pid_t				pid;
 	//
 	struct s_command	*next;
