@@ -6,7 +6,7 @@
 /*   By: mcogne-- <mcogne--@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/13 13:09:07 by mcogne--          #+#    #+#             */
-/*   Updated: 2025/01/04 23:49:44 by mcogne--         ###   ########.fr       */
+/*   Updated: 2025/01/05 21:13:16 by mcogne--         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,8 @@ static short	parse_token(t_minishell *env, char **tab)
 	int	i;
 
 	i = 0;
+	if (!tab)
+		return (0);
 	while (tab[i])
 	{
 		if (put_input(env, tab[i], tokenization(env, tab[i])))
@@ -44,7 +46,13 @@ short	get_input(t_minishell *env)
 		return (1);
 	add_history(input);
 	gc_add(env->gc, input);
-	tab_input = ft_split_minishell(input, TOKEN_SEPARATOR);
+	if (check_single_quotes(input))
+	{
+		ft_fprintf(2, "Syntax Error : Quote is not close.\n");
+		tab_input = ft_split_minishell("", TOKEN_SEPARATOR);
+	}
+	else
+		tab_input = ft_split_minishell(input, TOKEN_SEPARATOR);
 	if (parse_token(env, tab_input))
 		return (1);
 	return (0);

@@ -6,7 +6,7 @@
 /*   By: mcogne-- <mcogne--@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/14 12:50:51 by mcogne--          #+#    #+#             */
-/*   Updated: 2025/01/05 01:36:33 by mcogne--         ###   ########.fr       */
+/*   Updated: 2025/01/05 21:10:28 by mcogne--         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,6 +41,8 @@ void	debug_print_commands(t_command *commands)
 	int	j;
 
 	i = 0;
+	if (!commands)
+		return ;
 	input = commands->redir_lst;
 	ft_printf(YELLOW "Commands List:\n" C_RESET);
 	while (commands)

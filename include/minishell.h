@@ -6,7 +6,7 @@
 /*   By: mcogne-- <mcogne--@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/13 12:52:28 by mcogne--          #+#    #+#             */
-/*   Updated: 2025/01/05 01:31:36 by mcogne--         ###   ########.fr       */
+/*   Updated: 2025/01/05 20:54:11 by mcogne--         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -107,6 +107,7 @@ size_t			handle_quotes(const char *str, size_t i);
 size_t			ft_tablen(void **tab);
 char			*get_shell_name(void);
 char			*get_current_dir(void);
+short			check_single_quotes(char *str);
 
 /*******************************/
 /*            COLORS           */
