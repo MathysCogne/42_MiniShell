@@ -6,7 +6,7 @@
 /*   By: mcogne-- <mcogne--@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/13 12:52:35 by mcogne--          #+#    #+#             */
-/*   Updated: 2025/01/04 22:56:04 by mcogne--         ###   ########.fr       */
+/*   Updated: 2025/01/05 01:31:49 by mcogne--         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,11 +23,12 @@ static short	minishell(t_minishell *env)
 			return (1);
 		}
 		env->last_fd0 = 0;
-		if (exec(env))
-		{
-			ft_printf(RED "DEBUG: Exit in exec part\n" C_RESET);
-			return (1);
-		}
+		
+		// if (exec(env))
+		// {
+		// 	ft_printf(RED "DEBUG: Exit in exec part\n" C_RESET);
+		// 	return (1);
+		// }
 		delete_input(env);
 	}
 	return (0);
@@ -37,12 +38,13 @@ int	main(int argc, char **argv, char **envp)
 {
 	t_minishell	env;
 
+	(void)envp;
 	if (argc != 1)
 	{
 		ft_fprintf(2, RED BOLD "Usage: %s\n" C_RESET, argv[0]);
 		return (1);
 	}
-	if (init_struct_env(&env, envp))
+	if (init_struct_env(&env))
 		return (1);
 	if (minishell(&env))
 	{

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exec.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: achantra <achantra@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mcogne-- <mcogne--@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/20 14:35:07 by achantra          #+#    #+#             */
-/*   Updated: 2025/01/04 21:28:36 by achantra         ###   ########.fr       */
+/*   Updated: 2025/01/04 23:21:19 by mcogne--         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,13 +19,13 @@ int	main_process(t_minishell *env, int *p_end)
 	while (env->curr_cmd)
 	{
 		if (pipe(p_end) == -1)
-			return (perror(SHELL_NAME), EXIT_FAILURE);
+			return (perror(get_shell_name()), EXIT_FAILURE);
 		pid = fork();
 		if (pid < 0)
 		{
 			if (env->last_fd0)
 				close(env->last_fd0);
-			return (close(p_end[0]), close(p_end[1]), perror(SHELL_NAME),
+			return (close(p_end[0]), close(p_end[1]), perror(get_shell_name()),
 				EXIT_FAILURE);
 		}
 		else if (pid == 0)

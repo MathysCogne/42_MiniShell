@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   init_struct_env.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: achantra <achantra@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mcogne-- <mcogne--@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/14 22:32:41 by mcogne--          #+#    #+#             */
-/*   Updated: 2025/01/03 14:08:09 by achantra         ###   ########.fr       */
+/*   Updated: 2025/01/05 01:19:21 by mcogne--         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 /*
 ** Init env structure, and init gc
 */
-short	init_struct_env(t_minishell *env, char **envp)
+short	init_struct_env(t_minishell *env)
 {
 	env->gc = gc_init();
 	if (!env->gc)
@@ -24,7 +24,7 @@ short	init_struct_env(t_minishell *env, char **envp)
 	env->cmds = NULL;
 	env->curr_cmd = NULL;
 	env->last_err_code = 0;
-	env->envp = envp;
+	env->envp = NULL;
 	env->last_fd0 = 0;
 	return (0);
 }

@@ -34,6 +34,7 @@ SRC = minishell.c \
 		utils/is_internal_command.c \
 		utils/find_cmd_in_command.c \
 		utils/ft_tablen.c \
+		utils/get_shell_name.c \
 \
 		builtins/echo.c \
 

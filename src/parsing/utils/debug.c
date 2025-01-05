@@ -6,7 +6,7 @@
 /*   By: mcogne-- <mcogne--@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/14 12:50:51 by mcogne--          #+#    #+#             */
-/*   Updated: 2025/01/04 23:10:16 by mcogne--         ###   ########.fr       */
+/*   Updated: 2025/01/05 01:36:33 by mcogne--         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,10 +36,12 @@ static char	*token_type_to_str(t_token_type token)
 
 void	debug_print_commands(t_command *commands)
 {
+	t_input	*input;
 	int	i;
 	int	j;
 
 	i = 0;
+	input = commands->redir_lst;
 	ft_printf(YELLOW "Commands List:\n" C_RESET);
 	while (commands)
 	{
@@ -57,11 +59,12 @@ void	debug_print_commands(t_command *commands)
 		ft_printf("]\n\t- is_pipe: %d\n", commands->is_pipe);
 		ft_printf("\t- error_msg: %s\n", commands->error_msg);
 		ft_printf("\t- redir_lst:\n");
-		while (commands->redir_lst)
+		
+		while (input)
 		{
-			ft_printf("\t  -> Value: %s", commands->redir_lst->token->value);
-			ft_printf(" --> %s\n", token_type_to_str(commands->redir_lst->token->type));
-			commands->redir_lst = commands->redir_lst->next;
+			ft_printf("\t  -> Value: %s", input->token->value);
+			ft_printf(" --> %s\n", token_type_to_str(input->token->type));
+			input = input->next;
 		}
 		ft_printf("\n");
 		commands = commands->next;

@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   validate_token.c                                   :+:      :+:    :+:   */
+/*   [DEPRECEATED]validate_token.c                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mcogne-- <mcogne--@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/01 20:20:47 by mcogne--          #+#    #+#             */
-/*   Updated: 2025/01/03 01:23:01 by mcogne--         ###   ########.fr       */
+/*   Updated: 2025/01/04 23:16:46 by mcogne--         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,6 @@ static short	validate_argument_token(t_input *input, t_token *token,
 		command->error_msg = ft_strdup(ERR_SYNTAX "unexpected argument");
 		return (1);
 	}
-	handler_quote_expand(token, command);
 	return (0);
 }
 

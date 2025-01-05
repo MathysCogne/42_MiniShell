@@ -6,7 +6,7 @@
 /*   By: mcogne-- <mcogne--@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/13 13:09:07 by mcogne--          #+#    #+#             */
-/*   Updated: 2025/01/04 02:23:50 by mcogne--         ###   ########.fr       */
+/*   Updated: 2025/01/04 23:49:44 by mcogne--         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,7 @@ short	get_input(t_minishell *env)
 	char	*input;
 	char	**tab_input;
 
-	input = readline(CYAN SHELL_NAME C_RESET);
+	input = readline(get_shell_name());
 	if (!input)
 		return (1);
 	add_history(input);

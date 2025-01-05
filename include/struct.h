@@ -6,7 +6,7 @@
 /*   By: mcogne-- <mcogne--@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/01 14:45:47 by mcogne--          #+#    #+#             */
-/*   Updated: 2025/01/04 22:50:06 by mcogne--         ###   ########.fr       */
+/*   Updated: 2025/01/04 23:11:09 by mcogne--         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,7 +50,6 @@ typedef struct s_command
 	char				*error_msg;
 	char				**str_args;
 	pid_t				pid;
-	//
 	struct s_command	*next;
 	struct s_command	*prev;
 	// A SUPR UNE FOIS EXEC MaJ
