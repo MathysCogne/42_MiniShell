@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exec_error.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mcogne-- <mcogne--@student.42.fr>          +#+  +:+       +#+        */
+/*   By: achantra <achantra@42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/28 22:39:46 by achantra          #+#    #+#             */
-/*   Updated: 2025/01/04 23:21:19 by mcogne--         ###   ########.fr       */
+/*   Updated: 2025/01/06 00:59:40 by achantra         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,20 +15,37 @@
 void	pr_error(int e, char *element)
 {
 	if (e == PERM_ERROR || e == PERM_ERROR_END)
-		ft_fprintf(2, "%s: %s: permission denied\n", get_shell_name(), element);
+	{
+		ft_putstr_fd(get_shell_name(), 2);
+		ft_putstr_fd(": ", 2);
+		ft_putstr_fd(element, 2);
+		ft_putstr_fd(": permission denied\n", 2);
+	}
 	else if (e == NOT_FOUND_ERROR)
-		ft_fprintf(2, "%s: %s: command not found\n", get_shell_name(), element);
+	{
+		ft_putstr_fd(get_shell_name(), 2);
+		ft_putstr_fd(": ", 2);
+		ft_putstr_fd(element, 2);
+		ft_putstr_fd(": command not found\n", 2);
+	}
 	else if (e == NO_PATH)
-		ft_fprintf(2, "%s: no path in envp\n", get_shell_name());
+	{
+		ft_putstr_fd(get_shell_name(), 2);
+		ft_putstr_fd(": no path in envp\n", 2);
+	}
 	else if (e == NO_FILE)
-		ft_fprintf(2, "%s: %s: no such file or directory\n", get_shell_name(),
-			element);
+	{
+		ft_putstr_fd(get_shell_name(), 2);
+		ft_putstr_fd(": ", 2);
+		ft_putstr_fd(element, 2);
+		ft_putstr_fd(": no such file or directory\n", 2);
+	}
 	else if (e == EOF_HERE)
 	{
-		// line a revoir
-		ft_fprintf(2,
-			"%s: warning: here-document delimited by end-of-file (wanted '%s')\n",
-			get_shell_name(), element);
+		ft_putstr_fd(get_shell_name(), 2);
+		ft_putstr_fd(": warning: here-document delimited by end-of-file (wanted '", 2);
+		ft_putstr_fd(element, 2);
+		ft_putstr_fd("')\n", 2);
 	}
 }
 

@@ -1,31 +1,28 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   get_shell_name.c                                   :+:      :+:    :+:   */
+/*   env.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: achantra <achantra@42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/01/04 23:18:14 by mcogne--          #+#    #+#             */
-/*   Updated: 2025/01/06 01:01:59 by achantra         ###   ########.fr       */
+/*   Created: 2025/01/06 01:29:11 by achantra          #+#    #+#             */
+/*   Updated: 2025/01/06 01:52:11 by achantra         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-char	*get_current_dir(void)
+int	env_b(void)
 {
-	char	*current_dir;
+	int			i;
+    //Checker si c est ok pour la norme
+	extern char	**environ;
 
-	current_dir = getcwd(NULL, 0);
-	if (!current_dir)
-		return (NULL);
-	return (current_dir);
-}
-
-char	*get_shell_name(void)
-{
-	char	*shell_name;
-
-	shell_name = CYAN SHELL_NAME C_RESET;
-	return (shell_name);
+	i = 0;
+	while (environ[i])
+	{
+		ft_putendl_fd(environ[i], 1);
+		i++;
+	}
+	return (0);
 }

@@ -3,31 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   here_doc.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mcogne-- <mcogne--@student.42.fr>          +#+  +:+       +#+        */
+/*   By: achantra <achantra@42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/03 14:51:42 by achantra          #+#    #+#             */
-/*   Updated: 2025/01/04 23:21:19 by mcogne--         ###   ########.fr       */
+/*   Updated: 2025/01/06 01:02:23 by achantra         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-t_token	*put_token(t_minishell *env, char *value, t_token_type type)
-{
-	t_token	*new_token;
-	t_input	*new_input;
-
-	new_token = create_token(value, type);
-	if (!new_token)
-		return (NULL);
-	new_input = create_input(new_token);
-	if (!new_input)
-		return (NULL);
-	input_add_back(&env->input, new_input);
-	return (new_token);
-}
-
-int	create_doc(t_minishell *env, t_command *cmd)
+int	create_doc(t_token *hd)
 {
 	char	*buffer;
 	int		fd;
@@ -46,48 +31,45 @@ int	create_doc(t_minishell *env, t_command *cmd)
 		else if (ft_isprint(file[3] + 1))
 			file[3] += 1;
 	}
-	cmd->infile = put_token(env, file, TOKEN_HEREDOC);
-	if (!cmd->infile)
-		return (2);
 	fd = open(file, O_CREAT | O_WRONLY | O_TRUNC, 0644);
 	if (fd < 0)
 		return (perror(get_shell_name()), EXIT_FAILURE);
+	ft_putstr_fd("> ", 1);
 	buffer = get_next_line(0);
-	while (buffer && ft_strncmp(buffer, cmd->limiter_hd->value, ft_strlen(buffer) - 1))
+	while (buffer && ft_strncmp(buffer, hd->value, ft_strlen(buffer) - 1))
 	{
 		write(fd, buffer, ft_strlen(buffer));
 		free(buffer);
+		ft_putstr_fd("> ", 1);
 		buffer = get_next_line(0);
 	}
 	if (buffer)
 		free(buffer);
 	else
-		pr_error(EOF_HERE, cmd->limiter_hd->value);
+		pr_error(EOF_HERE, hd->value);
+	hd->value = file;
 	return (close(fd), 0);
 }
 
-int	find_heredoc(t_minishell *env, t_command *cmds)
+int	find_heredoc(t_command *cmds)
 {
 	t_command *current;
+	t_input	*tmp;
 
 	current = cmds;
 	while (current)
 	{
-/*
-Modif : pour chaque commande, prendre la liste des redirections
-A chaque heredoc, lancer le remplissage du heredoc
-*/ 
-		if (current->limiter_hd && current->limiter_hd->type == TOKEN_HEREDOC)
+		tmp = current->redir_lst;
+		while (tmp)
 		{
-			if (create_doc(env, current))
-				return (EXIT_FAILURE);
+			if (tmp->token->type == TOKEN_HEREDOC)
+			{
+				if (create_doc(tmp->token))
+					return (EXIT_FAILURE);
+			}
+			tmp = tmp->next;
 		}
 		current = current->next;
 	}
 	return (0);
 }
-
-/*
-Pour chaque commande, prendre la liste des redirections
-A chaque heredoc, lancer le remplissage du heredoc
-*/ 
