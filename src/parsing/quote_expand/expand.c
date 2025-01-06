@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   handler_quote_expand.c                             :+:      :+:    :+:   */
+/*   expand.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mcogne-- <mcogne--@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/01 23:22:56 by mcogne--          #+#    #+#             */
-/*   Updated: 2025/01/06 20:46:06 by mcogne--         ###   ########.fr       */
+/*   Updated: 2025/01/06 21:15:10 by mcogne--         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,92 +86,4 @@ char	*expand_var(t_token *token)
 		return (NULL);
 	free(var_expand);
 	return (new_token);
-}
-
-short	handler_expand(t_token *token)
-{
-	char	*new_token;
-
-	if (ft_strlen(token->value) < 2)
-		return (0);
-	new_token = expand_var(token);
-	if (!new_token)
-		return (1);
-	free(token->value);
-	token->value = new_token;
-	return (0);
-}
-
-/*
-** If return -1, handler expand because is double quote
-*/
-short	handler_quote(t_token *token)
-{
-	size_t	len;
-	char	*new_token;
-
-	len = ft_strlen(token->value);
-	if (len < 2)
-		return (0);
-	if ((token->value[0] == '"' && token->value[len - 1] == '"')
-		|| (token->value[0] == '\'' && token->value[len - 1] == '\''))
-	{
-		new_token = strndup(token->value + 1, len - 2);
-		if (!new_token)
-			return (1);
-		if (token->value[0] == '"')
-		{
-			free(token->value);
-			token->value = new_token;
-			return (-1);
-		}
-		free(token->value);
-		token->value = new_token;
-	}
-	return (0);
-}
-
-short	delete_anti_slash(t_token *token)
-{
-	size_t	i;
-	size_t	j;
-
-	i = 0;
-	j = 0;
-	while (token->value[i])
-	{
-		if (token->value[i] == '\\' && (token->value[i + 1] == '\''
-				|| token->value[i + 1] == '"'))
-			i++;
-		token->value[j] = token->value[i];
-		i++;
-		j++;
-	}
-	token->value[j] = '\0';
-	return (0);
-}
-
-short	handler_quote_expand(t_input *input)
-{
-	short	quote_code;
-	t_token	*token;
-
-	while (input)
-	{
-		token = input->token;
-		if (token->value[0] != '"' && token->value[0] != '\'')
-		{
-			if (handler_expand(token))
-				return (1);
-		}
-		quote_code = handler_quote(token);
-		if (quote_code == 1)
-			return (1);
-		if (quote_code == -1)
-			handler_expand(token);
-		if (delete_anti_slash(token))
-			return (1);
-		input = input->next;
-	}
-	return (0);
 }

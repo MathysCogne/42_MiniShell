@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   analyse_semantic.c                                 :+:      :+:    :+:   */
+/*   semantic.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mcogne-- <mcogne--@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/15 15:36:28 by mcogne--          #+#    #+#             */
-/*   Updated: 2025/01/04 02:22:40 by mcogne--         ###   ########.fr       */
+/*   Updated: 2025/01/06 22:57:22 by mcogne--         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ static short	process_token(t_input **current_input, t_command *command)
 	input = *current_input;
 	if (input->token->type == TOKEN_ARGUMENT)
 	{
-		if (handler_argument(input, command))
+		if (add_arg_command(input->token, command))
 			return (1);
 	}
 	else if (input->token->type >= TOKEN_REDIRECTION_IN
@@ -32,10 +32,8 @@ static short	process_token(t_input **current_input, t_command *command)
 	}
 	else if (input->token->type == TOKEN_PIPE)
 	{
-		if (handler_pipe(input, command))
-			return (1);
-		else
-			return (2);
+		command->is_pipe = 1;
+		return (2);
 	}
 	return (0);
 }
@@ -63,7 +61,7 @@ static short	process_command(t_input **current_input, t_command *command)
 	return (0);
 }
 
-short	handler_command(t_input **current_input, t_minishell *env)
+static short	handler_command(t_input **current_input, t_minishell *env)
 {
 	t_command	*current_command;
 
@@ -73,7 +71,7 @@ short	handler_command(t_input **current_input, t_minishell *env)
 	add_back_command(&env->cmds, current_command);
 	if (process_command(current_input, current_command))
 		return (1);
-	if (find_cmd_in_command(env, current_command))
+	if (find_path_and_cmd(env, current_command))
 		return (1);
 	if (extract_args(current_command))
 		return (1);
