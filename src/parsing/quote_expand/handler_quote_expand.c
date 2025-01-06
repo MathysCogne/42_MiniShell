@@ -6,7 +6,7 @@
 /*   By: mcogne-- <mcogne--@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/01 23:22:56 by mcogne--          #+#    #+#             */
-/*   Updated: 2025/01/04 04:59:44 by mcogne--         ###   ########.fr       */
+/*   Updated: 2025/01/06 20:46:06 by mcogne--         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -131,6 +131,26 @@ short	handler_quote(t_token *token)
 	return (0);
 }
 
+short	delete_anti_slash(t_token *token)
+{
+	size_t	i;
+	size_t	j;
+
+	i = 0;
+	j = 0;
+	while (token->value[i])
+	{
+		if (token->value[i] == '\\' && (token->value[i + 1] == '\''
+				|| token->value[i + 1] == '"'))
+			i++;
+		token->value[j] = token->value[i];
+		i++;
+		j++;
+	}
+	token->value[j] = '\0';
+	return (0);
+}
+
 short	handler_quote_expand(t_input *input)
 {
 	short	quote_code;
@@ -149,6 +169,8 @@ short	handler_quote_expand(t_input *input)
 			return (1);
 		if (quote_code == -1)
 			handler_expand(token);
+		if (delete_anti_slash(token))
+			return (1);
 		input = input->next;
 	}
 	return (0);

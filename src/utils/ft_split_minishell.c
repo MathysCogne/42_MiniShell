@@ -6,7 +6,7 @@
 /*   By: mcogne-- <mcogne--@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/14 08:34:25 by mcogne--          #+#    #+#             */
-/*   Updated: 2025/01/06 01:58:23 by mcogne--         ###   ########.fr       */
+/*   Updated: 2025/01/06 20:35:49 by mcogne--         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,6 +43,7 @@ static char	**free_error_alloc(size_t i, char **tab)
 	free(tab);
 	return (NULL);
 }
+
 static size_t	count_words(const char *str, char *sep)
 {
 	size_t	i;
