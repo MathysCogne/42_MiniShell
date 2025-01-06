@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exec.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mcogne-- <mcogne--@student.42.fr>          +#+  +:+       +#+        */
+/*   By: achantra <achantra@42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/20 14:35:07 by achantra          #+#    #+#             */
-/*   Updated: 2025/01/04 23:21:19 by mcogne--         ###   ########.fr       */
+/*   Updated: 2025/01/06 00:22:51 by achantra         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,12 +43,25 @@ int	main_process(t_minishell *env, int *p_end)
 	return (0);
 }
 
+void	clean_heredoc(t_command *cmd)
+{
+	t_input	*tmp;
+	
+	tmp = cmd->redir_lst;
+	while (tmp)
+	{
+		if (tmp->token->type == TOKEN_HEREDOC)
+			unlink(tmp->token->value);
+		tmp = tmp->next;
+	}
+}
+
 short	exec(t_minishell *env)
 {
 	int	p_end[2];
 	int	status;
 
-	find_heredoc(env, env->cmds);
+	find_heredoc(env->cmds);
 	env->curr_cmd = env->cmds;
 	if (main_process(env, p_end))
 		return (EXIT_FAILURE);
@@ -56,10 +69,7 @@ short	exec(t_minishell *env)
 	while (env->curr_cmd)
 	{
 		waitpid(env->curr_cmd->pid, &status, 0);
-		// Boucle supplementaire pour gerer les multiples heredoc dans la meme commande
-		if (env->curr_cmd->infile
-			&& env->curr_cmd->infile->type == TOKEN_HEREDOC)
-			unlink(env->curr_cmd->infile->value);
+		clean_heredoc(env->curr_cmd);
 		env->curr_cmd = env->curr_cmd->next;
 	}
 	env->last_err_code = WEXITSTATUS(status);

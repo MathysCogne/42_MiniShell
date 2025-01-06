@@ -1,26 +1,28 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   parsing.c                                          :+:      :+:    :+:   */
+/*   env.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: achantra <achantra@42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/12/14 22:38:55 by mcogne--          #+#    #+#             */
-/*   Updated: 2025/01/06 01:14:29 by achantra         ###   ########.fr       */
+/*   Created: 2025/01/06 01:29:11 by achantra          #+#    #+#             */
+/*   Updated: 2025/01/06 01:52:11 by achantra         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-short	parsing(t_minishell *env)
+int	env_b(void)
 {
-	if (get_input(env))
-		return (1);
-	// debug_print_input(env->input);
-	if (handler_quote_expand(env->input))
-		return (1);
-	if (analyse_semantic(env))
-		return (1);
-	// debug_print_commands(env->cmds);
+	int			i;
+    //Checker si c est ok pour la norme
+	extern char	**environ;
+
+	i = 0;
+	while (environ[i])
+	{
+		ft_putendl_fd(environ[i], 1);
+		i++;
+	}
 	return (0);
 }

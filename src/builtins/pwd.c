@@ -1,26 +1,25 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   parsing.c                                          :+:      :+:    :+:   */
+/*   pwd.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: achantra <achantra@42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/12/14 22:38:55 by mcogne--          #+#    #+#             */
-/*   Updated: 2025/01/06 01:14:29 by achantra         ###   ########.fr       */
+/*   Created: 2025/01/06 02:02:39 by achantra          #+#    #+#             */
+/*   Updated: 2025/01/06 02:10:20 by achantra         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-short	parsing(t_minishell *env)
+int	pwd_b(void)
 {
-	if (get_input(env))
-		return (1);
-	// debug_print_input(env->input);
-	if (handler_quote_expand(env->input))
-		return (1);
-	if (analyse_semantic(env))
-		return (1);
-	// debug_print_commands(env->cmds);
-	return (0);
+    char	*cwd;
+
+    cwd = getcwd(NULL, 0);
+    if (!cwd)
+        return (perror("pwd"), 1);
+    ft_putendl_fd(cwd, 1);
+    free(cwd);
+    return (0);
 }

@@ -38,6 +38,9 @@ SRC = minishell.c \
 		utils/check_single_quotes.c \
 \
 		builtins/echo.c \
+		builtins/env.c \
+		builtins/pwd.c \
+		builtins/cd.c \
 
 
 OBJ = $(SRC:.c=.o)
@@ -49,12 +52,12 @@ BUILD = $(OBJDIR)/.build
 LIBFT_DIR := libft
 LIBFT := $(LIBFT_DIR)/libft.a
 LIBFT_INCLUDE := $(LIBFT_DIR)/include
-LDFLAGS =  -L$(LIBFT_DIR)
+LDFLAGS =  -L$(LIBFT_DIR) -L/opt/homebrew/opt/readline/lib
 LIBS =  $(LIBFT) -lreadline -lhistory
 
 
 CC = cc
-CFLAGS = -Wall -Wextra -Werror -I$(INCDIR) -g3 -I$(LIBFT_INCLUDE)
+CFLAGS = -Wall -Wextra -Werror -I$(INCDIR) -g3 -I$(LIBFT_INCLUDE) -I/opt/homebrew/opt/readline/include
 AR = ar
 ARFLAGS = rcs
 

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mcogne-- <mcogne--@student.42.fr>          +#+  +:+       +#+        */
+/*   By: achantra <achantra@42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/13 12:52:28 by mcogne--          #+#    #+#             */
-/*   Updated: 2025/01/05 20:54:11 by mcogne--         ###   ########.fr       */
+/*   Updated: 2025/01/06 02:21:14 by achantra         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,10 +22,10 @@
 # include "libft_extra.h"
 # include "struct.h"
 # include <fcntl.h>
+# include <stdio.h>
 # include <readline/history.h>
 # include <readline/readline.h>
 # include <signal.h>
-# include <stdio.h>
 # include <stdlib.h>
 # include <string.h>
 # include <sys/stat.h>
@@ -86,7 +86,7 @@ short			is_internal_command(char *token);
 # define EXIT_NF 127
 
 // Exec process
-int				find_heredoc(t_minishell *env, t_command *cmds);
+int				find_heredoc(t_command *cmds);
 short			exec(t_minishell *env);
 void			pr_error(int e, char *element);
 int				test_input(char *input, int *error);
@@ -95,6 +95,9 @@ int				child_process(int *p_end, t_minishell *env, t_command *cmd);
 void			setup_signal(void);
 // Builtins
 int				echo(char **args);
+int				env_b(void);
+int             pwd_b(void);
+int             cd(char **args);
 
 /*******************************/
 /*            UTILS            */
