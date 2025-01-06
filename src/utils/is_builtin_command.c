@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   is_internal_command.c                              :+:      :+:    :+:   */
+/*   is_builtin_command.c                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: achantra <achantra@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mcogne-- <mcogne--@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/15 00:21:00 by mcogne--          #+#    #+#             */
-/*   Updated: 2025/01/04 16:08:03 by achantra         ###   ########.fr       */
+/*   Updated: 2025/01/06 21:59:50 by mcogne--         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@
 ** Check if builtin commands
 ** echo - cd - pwd - export - unset - env - exit
 */
-short	is_internal_command(char *token)
+short	is_builtin_command(char *token)
 {
 	char	**builtin;
 	int		i;

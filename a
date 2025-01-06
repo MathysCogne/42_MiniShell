@@ -1,14 +1,10 @@
 Makefile
 README.md
-c
+a
 include
 libft
 minishell
 obj
-ok
 src
 subject
-test
-test.txt
-test2>
 valgrind.supp

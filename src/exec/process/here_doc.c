@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   here_doc.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: achantra <achantra@42.fr>                  +#+  +:+       +#+        */
+/*   By: mcogne-- <mcogne--@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/03 14:51:42 by achantra          #+#    #+#             */
-/*   Updated: 2025/01/06 01:02:23 by achantra         ###   ########.fr       */
+/*   Updated: 2025/01/06 22:51:45 by mcogne--         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,8 +53,8 @@ int	create_doc(t_token *hd)
 
 int	find_heredoc(t_command *cmds)
 {
-	t_command *current;
-	t_input	*tmp;
+	t_command	*current;
+	t_input		*tmp;
 
 	current = cmds;
 	while (current)

@@ -7,20 +7,25 @@ INCDIR = include
 SRC = minishell.c \
 \
 		parsing/parsing.c \
-			parsing/tokenization/delete_input.c \
-			parsing/tokenization/get_input.c \
+			parsing/tokenization/input_parser.c \
 			parsing/tokenization/put_input.c \
+			parsing/tokenization/token_utils.c \
 			parsing/tokenization/tokenization.c \
 \
-			parsing/analyse_semantic/analyse_semantic.c \
-			parsing/analyse_semantic/utils.c \
-			parsing/analyse_semantic/handler_token.c \
+			parsing/analyse_semantic/semantic.c \
+			parsing/analyse_semantic/command_utils.c \
 			parsing/analyse_semantic/extract_args.c \
+			parsing/analyse_semantic/redirection_handler.c \
+			parsing/analyse_semantic/find_path_and_cmd.c \
 \
-			parsing/quote_expand/handler_quote_expand.c \
+			parsing/quote_expand/expand.c \
+			parsing/quote_expand/quote_expand.c \
+			parsing/quote_expand/quote_handler.c \
+			parsing/quote_expand/check_single_quotes.c \
 \
-			parsing/utils/init_struct_env.c \
-			parsing/utils/debug.c \
+			parsing/utils_parsing/cleanup.c \
+			parsing/utils_parsing/init_struct_env.c \
+			parsing/utils_parsing/debug.c \
 \
 		exec/process/exec.c \
 			exec/process/exec_error.c \
@@ -28,19 +33,19 @@ SRC = minishell.c \
 			exec/process/here_doc.c \
 			exec/signal/signal.c \
 \
-		utils/ft_split_minishell.c \
-		utils/utils_split_minishell.c \
-		utils/is_external_command.c \
-		utils/is_internal_command.c \
-		utils/find_cmd_in_command.c \
-		utils/ft_tablen.c \
-		utils/get_shell_name.c \
-		utils/check_single_quotes.c \
-\
 		builtins/echo.c \
 		builtins/env.c \
 		builtins/pwd.c \
 		builtins/cd.c \
+\
+		utils/split/split_helper.c \
+		utils/split/split_minishell.c \
+		utils/split/split_quote_helper.c \
+		utils/split/split_redir_helper.c \
+		utils/is_external_command.c \
+		utils/is_builtin_command.c \
+		utils/ft_tablen.c \
+		utils/get_shell_name.c \
 
 
 OBJ = $(SRC:.c=.o)
