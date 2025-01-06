@@ -6,12 +6,43 @@
 /*   By: mcogne-- <mcogne--@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/14 08:34:25 by mcogne--          #+#    #+#             */
-/*   Updated: 2025/01/05 21:08:06 by mcogne--         ###   ########.fr       */
+/*   Updated: 2025/01/06 01:58:23 by mcogne--         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
+short	is_redir(char const *s, size_t i)
+{
+	if (i >= ft_strlen(s))
+		return (0);
+	if (i == 0)
+	{
+		if (s[i] == '>' || s[i] == '<')
+			return (1);
+		if ((s[i] == '>' && s[i + 1] == '>') || (s[i] == '<' && s[i
+				+ 1] == '<'))
+			return (1);
+	}
+	if (i < ft_strlen(s))
+	{
+		if ((s[i] == '>' && i > 0 && s[i - 1] != '\\') || (s[i] == '<' && i > 0
+				&& s[i - 1] != '\\'))
+			return (1);
+		if ((s[i] == '>' && s[i + 1] == '>' && s[i - 1] != '\\') || (s[i] == '<'
+				&& s[i + 1] == '<' && s[i - 1] != '\\'))
+			return (1);
+	}
+	return (0);
+}
+
+static char	**free_error_alloc(size_t i, char **tab)
+{
+	while (i > 0)
+		free(tab[--i]);
+	free(tab);
+	return (NULL);
+}
 static size_t	count_words(const char *str, char *sep)
 {
 	size_t	i;
@@ -23,15 +54,24 @@ static size_t	count_words(const char *str, char *sep)
 	{
 		while (str[i] && is_sep(str[i], sep))
 			i++;
-		if (str[i] && !is_sep(str[i], sep))
+		if (str[i])
 		{
-			w++;
-			while (str[i] && !is_sep(str[i], sep))
+			if (is_redir(str, i))
 			{
-				if (is_quote(str, i))
-					i = handle_quotes(str, i);
-				else
+				w++;
+				while (str[i] && is_redir(str, i))
 					i++;
+			}
+			else
+			{
+				w++;
+				while (str[i] && !is_sep(str[i], sep) && !is_redir(str, i))
+				{
+					if (is_quote(str, i))
+						i = handle_quotes(str, i);
+					else
+						i++;
+				}
 			}
 		}
 	}
@@ -45,12 +85,20 @@ static char	*allocate_word(const char *str, char *sep)
 	char	*w;
 
 	len = 0;
-	while (str[len] && !is_sep(str[len], sep))
+	if (is_redir(str, 0))
 	{
-		if (is_quote(str, len))
-			len = handle_quotes(str, len);
-		else
+		while (str[len] && is_redir(str, len))
 			len++;
+	}
+	else
+	{
+		while (str[len] && !is_sep(str[len], sep) && !is_redir(str, len))
+		{
+			if (is_quote(str, len))
+				len = handle_quotes(str, len);
+			else
+				len++;
+		}
 	}
 	w = malloc(sizeof(char) * (len + 1));
 	if (!w)
@@ -65,14 +113,6 @@ static char	*allocate_word(const char *str, char *sep)
 	return (w);
 }
 
-static char	**free_error_alloc(size_t i, char **tab)
-{
-	while (i > 0)
-		free(tab[--i]);
-	free(tab);
-	return (NULL);
-}
-
 static char	**split_words(char const *s, char *sep, char **tab)
 {
 	size_t	w;
@@ -84,18 +124,30 @@ static char	**split_words(char const *s, char *sep, char **tab)
 	{
 		while (s[i] && is_sep(s[i], sep))
 			i++;
-		if (s[i] && !is_sep(s[i], sep))
+		if (s[i])
 		{
-			tab[w] = allocate_word(&s[i], sep);
-			if (!tab[w])
-				return (free_error_alloc(w, tab));
-			w++;
-			while (s[i] && !is_sep(s[i], sep))
+			if (is_redir(&s[i], 0))
 			{
-				if (is_quote(s, i))
-					i = handle_quotes(s, i);
-				else
+				tab[w] = allocate_word(&s[i], sep);
+				if (!tab[w])
+					return (free_error_alloc(w, tab));
+				w++;
+				while (s[i] && is_redir(&s[i], 0))
 					i++;
+			}
+			else
+			{
+				tab[w] = allocate_word(&s[i], sep);
+				if (!tab[w])
+					return (free_error_alloc(w, tab));
+				w++;
+				while (s[i] && !is_sep(s[i], sep) && !is_redir(&s[i], 0))
+				{
+					if (is_quote(s, i))
+						i = handle_quotes(s, i);
+					else
+						i++;
+				}
 			}
 		}
 	}
