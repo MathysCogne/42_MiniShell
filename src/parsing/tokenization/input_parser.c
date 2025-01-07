@@ -6,7 +6,7 @@
 /*   By: mcogne-- <mcogne--@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/13 13:09:07 by mcogne--          #+#    #+#             */
-/*   Updated: 2025/01/06 21:19:58 by mcogne--         ###   ########.fr       */
+/*   Updated: 2025/01/07 17:17:21 by mcogne--         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,6 +41,7 @@ short	get_input(t_minishell *env)
 	char	*input;
 	char	**tab_input;
 
+	tab_input = NULL;
 	input = readline(get_shell_name());
 	if (!input)
 		return (1);
