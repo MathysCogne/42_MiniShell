@@ -6,7 +6,7 @@
 /*   By: achantra <achantra@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/03 14:51:42 by achantra          #+#    #+#             */
-/*   Updated: 2025/01/07 12:33:55 by achantra         ###   ########.fr       */
+/*   Updated: 2025/01/07 17:52:45 by achantra         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,10 +40,10 @@ int	create_doc(t_token *hd)
 
 	file = find_file_name();
 	if (!file)
-		return (perror(get_shell_name()), FATAL_ERROR);
+		return (perror(SHELL_NAME_ERR), FATAL_ERROR);
 	fd = open(file, O_CREAT | O_WRONLY | O_TRUNC, 0644);
 	if (fd < 0)
-		return (perror(get_shell_name()), EXIT_FAILURE);
+		return (perror(SHELL_NAME_ERR), EXIT_FAILURE);
 	ft_putstr_fd("> ", 1);
 	buffer = get_next_line(0);
 	while (buffer && ft_strncmp(buffer, hd->value, ft_strlen(buffer) - 1))

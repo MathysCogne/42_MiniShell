@@ -6,7 +6,7 @@
 /*   By: achantra <achantra@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/13 12:52:28 by mcogne--          #+#    #+#             */
-/*   Updated: 2025/01/07 15:03:37 by achantra         ###   ########.fr       */
+/*   Updated: 2025/01/07 18:21:48 by achantra         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,7 @@
 /*******************************/
 
 # define TOKEN_SEPARATOR " \t\n\v\f\r"
-
+# define SHELL_NAME_ERR "bzh"
 # define SHELL_NAME "bzh » "
 # define ERR_SYNTAX "Syntax error: "
 
@@ -96,6 +96,9 @@ void			free_split(char **tab);
 # define EXIT_NF 127
 
 // Exec process
+void			clean_child(t_minishell *env);
+void			clean_heredoc(t_command *cmd);
+int				open_redir(t_command *cmd);
 int				find_heredoc(t_command *cmds);
 short			exec(t_minishell *env);
 void			pr_error(int e, char *element);
@@ -107,7 +110,7 @@ int				echo(char **args);
 int				env_b(void);
 int				pwd_b(void);
 int				cd(char **args);
-int				exec_builtin(t_command *cmd);
+int				exec_builtin(t_minishell *env, t_command *cmd);
 
 /*******************************/
 /*            UTILS            */

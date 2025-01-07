@@ -6,7 +6,7 @@
 /*   By: achantra <achantra@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/20 14:35:07 by achantra          #+#    #+#             */
-/*   Updated: 2025/01/07 15:51:49 by achantra         ###   ########.fr       */
+/*   Updated: 2025/01/07 18:20:10 by achantra         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ int	handle_process_error(t_minishell *env, int *p_end)
 	}
 	if (env->last_fd0)
 		close(env->last_fd0);
-	perror(get_shell_name());
+	perror(SHELL_NAME_ERR);
 	return (EXIT_FAILURE);
 }
 
@@ -51,17 +51,15 @@ int	main_process(t_minishell *env, int *p_end)
 	return (0);
 }
 
-void	clean_heredoc(t_command *cmd)
+int	simple_cmd(t_minishell *env)
 {
-	t_input	*tmp;
-
-	tmp = cmd->redir_lst;
-	while (tmp)
-	{
-		if (tmp->token->type == TOKEN_HEREDOC)
-			unlink(tmp->token->value);
-		tmp = tmp->next;
-	}
+	if (open_redir(env->cmds))
+		return (EXIT_FAILURE);
+	if (!ft_strcmp(env->cmds->cmd->value, "cd"))
+		return (cd(env->cmds->str_args));
+	else if (!ft_strcmp(env->cmds->cmd->value, "exit"))
+		return (clean_child(env), exit(0), 0);
+	return (0);
 }
 
 short	exec(t_minishell *env)
@@ -71,6 +69,12 @@ short	exec(t_minishell *env)
 
 	env->last_fd0 = 0;
 	find_heredoc(env->cmds);
+	if (!env->cmds->is_pipe && (!ft_strcmp(env->cmds->cmd->value, "cd")
+			|| !ft_strcmp(env->cmds->cmd->value, "exit")))
+	{
+		env->last_err_code = simple_cmd(env);
+		return (0);
+	}
 	env->curr_cmd = env->cmds;
 	if (main_process(env, p_end))
 		return (EXIT_FAILURE);

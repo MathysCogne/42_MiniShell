@@ -6,14 +6,12 @@
 /*   By: achantra <achantra@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/20 15:34:29 by achantra          #+#    #+#             */
-/*   Updated: 2025/01/07 15:16:40 by achantra         ###   ########.fr       */
+/*   Updated: 2025/01/07 18:16:16 by achantra         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-/*Garder le dernier fd de type redirection_out ou redirection_out_append
-comme fd_out et fermer les autres.*/
 short	find_fd_out(int *p_end, t_command *cmd)
 {
 	t_input	*last_input_out;
@@ -43,8 +41,6 @@ short	find_fd_out(int *p_end, t_command *cmd)
 		return (p_end[1]);
 }
 
-/*Garder le dernier fd de type heredoc ou redirection_in
-comme fd_in et fermer les autres.*/
 short	find_fd_in(t_minishell *env, t_command *cmd)
 {
 	t_input	*last_input_in;
@@ -83,7 +79,8 @@ int	open_redir(t_command *cmd)
 		else if (tmp->token->type == TOKEN_REDIRECTION_APPEND_OUT)
 			fd = open(tmp->token->value, O_CREAT | O_WRONLY | O_APPEND, 0644);
 		if (fd < 0)
-			return (perror(tmp->token->value), 1);
+			return (ft_putstr_fd(SHELL_NAME_ERR, 2), ft_putstr_fd(": ", 2),
+				perror(tmp->token->value), 1);
 		close(fd);
 		tmp = tmp->next;
 	}
@@ -115,33 +112,25 @@ int	child_process(int *p_end, t_minishell *env, t_command *cmd)
 {
 	int	fd_in;
 	int	fd_out;
-	int	res;
-	
+
 	close(p_end[0]);
 	if (open_redir(cmd))
-		return (close(p_end[1]), gc_clean(env->gc), env->gc = NULL, delete_input(env), EXIT_FAILURE);
+		return (close(p_end[1]), clean_child(env), EXIT_FAILURE);
 	fd_in = find_fd_in(env, cmd);
 	if (fd_in < 0)
-		return (close(p_end[1]), perror(get_shell_name()), gc_clean(env->gc), env->gc = NULL, delete_input(env), EXIT_FAILURE);
+		return (close(p_end[1]), perror(SHELL_NAME_ERR), clean_child(env),
+			EXIT_FAILURE);
 	fd_out = find_fd_out(p_end, cmd);
 	if (fd_out < 0)
-		return (close(p_end[1]), close(fd_in), perror(get_shell_name()), gc_clean(env->gc), env->gc = NULL, delete_input(env),
-			EXIT_FAILURE);
+		return (close(p_end[1]), close(fd_in), perror(SHELL_NAME_ERR),
+			clean_child(env), EXIT_FAILURE);
 	if (dup_fd(fd_in, fd_out) < 0)
-		return (perror(get_shell_name()), gc_clean(env->gc), env->gc = NULL, delete_input(env),
-			EXIT_FAILURE);
+		return (perror(SHELL_NAME_ERR), clean_child(env), EXIT_FAILURE);
 	if (cmd->cmd->type == TOKEN_ARGUMENT)
-		return (pr_error(NOT_FOUND_ERROR, cmd->cmd->value), gc_clean(env->gc), env->gc = NULL, delete_input(env), EXIT_FAILURE);
+		return (pr_error(NOT_FOUND_ERROR, cmd->cmd->value), clean_child(env),
+			EXIT_FAILURE);
 	else if (cmd->cmd->type == TOKEN_BUILTIN)
-	{
-		res = exec_builtin(cmd);
-		return (gc_clean(env->gc), env->gc = NULL, delete_input(env), res);
-	}
+		return (exec_builtin(env, cmd));
 	execve(cmd->cmd_path, cmd->str_args, env->envp);
-	return (perror(get_shell_name()), gc_clean(env->gc), env->gc = NULL, delete_input(env),
-		EXIT_FAILURE);
+	return (perror(SHELL_NAME_ERR), clean_child(env), EXIT_FAILURE);
 }
-
-// ft_fprintf(2, "last_fd0 = %d\n", env->last_fd0);
-// ft_fprintf(2, "fd_in = %d\n", fd_in);
-// ft_fprintf(2, "fd_out = %d\n", fd_out);
