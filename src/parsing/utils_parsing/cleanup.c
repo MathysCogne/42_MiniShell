@@ -6,7 +6,7 @@
 /*   By: mcogne-- <mcogne--@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/14 22:27:24 by mcogne--          #+#    #+#             */
-/*   Updated: 2025/01/07 16:58:00 by mcogne--         ###   ########.fr       */
+/*   Updated: 2025/01/07 18:11:21 by mcogne--         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,8 +24,7 @@ void	free_split(char **tab)
 		free(tab[i]);
 		i++;
 	}
-	if (tab[i])
-		free(tab[i]);
+	free(tab[i]);
 	free(tab);
 }
 
@@ -89,7 +88,7 @@ void	delete_input(t_minishell *env)
 	t_input	*next;
 
 	current = env->input;
-	while (current && current->token)
+	while (current)
 	{
 		next = current->next;
 		free(current->token->value);

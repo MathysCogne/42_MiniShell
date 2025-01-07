@@ -6,7 +6,7 @@
 /*   By: mcogne-- <mcogne--@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/15 00:18:43 by mcogne--          #+#    #+#             */
-/*   Updated: 2025/01/04 19:01:54 by mcogne--         ###   ########.fr       */
+/*   Updated: 2025/01/07 18:16:16 by mcogne--         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,7 +46,6 @@ static char	*join_path_and_command(const char *path, const char *command)
 /*
 ** Return if valid and executable command
 */
-// TODO ERREUR GESTION DES DROITS ??
 static char	*check_command_in_paths(t_minishell *env, char **paths,
 		const char *command)
 {
@@ -110,6 +109,15 @@ char	*is_external_command(t_minishell *env, char *token)
 	if (!paths)
 		return (0);
 	path_cmd = check_command_in_paths(env, paths, token);
-	env->envp = paths;
+	if (!env->envp)
+	{
+		ft_printf(GREEN "SET ENV PATH");
+		env->envp = paths;
+	}
+	else
+	{
+		ft_printf(RED "FREEE");
+		free_split(paths);
+	}
 	return (path_cmd);
 }

@@ -6,7 +6,7 @@
 /*   By: mcogne-- <mcogne--@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/13 12:52:28 by mcogne--          #+#    #+#             */
-/*   Updated: 2025/01/06 22:36:55 by mcogne--         ###   ########.fr       */
+/*   Updated: 2025/01/07 17:23:07 by mcogne--         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,8 +68,8 @@ short			find_path_and_cmd(t_minishell *env, t_command *command);
 /*******************************/
 /*         QUOTE EXPAND        */
 /*******************************/
-short			handler_quote_expand(t_input *input);
-char			*expand_var(t_token *token);
+short			handler_quote_expand(t_minishell *env, t_input *input);
+char			*expand_var(t_minishell *env, t_token *token);
 short			handler_quote(t_token *token);
 short			delete_anti_slash(t_token *token);
 short			check_single_quotes(char *str);
