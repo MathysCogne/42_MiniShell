@@ -6,7 +6,7 @@
 /*   By: mcogne-- <mcogne--@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/01 23:22:56 by mcogne--          #+#    #+#             */
-/*   Updated: 2025/01/07 18:20:50 by mcogne--         ###   ########.fr       */
+/*   Updated: 2025/01/07 18:40:56 by mcogne--         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,13 +18,7 @@ static char	*get_env_var(t_minishell *env, char *var)
 	char	*tmp;
 
 	if (ft_strchr(var, '?'))
-	{
-		free(var);
-		tmp = ft_itoa(env->last_err_code);
-		var_expand = ft_strdup(tmp);
-		free(tmp);
-		return (var_expand);
-	}
+		return (expand_last_err_code(env, var));
 	var_expand = getenv(var);
 	free(var);
 	if (!var_expand)
