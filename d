@@ -1,0 +1,11 @@
+Makefile
+README.md
+d
+include
+libft
+minishell
+obj
+src
+subject
+txt
+valgrind.supp

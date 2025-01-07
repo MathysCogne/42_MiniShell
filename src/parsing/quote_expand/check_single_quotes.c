@@ -6,7 +6,7 @@
 /*   By: mcogne-- <mcogne--@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/05 19:38:45 by mcogne--          #+#    #+#             */
-/*   Updated: 2025/01/05 21:07:17 by mcogne--         ###   ########.fr       */
+/*   Updated: 2025/01/07 16:21:16 by mcogne--         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ short	check_single_quotes(char *str)
 	size_t	count_simple;
 	size_t	count_double;
 
-	if (!str)
+	if (!str || !str[0])
 		return (0);
 	i = 0;
 	count_simple = 0;

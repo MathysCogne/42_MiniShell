@@ -6,7 +6,7 @@
 /*   By: mcogne-- <mcogne--@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/14 08:34:25 by mcogne--          #+#    #+#             */
-/*   Updated: 2025/01/06 22:35:00 by mcogne--         ###   ########.fr       */
+/*   Updated: 2025/01/07 16:32:34 by mcogne--         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -94,7 +94,7 @@ char	**ft_split_minishell(char const *s, char *sep)
 {
 	char	**tab;
 
-	if (!s)
+	if (!s || !s[0])
 		return (NULL);
 	tab = malloc(sizeof(char *) * (count_words(s, sep) + 1));
 	if (!tab)

@@ -6,7 +6,7 @@
 /*   By: mcogne-- <mcogne--@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/14 22:27:24 by mcogne--          #+#    #+#             */
-/*   Updated: 2025/01/06 22:32:32 by mcogne--         ###   ########.fr       */
+/*   Updated: 2025/01/07 16:58:00 by mcogne--         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,8 @@ void	free_split(char **tab)
 		free(tab[i]);
 		i++;
 	}
-	free(tab[i]);
+	if (tab[i])
+		free(tab[i]);
 	free(tab);
 }
 
@@ -49,6 +50,8 @@ static void	delete_commands(t_minishell *env)
 	t_command	*next;
 	int			i;
 
+	if (!env->cmds)
+		return ;
 	current = env->cmds;
 	while (current)
 	{
@@ -68,7 +71,13 @@ static void	delete_commands(t_minishell *env)
 		free(current);
 		current = next;
 	}
+}
+
+static void	reset_input(t_minishell *env)
+{
+	env->input = NULL;
 	env->cmds = NULL;
+	env->envp = NULL;
 }
 
 /*
@@ -80,7 +89,7 @@ void	delete_input(t_minishell *env)
 	t_input	*next;
 
 	current = env->input;
-	while (current)
+	while (current && current->token)
 	{
 		next = current->next;
 		free(current->token->value);
@@ -88,7 +97,8 @@ void	delete_input(t_minishell *env)
 		free(current);
 		current = next;
 	}
-	free_split(env->envp);
+	if (env->envp)
+		free_split(env->envp);
 	delete_commands(env);
-	env->input = NULL;
+	reset_input(env);
 }
