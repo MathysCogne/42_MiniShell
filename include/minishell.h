@@ -3,7 +3,7 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mcogne-- <mcogne--@student.42.fr>          +#+  +:+       +#+        */
+/*   By: achantra <achantra@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/13 12:52:28 by mcogne--          #+#    #+#             */
 /*   Updated: 2025/01/07 17:23:07 by mcogne--         ###   ########.fr       */
@@ -99,7 +99,6 @@ void			free_split(char **tab);
 int				find_heredoc(t_command *cmds);
 short			exec(t_minishell *env);
 void			pr_error(int e, char *element);
-int				test_input(char *input, int *error);
 int				child_process(int *p_end, t_minishell *env, t_command *cmd);
 // Signal
 void			setup_signal(void);
@@ -108,12 +107,13 @@ int				echo(char **args);
 int				env_b(void);
 int				pwd_b(void);
 int				cd(char **args);
+int				exec_builtin(t_command *cmd);
 
 /*******************************/
 /*            UTILS            */
 /*******************************/
 // SPLIT MINISHELL
-char			**ft_split_minishell(char const *s, char *sep);
+char			**ft_split_minishell(const char *s, char *sep);
 short			is_sep(char c, char *sep);
 char			**free_error_alloc(size_t i, char **tab);
 size_t			skip_word(const char *str, size_t i, char *sep);

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   struct.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: achantra <achantra@42.fr>                  +#+  +:+       +#+        */
+/*   By: achantra <achantra@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/01 14:45:47 by mcogne--          #+#    #+#             */
-/*   Updated: 2025/01/05 22:25:07 by achantra         ###   ########.fr       */
+/*   Updated: 2025/01/07 11:59:18 by achantra         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,10 +52,6 @@ typedef struct s_command
 	pid_t				pid;
 	struct s_command	*next;
 	struct s_command	*prev;
-	// A SUPR UNE FOIS EXEC MaJ
-	t_token				*outfile;
-	t_token				*infile;
-	t_token				*limiter_hd;
 }						t_command;
 
 typedef struct s_minishell

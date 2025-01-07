@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   env.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mcogne-- <mcogne--@student.42.fr>          +#+  +:+       +#+        */
+/*   By: achantra <achantra@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/06 01:29:11 by achantra          #+#    #+#             */
-/*   Updated: 2025/01/06 22:51:35 by mcogne--         ###   ########.fr       */
+/*   Updated: 2025/01/07 13:18:47 by achantra         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,6 @@ int	env_b(void)
 	int			i;
 	extern char	**environ;
 
-	// Checker si c est ok pour la norme
 	i = 0;
 	while (environ[i])
 	{
