@@ -6,7 +6,7 @@
 /*   By: mcogne-- <mcogne--@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/07 18:39:12 by mcogne--          #+#    #+#             */
-/*   Updated: 2025/01/07 21:21:33 by mcogne--         ###   ########.fr       */
+/*   Updated: 2025/01/07 22:34:25 by mcogne--         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,16 +14,18 @@
 
 char	*expand_last_err_code(t_minishell *env, char *var)
 {
-	int		code_sig;
 	char	*var_expand;
+	int		exit_code;
 
 	free(var);
 	if (WIFSIGNALED(env->last_err_code))
+		var_expand = ft_strdup("130");
+	else if (WIFEXITED(env->last_err_code))
 	{
-		code_sig = WTERMSIG(env->last_err_code);
-		var_expand = ft_itoa(128 + code_sig);
+		exit_code = WEXITSTATUS(env->last_err_code);
+		var_expand = ft_itoa(exit_code);
 	}
 	else
-		var_expand = ft_itoa(WEXITSTATUS(env->last_err_code));
+		var_expand = ft_strdup("1");
 	return (var_expand);
 }

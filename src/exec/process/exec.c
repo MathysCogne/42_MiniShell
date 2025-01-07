@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exec.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: achantra <achantra@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mcogne-- <mcogne--@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/20 14:35:07 by achantra          #+#    #+#             */
-/*   Updated: 2025/01/07 18:33:17 by achantra         ###   ########.fr       */
+/*   Updated: 2025/01/07 22:41:15 by mcogne--         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,6 +61,13 @@ int	simple_cmd(t_minishell *env)
 		return (clean_child(env), exit(0), 0);
 	return (0);
 }
+
+/*
+** HOLA ! Tu peux me set last error pour ces cas:
+**
+** 32512 -> Pas les droits exec (Correspond a 126)
+** 32512 -> Cmd introuvable (Correspond a 127)
+*/
 
 short	exec(t_minishell *env)
 {

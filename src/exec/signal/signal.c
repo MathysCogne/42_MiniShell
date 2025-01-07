@@ -6,7 +6,7 @@
 /*   By: mcogne-- <mcogne--@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/24 20:05:06 by mcogne--          #+#    #+#             */
-/*   Updated: 2025/01/04 16:29:09 by mcogne--         ###   ########.fr       */
+/*   Updated: 2025/01/07 22:17:05 by mcogne--         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,9 +29,7 @@ void	handler_sigint(int sig, siginfo_t *info, void *context)
 		rl_redisplay();
 	}
 	else
-	{
 		ft_printf("\n");
-	}
 }
 
 void	setup_signal(void)

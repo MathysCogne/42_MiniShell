@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: achantra <achantra@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mcogne-- <mcogne--@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/13 12:52:28 by mcogne--          #+#    #+#             */
-/*   Updated: 2025/01/07 18:21:48 by achantra         ###   ########.fr       */
+/*   Updated: 2025/01/07 22:29:50 by mcogne--         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,11 +68,12 @@ short			find_path_and_cmd(t_minishell *env, t_command *command);
 /*******************************/
 /*         QUOTE EXPAND        */
 /*******************************/
-short			handler_quote_expand(t_input *input);
-char			*expand_var(t_token *token);
+short			handler_quote_expand(t_minishell *env, t_input *input);
+char			*expand_var(t_minishell *env, t_token *token);
 short			handler_quote(t_token *token);
 short			delete_anti_slash(t_token *token);
 short			check_single_quotes(char *str);
+char			*expand_last_err_code(t_minishell *env, char *var);
 
 /*******************************/
 /*         UTILS PARSING       */

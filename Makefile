@@ -22,6 +22,7 @@ SRC = minishell.c \
 			parsing/quote_expand/quote_expand.c \
 			parsing/quote_expand/quote_handler.c \
 			parsing/quote_expand/check_single_quotes.c \
+			parsing/quote_expand/expand_last_err_code.c \
 \
 			parsing/utils_parsing/cleanup.c \
 			parsing/utils_parsing/init_struct_env.c \
