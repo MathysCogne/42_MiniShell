@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: achantra <achantra@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mcogne-- <mcogne--@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/13 12:52:28 by mcogne--          #+#    #+#             */
-/*   Updated: 2025/01/07 17:23:07 by mcogne--         ###   ########.fr       */
+/*   Updated: 2025/01/07 21:22:16 by mcogne--         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,7 @@
 /*******************************/
 
 # define TOKEN_SEPARATOR " \t\n\v\f\r"
-# define SHELL_NAME_ERR "bzh"
+
 # define SHELL_NAME "bzh » "
 # define ERR_SYNTAX "Syntax error: "
 
@@ -73,6 +73,7 @@ char			*expand_var(t_minishell *env, t_token *token);
 short			handler_quote(t_token *token);
 short			delete_anti_slash(t_token *token);
 short			check_single_quotes(char *str);
+char			*expand_last_err_code(t_minishell *env, char *var);
 
 /*******************************/
 /*         UTILS PARSING       */
@@ -96,12 +97,10 @@ void			free_split(char **tab);
 # define EXIT_NF 127
 
 // Exec process
-void			clean_child(t_minishell *env);
-void			clean_heredoc(t_command *cmd);
-int				open_redir(t_command *cmd);
 int				find_heredoc(t_command *cmds);
 short			exec(t_minishell *env);
 void			pr_error(int e, char *element);
+int				test_input(char *input, int *error);
 int				child_process(int *p_end, t_minishell *env, t_command *cmd);
 // Signal
 void			setup_signal(void);
@@ -110,13 +109,12 @@ int				echo(char **args);
 int				env_b(void);
 int				pwd_b(void);
 int				cd(char **args);
-int				exec_builtin(t_minishell *env, t_command *cmd);
 
 /*******************************/
 /*            UTILS            */
 /*******************************/
 // SPLIT MINISHELL
-char			**ft_split_minishell(const char *s, char *sep);
+char			**ft_split_minishell(char const *s, char *sep);
 short			is_sep(char c, char *sep);
 char			**free_error_alloc(size_t i, char **tab);
 size_t			skip_word(const char *str, size_t i, char *sep);

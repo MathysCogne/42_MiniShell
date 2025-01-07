@@ -6,7 +6,7 @@
 /*   By: mcogne-- <mcogne--@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/01 23:22:56 by mcogne--          #+#    #+#             */
-/*   Updated: 2025/01/07 18:40:56 by mcogne--         ###   ########.fr       */
+/*   Updated: 2025/01/07 21:22:24 by mcogne--         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,6 @@
 static char	*get_env_var(t_minishell *env, char *var)
 {
 	char	*var_expand;
-	char	*tmp;
 
 	if (ft_strchr(var, '?'))
 		return (expand_last_err_code(env, var));
