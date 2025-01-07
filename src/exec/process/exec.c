@@ -6,7 +6,7 @@
 /*   By: achantra <achantra@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/20 14:35:07 by achantra          #+#    #+#             */
-/*   Updated: 2025/01/07 18:20:10 by achantra         ###   ########.fr       */
+/*   Updated: 2025/01/07 18:33:17 by achantra         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,6 +85,6 @@ short	exec(t_minishell *env)
 		clean_heredoc(env->curr_cmd);
 		env->curr_cmd = env->curr_cmd->next;
 	}
-	env->last_err_code = WEXITSTATUS(status);
+	env->last_err_code = status;
 	return (close(p_end[0]), close(p_end[1]), 0);
 }
