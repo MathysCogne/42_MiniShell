@@ -6,7 +6,7 @@
 /*   By: achantra <achantra@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/20 15:34:29 by achantra          #+#    #+#             */
-/*   Updated: 2025/01/07 12:23:39 by achantra         ###   ########.fr       */
+/*   Updated: 2025/01/07 15:16:40 by achantra         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -115,27 +115,30 @@ int	child_process(int *p_end, t_minishell *env, t_command *cmd)
 {
 	int	fd_in;
 	int	fd_out;
-
+	int	res;
+	
 	close(p_end[0]);
 	if (open_redir(cmd))
-		return (close(p_end[1]), EXIT_FAILURE);
+		return (close(p_end[1]), gc_clean(env->gc), env->gc = NULL, delete_input(env), EXIT_FAILURE);
 	fd_in = find_fd_in(env, cmd);
 	if (fd_in < 0)
-		return (close(p_end[1]), perror(get_shell_name()), EXIT_FAILURE);
+		return (close(p_end[1]), perror(get_shell_name()), gc_clean(env->gc), env->gc = NULL, delete_input(env), EXIT_FAILURE);
 	fd_out = find_fd_out(p_end, cmd);
 	if (fd_out < 0)
-		return (close(p_end[1]), close(fd_in), perror(get_shell_name()),
+		return (close(p_end[1]), close(fd_in), perror(get_shell_name()), gc_clean(env->gc), env->gc = NULL, delete_input(env),
 			EXIT_FAILURE);
 	if (dup_fd(fd_in, fd_out) < 0)
-		return (perror(get_shell_name()), gc_clean(env->gc), delete_input(env),
+		return (perror(get_shell_name()), gc_clean(env->gc), env->gc = NULL, delete_input(env),
 			EXIT_FAILURE);
 	if (cmd->cmd->type == TOKEN_ARGUMENT)
-		return (pr_error(NOT_FOUND_ERROR, cmd->cmd->value), gc_clean(env->gc),
-			delete_input(env), EXIT_FAILURE);
+		return (pr_error(NOT_FOUND_ERROR, cmd->cmd->value), gc_clean(env->gc), env->gc = NULL, delete_input(env), EXIT_FAILURE);
 	else if (cmd->cmd->type == TOKEN_BUILTIN)
-		return (exec_builtin(env, cmd));
+	{
+		res = exec_builtin(cmd);
+		return (gc_clean(env->gc), env->gc = NULL, delete_input(env), res);
+	}
 	execve(cmd->cmd_path, cmd->str_args, env->envp);
-	return (perror(get_shell_name()), gc_clean(env->gc), delete_input(env),
+	return (perror(get_shell_name()), gc_clean(env->gc), env->gc = NULL, delete_input(env),
 		EXIT_FAILURE);
 }
 

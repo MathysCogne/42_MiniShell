@@ -6,7 +6,7 @@
 /*   By: achantra <achantra@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/13 12:52:28 by mcogne--          #+#    #+#             */
-/*   Updated: 2025/01/07 12:34:58 by achantra         ###   ########.fr       */
+/*   Updated: 2025/01/07 15:03:37 by achantra         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -107,13 +107,13 @@ int				echo(char **args);
 int				env_b(void);
 int				pwd_b(void);
 int				cd(char **args);
-int				exec_builtin(t_minishell *env, t_command *cmd);
+int				exec_builtin(t_command *cmd);
 
 /*******************************/
 /*            UTILS            */
 /*******************************/
 // SPLIT MINISHELL
-char			**ft_split_minishell(char const *s, char *sep);
+char			**ft_split_minishell(const char *s, char *sep);
 short			is_sep(char c, char *sep);
 char			**free_error_alloc(size_t i, char **tab);
 size_t			skip_word(const char *str, size_t i, char *sep);

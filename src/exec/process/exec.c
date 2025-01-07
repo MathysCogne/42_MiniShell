@@ -6,7 +6,7 @@
 /*   By: achantra <achantra@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/20 14:35:07 by achantra          #+#    #+#             */
-/*   Updated: 2025/01/07 12:06:25 by achantra         ###   ########.fr       */
+/*   Updated: 2025/01/07 15:51:49 by achantra         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,6 +69,7 @@ short	exec(t_minishell *env)
 	int	p_end[2];
 	int	status;
 
+	env->last_fd0 = 0;
 	find_heredoc(env->cmds);
 	env->curr_cmd = env->cmds;
 	if (main_process(env, p_end))
