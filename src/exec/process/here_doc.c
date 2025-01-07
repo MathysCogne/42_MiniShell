@@ -3,25 +3,23 @@
 /*                                                        :::      ::::::::   */
 /*   here_doc.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mcogne-- <mcogne--@student.42.fr>          +#+  +:+       +#+        */
+/*   By: achantra <achantra@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/03 14:51:42 by achantra          #+#    #+#             */
-/*   Updated: 2025/01/06 22:51:45 by mcogne--         ###   ########.fr       */
+/*   Updated: 2025/01/07 12:33:55 by achantra         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-int	create_doc(t_token *hd)
+char	*find_file_name(void)
 {
-	char	*buffer;
-	int		fd;
 	char	*file;
 
 	// Remplacer par une gestion aleatoire de nom de fichier.
 	file = ft_strjoin("tmp", "000");
 	if (!file)
-		return (perror(get_shell_name()), FATAL_ERROR);
+		return (NULL);
 	while (access(file, F_OK) == 0)
 	{
 		if (ft_isprint(file[5] + 1))
@@ -31,6 +29,18 @@ int	create_doc(t_token *hd)
 		else if (ft_isprint(file[3] + 1))
 			file[3] += 1;
 	}
+	return (file);
+}
+
+int	create_doc(t_token *hd)
+{
+	char	*buffer;
+	int		fd;
+	char	*file;
+
+	file = find_file_name();
+	if (!file)
+		return (perror(get_shell_name()), FATAL_ERROR);
 	fd = open(file, O_CREAT | O_WRONLY | O_TRUNC, 0644);
 	if (fd < 0)
 		return (perror(get_shell_name()), EXIT_FAILURE);

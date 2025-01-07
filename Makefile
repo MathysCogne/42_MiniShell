@@ -32,11 +32,11 @@ SRC = minishell.c \
 			exec/process/exec_process.c \
 			exec/process/here_doc.c \
 			exec/signal/signal.c \
-\
-		builtins/echo.c \
-		builtins/env.c \
-		builtins/pwd.c \
-		builtins/cd.c \
+			exec/builtins/echo.c \
+			exec/builtins/env.c \
+			exec/builtins/pwd.c \
+			exec/builtins/cd.c \
+			exec/builtins/exec_builtin.c \
 \
 		utils/split/split_helper.c \
 		utils/split/split_minishell.c \

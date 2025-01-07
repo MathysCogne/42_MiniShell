@@ -3,14 +3,27 @@
 /*                                                        :::      ::::::::   */
 /*   exec.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: achantra <achantra@42.fr>                  +#+  +:+       +#+        */
+/*   By: achantra <achantra@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/20 14:35:07 by achantra          #+#    #+#             */
-/*   Updated: 2025/01/06 00:22:51 by achantra         ###   ########.fr       */
+/*   Updated: 2025/01/07 12:06:25 by achantra         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
+
+int	handle_process_error(t_minishell *env, int *p_end)
+{
+	if (p_end)
+	{
+		close(p_end[0]);
+		close(p_end[1]);
+	}
+	if (env->last_fd0)
+		close(env->last_fd0);
+	perror(get_shell_name());
+	return (EXIT_FAILURE);
+}
 
 int	main_process(t_minishell *env, int *p_end)
 {
@@ -19,15 +32,10 @@ int	main_process(t_minishell *env, int *p_end)
 	while (env->curr_cmd)
 	{
 		if (pipe(p_end) == -1)
-			return (perror(get_shell_name()), EXIT_FAILURE);
+			return (handle_process_error(env, NULL));
 		pid = fork();
 		if (pid < 0)
-		{
-			if (env->last_fd0)
-				close(env->last_fd0);
-			return (close(p_end[0]), close(p_end[1]), perror(get_shell_name()),
-				EXIT_FAILURE);
-		}
+			return (handle_process_error(env, p_end));
 		else if (pid == 0)
 			exit(child_process(p_end, env, env->curr_cmd));
 		else
@@ -46,7 +54,7 @@ int	main_process(t_minishell *env, int *p_end)
 void	clean_heredoc(t_command *cmd)
 {
 	t_input	*tmp;
-	
+
 	tmp = cmd->redir_lst;
 	while (tmp)
 	{

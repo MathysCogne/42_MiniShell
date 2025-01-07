@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mcogne-- <mcogne--@student.42.fr>          +#+  +:+       +#+        */
+/*   By: achantra <achantra@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/13 12:52:28 by mcogne--          #+#    #+#             */
-/*   Updated: 2025/01/06 22:36:55 by mcogne--         ###   ########.fr       */
+/*   Updated: 2025/01/07 12:34:58 by achantra         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -99,7 +99,6 @@ void			free_split(char **tab);
 int				find_heredoc(t_command *cmds);
 short			exec(t_minishell *env);
 void			pr_error(int e, char *element);
-int				test_input(char *input, int *error);
 int				child_process(int *p_end, t_minishell *env, t_command *cmd);
 // Signal
 void			setup_signal(void);
@@ -108,6 +107,7 @@ int				echo(char **args);
 int				env_b(void);
 int				pwd_b(void);
 int				cd(char **args);
+int				exec_builtin(t_minishell *env, t_command *cmd);
 
 /*******************************/
 /*            UTILS            */

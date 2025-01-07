@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   command_utils.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mcogne-- <mcogne--@student.42.fr>          +#+  +:+       +#+        */
+/*   By: achantra <achantra@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/24 22:36:10 by mcogne--          #+#    #+#             */
-/*   Updated: 2025/01/06 21:10:34 by mcogne--         ###   ########.fr       */
+/*   Updated: 2025/01/07 11:59:03 by achantra         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,9 +21,6 @@ t_command	*create_command(void)
 		return (NULL);
 	command->cmd = NULL;
 	command->args = NULL;
-	command->outfile = NULL;
-	command->infile = NULL;
-	command->limiter_hd = NULL;
 	command->redir_lst = NULL;
 	command->is_pipe = 0;
 	command->cmd_path = NULL;
