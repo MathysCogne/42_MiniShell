@@ -31,6 +31,7 @@ SRC = minishell.c \
 			exec/process/exec_error.c \
 			exec/process/exec_process.c \
 			exec/process/here_doc.c \
+			exec/process/clean_exit.c \
 			exec/signal/signal.c \
 			exec/builtins/echo.c \
 			exec/builtins/env.c \
