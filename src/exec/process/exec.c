@@ -6,7 +6,7 @@
 /*   By: achantra <achantra@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/20 14:35:07 by achantra          #+#    #+#             */
-/*   Updated: 2025/01/08 12:38:32 by achantra         ###   ########.fr       */
+/*   Updated: 2025/01/08 14:26:49 by achantra         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,7 +58,7 @@ int	simple_cmd(t_minishell *env)
 	if (!ft_strcmp(env->cmds->cmd->value, "cd"))
 		return (cd(env->cmds->str_args));
 	else if (!ft_strcmp(env->cmds->cmd->value, "exit"))
-		return (exit_b(env, env->cmds->str_args));
+		return (ft_putendl_fd("exit", 1), exit_b(env, env->cmds->str_args));
 	return (0);
 }
 

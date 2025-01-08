@@ -6,7 +6,7 @@
 /*   By: achantra <achantra@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/07 12:23:16 by achantra          #+#    #+#             */
-/*   Updated: 2025/01/08 12:39:01 by achantra         ###   ########.fr       */
+/*   Updated: 2025/01/08 14:35:20 by achantra         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,8 +25,9 @@ int	exec_builtin(t_minishell *env, t_command *cmd)
 	else if (!ft_strcmp(cmd->cmd->value, "cd") && cd(cmd->str_args))
 		return (clean_child(env), 1);
 	else if (!ft_strcmp(cmd->cmd->value, "export") && export_b(cmd->str_args))
-			return (clean_child(env), 1);
-	/*else if (!ft_strcmp(cmd->cmd->value, "unset") && unset(env, cmd->str_args))
+		return (clean_child(env), 1);
+	/*else if (!ft_strcmp(cmd->cmd->value, "unset") && unset(env,
+			cmd->str_args))
 			return (clean_child(env), 1);
 	*/
 	return (clean_child(env), 0);
