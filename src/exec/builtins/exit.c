@@ -6,7 +6,7 @@
 /*   By: achantra <achantra@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/08 12:21:37 by achantra          #+#    #+#             */
-/*   Updated: 2025/01/08 14:34:43 by achantra         ###   ########.fr       */
+/*   Updated: 2025/01/08 16:27:41 by achantra         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,8 @@ static int	ft_isnumeric(char *str)
 	if (!str)
 		return (1);
 	i = 0;
+	if (str[i] == '-' || str[i] == '+')
+		i++;
 	while (str[i])
 	{
 		if (!ft_isdigit(str[i]))
@@ -50,6 +52,7 @@ int	exit_b(t_minishell *env, char **arg)
 	}
 	else
 		exit_status = ft_atoi(arg[1]);
+    //CLEAN les HEREDOC avant de soritr
 	clean_child(env);
 	exit(exit_status);
 }

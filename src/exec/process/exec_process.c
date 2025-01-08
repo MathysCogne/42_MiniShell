@@ -6,7 +6,7 @@
 /*   By: achantra <achantra@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/20 15:34:29 by achantra          #+#    #+#             */
-/*   Updated: 2025/01/07 18:16:16 by achantra         ###   ########.fr       */
+/*   Updated: 2025/01/08 16:31:56 by achantra         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -128,7 +128,7 @@ int	child_process(int *p_end, t_minishell *env, t_command *cmd)
 		return (perror(SHELL_NAME_ERR), clean_child(env), EXIT_FAILURE);
 	if (cmd->cmd->type == TOKEN_ARGUMENT)
 		return (pr_error(NOT_FOUND_ERROR, cmd->cmd->value), clean_child(env),
-			EXIT_FAILURE);
+			EXIT_NF);
 	else if (cmd->cmd->type == TOKEN_BUILTIN)
 		return (exec_builtin(env, cmd));
 	execve(cmd->cmd_path, cmd->str_args, env->envp);

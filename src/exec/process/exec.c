@@ -6,7 +6,7 @@
 /*   By: achantra <achantra@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/20 14:35:07 by achantra          #+#    #+#             */
-/*   Updated: 2025/01/08 14:26:49 by achantra         ###   ########.fr       */
+/*   Updated: 2025/01/08 15:58:16 by achantra         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,6 +59,8 @@ int	simple_cmd(t_minishell *env)
 		return (cd(env->cmds->str_args));
 	else if (!ft_strcmp(env->cmds->cmd->value, "exit"))
 		return (ft_putendl_fd("exit", 1), exit_b(env, env->cmds->str_args));
+	else if (!ft_strcmp(env->cmds->cmd->value, "export"))
+		return (export_b(env->cmds->str_args));
 	return (0);
 }
 
@@ -77,7 +79,7 @@ short	exec(t_minishell *env)
 	env->last_fd0 = 0;
 	find_heredoc(env->cmds);
 	if (!env->cmds->is_pipe && (!ft_strcmp(env->cmds->cmd->value, "cd")
-			|| !ft_strcmp(env->cmds->cmd->value, "exit")))
+			|| !ft_strcmp(env->cmds->cmd->value, "exit") || !ft_strcmp(env->cmds->cmd->value, "export")))
 	{
 		env->last_err_code = simple_cmd(env);
 		return (0);
