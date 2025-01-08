@@ -6,7 +6,7 @@
 /*   By: achantra <achantra@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/13 12:52:35 by mcogne--          #+#    #+#             */
-/*   Updated: 2025/01/07 16:08:07 by achantra         ###   ########.fr       */
+/*   Updated: 2025/01/08 12:09:54 by achantra         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,11 +36,10 @@ static short	minishell(t_minishell *env)
 	return (0);
 }
 
-int	main(int argc, char **argv, char **envp)
+int	main(int argc, char **argv)
 {
 	t_minishell	env;
 
-	(void)envp;
 	if (argc != 1)
 	{
 		ft_fprintf(2, RED BOLD "Usage: %s\n" C_RESET, argv[0]);

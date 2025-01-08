@@ -1,26 +1,18 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   cd.c                                               :+:      :+:    :+:   */
+/*   export.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: achantra <achantra@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/01/06 02:16:35 by achantra          #+#    #+#             */
-/*   Updated: 2025/01/08 12:03:37 by achantra         ###   ########.fr       */
+/*   Created: 2025/01/08 12:04:51 by achantra          #+#    #+#             */
+/*   Updated: 2025/01/08 12:27:45 by achantra         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-int	cd(char **args)
+int export_b(char **arg)
 {
-	char	*home;
-
-	home = getenv("HOME");
-	if (!args[1] || !ft_strcmp(args[1], "~"))
-		chdir(home);
-	if (chdir(args[1]) == -1)
-		return (ft_putstr_fd(SHELL_NAME_ERR, 2), ft_putstr_fd(" : cd: ", 2),
-			perror(args[1]), 1);
-	return (0);
+    return (0);
 }

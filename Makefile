@@ -38,6 +38,8 @@ SRC = minishell.c \
 			exec/builtins/env.c \
 			exec/builtins/pwd.c \
 			exec/builtins/cd.c \
+			exec/builtins/exit.c \
+			exec/builtins/export.c \
 			exec/builtins/exec_builtin.c \
 \
 		utils/split/split_helper.c \
