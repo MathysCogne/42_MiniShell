@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exec_process.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: achantra <achantra@student.42.fr>          +#+  +:+       +#+        */
+/*   By: achantra <achantra@42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/20 15:34:29 by achantra          #+#    #+#             */
-/*   Updated: 2025/01/07 18:16:16 by achantra         ###   ########.fr       */
+/*   Updated: 2025/01/08 18:29:33 by achantra         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -112,6 +112,7 @@ int	child_process(int *p_end, t_minishell *env, t_command *cmd)
 {
 	int	fd_in;
 	int	fd_out;
+	int	status;
 
 	close(p_end[0]);
 	if (open_redir(cmd))
@@ -131,6 +132,6 @@ int	child_process(int *p_end, t_minishell *env, t_command *cmd)
 			EXIT_FAILURE);
 	else if (cmd->cmd->type == TOKEN_BUILTIN)
 		return (exec_builtin(env, cmd));
-	execve(cmd->cmd_path, cmd->str_args, env->envp);
-	return (perror(SHELL_NAME_ERR), clean_child(env), EXIT_FAILURE);
+	status = execve(cmd->cmd_path, cmd->str_args, env->envp);
+	return (perror(SHELL_NAME_ERR), clean_child(env), status);
 }
