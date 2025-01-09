@@ -22,6 +22,7 @@ SRC = minishell.c \
 			parsing/quote_expand/quote_expand.c \
 			parsing/quote_expand/quote_handler.c \
 			parsing/quote_expand/check_single_quotes.c \
+			parsing/quote_expand/expand_last_err_code.c \
 \
 			parsing/utils_parsing/cleanup.c \
 			parsing/utils_parsing/init_struct_env.c \
@@ -30,6 +31,7 @@ SRC = minishell.c \
 		exec/process/exec.c \
 			exec/process/exec_error.c \
 			exec/process/exec_process.c \
+			exec/process/get_next_line.c \
 			exec/process/here_doc.c \
 			exec/process/clean_exit.c \
 			exec/signal/signal.c \
@@ -37,6 +39,8 @@ SRC = minishell.c \
 			exec/builtins/env.c \
 			exec/builtins/pwd.c \
 			exec/builtins/cd.c \
+			exec/builtins/exit.c \
+			exec/builtins/export.c \
 			exec/builtins/exec_builtin.c \
 \
 		utils/split/split_helper.c \

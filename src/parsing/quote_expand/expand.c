@@ -6,16 +6,18 @@
 /*   By: mcogne-- <mcogne--@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/01 23:22:56 by mcogne--          #+#    #+#             */
-/*   Updated: 2025/01/06 21:15:10 by mcogne--         ###   ########.fr       */
+/*   Updated: 2025/01/07 21:45:10 by mcogne--         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-char	*get_env_var(char *var)
+static char	*get_env_var(t_minishell *env, char *var)
 {
 	char	*var_expand;
 
+	if (ft_strchr(var, '?'))
+		return (expand_last_err_code(env, var));
 	var_expand = getenv(var);
 	free(var);
 	if (!var_expand)
@@ -23,7 +25,7 @@ char	*get_env_var(char *var)
 	return (ft_strdup(var_expand));
 }
 
-char	*chr_var_to_expand(char *token)
+static char	*chr_var_to_expand(char *token)
 {
 	char	*var_expand;
 	size_t	i;
@@ -40,7 +42,7 @@ char	*chr_var_to_expand(char *token)
 	return (var_expand);
 }
 
-char	*replace_var_to_value(char *token, char *var_expand)
+static char	*replace_var_to_value(char *token, char *var_expand)
 {
 	char	*new_token;
 	size_t	i;
@@ -69,7 +71,7 @@ char	*replace_var_to_value(char *token, char *var_expand)
 	return (new_token);
 }
 
-char	*expand_var(t_token *token)
+char	*expand_var(t_minishell *env, t_token *token)
 {
 	char	*var_expand;
 	char	*new_token;
@@ -77,7 +79,7 @@ char	*expand_var(t_token *token)
 	var_expand = chr_var_to_expand(token->value);
 	if (!var_expand)
 		return (NULL);
-	var_expand = get_env_var(var_expand);
+	var_expand = get_env_var(env, var_expand);
 	if (!var_expand)
 		return (NULL);
 	else

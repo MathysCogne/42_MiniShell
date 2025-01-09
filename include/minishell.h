@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: achantra <achantra@42.fr>                  +#+  +:+       +#+        */
+/*   By: achantra <achantra@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/13 12:52:28 by mcogne--          #+#    #+#             */
-/*   Updated: 2025/01/08 18:30:08 by achantra         ###   ########.fr       */
+/*   Updated: 2025/01/09 16:08:24 by achantra         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,9 +15,9 @@
 
 # define _POSIX_SOURCE 1
 # define _POSIX_C_SOURCE 200809L
+// # define _GNU_SOURCE
 
 # include "ft_printf.h"
-# include "get_next_line.h"
 # include "libft.h"
 # include "libft_extra.h"
 # include "struct.h"
@@ -39,8 +39,7 @@
 /*******************************/
 
 # define TOKEN_SEPARATOR " \t\n\v\f\r"
-# define SHELL_NAME_ERR "bzh"
-# define SHELL_NAME "bzh » "
+# define SHELL_NAME "bzh"
 # define ERR_SYNTAX "Syntax error: "
 
 /*******************************/
@@ -69,17 +68,19 @@ short			find_path_and_cmd(t_minishell *env, t_command *command);
 /*******************************/
 /*         QUOTE EXPAND        */
 /*******************************/
-short			handler_quote_expand(t_input *input);
-char			*expand_var(t_token *token);
+short			handler_quote_expand(t_minishell *env, t_input *input);
+char			*expand_var(t_minishell *env, t_token *token);
 short			handler_quote(t_token *token);
 short			delete_anti_slash(t_token *token);
 short			check_single_quotes(char *str);
+char			*expand_last_err_code(t_minishell *env, char *var);
 
 /*******************************/
 /*         UTILS PARSING       */
 /*******************************/
 void			debug_print_input(t_input *input);
 void			debug_print_commands(t_command *commands);
+void			free_input(t_input *input);
 void			delete_input(t_minishell *env);
 short			init_struct_env(t_minishell *env);
 void			free_split(char **tab);
@@ -95,20 +96,26 @@ void			free_split(char **tab);
 # define NO_FILE 14
 # define EOF_HERE 15
 # define EXIT_NF 127
+# define BUFFER_SIZE 1000
 
 // Exec process
+void			clean_environ(t_minishell *env);
 void			clean_child(t_minishell *env);
-void			clean_heredoc(t_command *cmd);
+void			clean_heredoc(t_minishell *env);
 int				open_redir(t_command *cmd);
+char			*get_next_line_b(int fd);
 int				find_heredoc(t_command *cmds);
 short			exec(t_minishell *env);
 void			pr_error(int e, char *element);
 int				child_process(int *p_end, t_minishell *env, t_command *cmd);
 // Signal
 void			setup_signal(void);
+void			setup_signal_in_process(void);
 // Builtins
+int				export_b(t_minishell *env, char **args);
+int				exit_b(t_minishell *env, char **arg);
 int				echo(char **args);
-int				env_b(void);
+int				env_b(t_minishell *env);
 int				pwd_b(void);
 int				cd(char **args);
 int				exec_builtin(t_minishell *env, t_command *cmd);
@@ -146,5 +153,10 @@ short			is_builtin_command(char *token);
 # define ITALIC "\033[3m"
 # define UDERLINE "\033[4m"
 # define C_RESET "\033[0m"
+
+# define TURQUOISE_BLUE "\033[38;2;0;184;169m"
+# define DARK_GRAY "\033[38;2;47;52;59m"
+# define PALE_PINK "\033[38;2;245;166;195m"
+# define MINT_GREEN "\033[38;2;136;199;153m"
 
 #endif

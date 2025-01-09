@@ -21,7 +21,6 @@ short	find_path_and_cmd(t_minishell *env, t_command *command)
 	cmd = command->args[0];
 	command->cmd = cmd;
 	command->cmd_path = NULL;
-	env->envp = NULL;
 	if (is_builtin_command(cmd->value))
 		cmd->type = TOKEN_BUILTIN;
 	else

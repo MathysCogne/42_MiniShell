@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cleanup.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mcogne-- <mcogne--@student.42.fr>          +#+  +:+       +#+        */
+/*   By: achantra <achantra@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/14 22:27:24 by mcogne--          #+#    #+#             */
-/*   Updated: 2025/01/07 16:58:00 by mcogne--         ###   ########.fr       */
+/*   Updated: 2025/01/09 14:16:33 by achantra         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,9 +24,9 @@ void	free_split(char **tab)
 		free(tab[i]);
 		i++;
 	}
-	if (tab[i])
-		free(tab[i]);
+	free(tab[i]);
 	free(tab);
+	tab = NULL;
 }
 
 static void	delete_input_redir(t_input *input)
@@ -71,6 +71,7 @@ static void	delete_commands(t_minishell *env)
 		free(current);
 		current = next;
 	}
+	env->cmds = NULL;
 }
 
 static void	reset_input(t_minishell *env)
@@ -83,13 +84,13 @@ static void	reset_input(t_minishell *env)
 /*
 ** Clean and free input and token after use
 */
-void	delete_input(t_minishell *env)
+void	free_input(t_input *input)
 {
 	t_input	*current;
 	t_input	*next;
 
-	current = env->input;
-	while (current && current->token)
+	current = input;
+	while (current)
 	{
 		next = current->next;
 		free(current->token->value);
@@ -97,6 +98,12 @@ void	delete_input(t_minishell *env)
 		free(current);
 		current = next;
 	}
+	input = NULL;
+}
+
+void	delete_input(t_minishell *env)
+{
+	free_input(env->input);
 	if (env->envp)
 		free_split(env->envp);
 	delete_commands(env);

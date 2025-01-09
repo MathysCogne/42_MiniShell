@@ -6,7 +6,7 @@
 /*   By: achantra <achantra@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/13 12:52:35 by mcogne--          #+#    #+#             */
-/*   Updated: 2025/01/07 16:08:07 by achantra         ###   ########.fr       */
+/*   Updated: 2025/01/09 15:40:48 by achantra         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,29 +18,25 @@ static short	minishell(t_minishell *env)
 	while (1)
 	{
 		if (parsing(env))
-		{
-			ft_printf(RED "DEBUG: Exit in parsing part\n" C_RESET);
 			return (1);
-		}
-		env->last_fd0 = 0;
 		if (env->cmds)
 		{
+			env->last_fd0 = 0;
 			if (exec(env))
-			{
-				ft_printf(RED "DEBUG: Exit in exec part\n" C_RESET);
 				return (1);
-			}
+			if (WIFSIGNALED(env->last_err_code)
+				&& WTERMSIG(env->last_err_code) == SIGQUIT)
+				printf("\t%d quit (core dumped)\n", env->cmds->pid);
 		}
 		delete_input(env);
 	}
 	return (0);
 }
 
-int	main(int argc, char **argv, char **envp)
+int	main(int argc, char **argv)
 {
 	t_minishell	env;
 
-	(void)envp;
 	if (argc != 1)
 	{
 		ft_fprintf(2, RED BOLD "Usage: %s\n" C_RESET, argv[0]);
@@ -51,11 +47,13 @@ int	main(int argc, char **argv, char **envp)
 	if (minishell(&env))
 	{
 		ft_fprintf(2, "exit\n");
+		clean_environ(&env);
 		gc_clean(env.gc);
 		if (env.input)
 			delete_input(&env);
 		return (1);
 	}
+	clean_environ(&env);
 	gc_clean(env.gc);
 	if (env.input)
 		delete_input(&env);

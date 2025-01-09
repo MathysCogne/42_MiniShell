@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exec_process.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: achantra <achantra@42.fr>                  +#+  +:+       +#+        */
+/*   By: achantra <achantra@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/20 15:34:29 by achantra          #+#    #+#             */
-/*   Updated: 2025/01/08 18:29:33 by achantra         ###   ########.fr       */
+/*   Updated: 2025/01/09 16:08:40 by achantra         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,7 +79,7 @@ int	open_redir(t_command *cmd)
 		else if (tmp->token->type == TOKEN_REDIRECTION_APPEND_OUT)
 			fd = open(tmp->token->value, O_CREAT | O_WRONLY | O_APPEND, 0644);
 		if (fd < 0)
-			return (ft_putstr_fd(SHELL_NAME_ERR, 2), ft_putstr_fd(": ", 2),
+			return (ft_putstr_fd(SHELL_NAME, 2), ft_putstr_fd(": ", 2),
 				perror(tmp->token->value), 1);
 		close(fd);
 		tmp = tmp->next;
@@ -119,19 +119,19 @@ int	child_process(int *p_end, t_minishell *env, t_command *cmd)
 		return (close(p_end[1]), clean_child(env), EXIT_FAILURE);
 	fd_in = find_fd_in(env, cmd);
 	if (fd_in < 0)
-		return (close(p_end[1]), perror(SHELL_NAME_ERR), clean_child(env),
+		return (close(p_end[1]), perror(SHELL_NAME), clean_child(env),
 			EXIT_FAILURE);
 	fd_out = find_fd_out(p_end, cmd);
 	if (fd_out < 0)
-		return (close(p_end[1]), close(fd_in), perror(SHELL_NAME_ERR),
+		return (close(p_end[1]), close(fd_in), perror(SHELL_NAME),
 			clean_child(env), EXIT_FAILURE);
 	if (dup_fd(fd_in, fd_out) < 0)
-		return (perror(SHELL_NAME_ERR), clean_child(env), EXIT_FAILURE);
+		return (perror(SHELL_NAME), clean_child(env), EXIT_FAILURE);
 	if (cmd->cmd->type == TOKEN_ARGUMENT)
 		return (pr_error(NOT_FOUND_ERROR, cmd->cmd->value), clean_child(env),
-			EXIT_FAILURE);
+			EXIT_NF);
 	else if (cmd->cmd->type == TOKEN_BUILTIN)
 		return (exec_builtin(env, cmd));
 	status = execve(cmd->cmd_path, cmd->str_args, env->envp);
-	return (perror(SHELL_NAME_ERR), clean_child(env), status);
+	return (perror(SHELL_NAME), clean_child(env), status);
 }
