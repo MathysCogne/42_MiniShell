@@ -6,7 +6,7 @@
 /*   By: mcogne-- <mcogne--@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/15 15:36:28 by mcogne--          #+#    #+#             */
-/*   Updated: 2025/01/09 16:53:55 by mcogne--         ###   ########.fr       */
+/*   Updated: 2025/01/09 18:33:31 by mcogne--         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,6 +55,8 @@ static short	process_command(t_input **current_input, t_command *command)
 			*current_input = input;
 			return (0);
 		}
+		if (!input)
+			return (*current_input = input, 0);
 		input = input->next;
 	}
 	*current_input = input;

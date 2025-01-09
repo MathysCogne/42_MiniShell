@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exec.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: achantra <achantra@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mcogne-- <mcogne--@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/20 14:35:07 by achantra          #+#    #+#             */
-/*   Updated: 2025/01/09 15:55:33 by achantra         ###   ########.fr       */
+/*   Updated: 2025/01/09 18:21:34 by mcogne--         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -93,6 +93,8 @@ short	exec(t_minishell *env)
 	int	p_end[2];
 	int	status;
 
+	if (env->error_msg)
+		return (ft_fprintf(2, "%s\n", env->error_msg), 0);
 	env->last_fd0 = 0;
 	find_heredoc(env->cmds);
 	if (!env->cmds->is_pipe && env->cmds->cmd->type == TOKEN_BUILTIN)

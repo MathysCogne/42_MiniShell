@@ -6,7 +6,7 @@
 /*   By: mcogne-- <mcogne--@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/01 20:20:47 by mcogne--          #+#    #+#             */
-/*   Updated: 2025/01/09 16:56:04 by mcogne--         ###   ########.fr       */
+/*   Updated: 2025/01/09 18:37:16 by mcogne--         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,13 +23,13 @@ static short	validate_redirection_token(t_minishell *env, t_input *input,
 	(void)prev_token;
 	if (!input->next || input->next->token->type != TOKEN_ARGUMENT)
 	{
-		env->error_msg = ft_strdup("syntax error near unexpected token `newline'");
+		env->error_msg = ft_strdup("bzh: syntax error near unexpected token `newline'");
 		return (1);
 	}
 	if (input->next && input->next->token->type >= TOKEN_REDIRECTION_IN
 		&& input->next->token->type <= TOKEN_REDIRECTION_APPEND_OUT)
 	{
-		env->error_msg = ft_strdup("syntax error near unexpected token `newline'");
+		env->error_msg = ft_strdup("bzh: syntax error near unexpected token `newline'");
 		return (1);
 	}
 	return (0);
@@ -45,15 +45,14 @@ static short	validate_pipe_token(t_minishell *env, t_input *input,
 {
 	(void)command;
 	(void)prev_token;
-	if (!input->next || (input->next->token->type != TOKEN_COMMAND
-			&& input->next->token->type != TOKEN_BUILTIN))
+	if (!input->next || (input->next->token->type != TOKEN_ARGUMENT))
 	{
-		env->error_msg = ft_strdup("syntax error near unexpected token `|'");
+		env->error_msg = ft_strdup("bzh: syntax error near unexpected token `|'");
 		return (1);
 	}
 	if (input->next && input->next->token->type == TOKEN_PIPE)
 	{
-		env->error_msg = ft_strdup(ERR_SYNTAX "syntax error near unexpected token `|'");
+		env->error_msg = ft_strdup("bzh: syntax error near unexpected token `|'");
 		return (1);
 	}
 	return (0);

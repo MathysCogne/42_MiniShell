@@ -6,7 +6,7 @@
 /*   By: mcogne-- <mcogne--@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/14 22:27:24 by mcogne--          #+#    #+#             */
-/*   Updated: 2025/01/09 16:59:23 by mcogne--         ###   ########.fr       */
+/*   Updated: 2025/01/09 18:34:17 by mcogne--         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -107,8 +107,8 @@ void	delete_input(t_minishell *env)
 	free_input(env->input);
 	if (env->envp)
 		free_split(env->envp);
-	if (env->error_msg)
-		free(env->error_msg);
+	// if (env->error_msg)
+	// free(env->error_msg);
 	delete_commands(env);
 	reset_input(env);
 }
