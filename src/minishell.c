@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mcogne-- <mcogne--@student.42.fr>          +#+  +:+       +#+        */
+/*   By: achantra <achantra@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/13 12:52:35 by mcogne--          #+#    #+#             */
-/*   Updated: 2025/01/09 00:06:32 by mcogne--         ###   ########.fr       */
+/*   Updated: 2025/01/09 15:40:48 by achantra         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,11 +47,13 @@ int	main(int argc, char **argv)
 	if (minishell(&env))
 	{
 		ft_fprintf(2, "exit\n");
+		clean_environ(&env);
 		gc_clean(env.gc);
 		if (env.input)
 			delete_input(&env);
 		return (1);
 	}
+	clean_environ(&env);
 	gc_clean(env.gc);
 	if (env.input)
 		delete_input(&env);

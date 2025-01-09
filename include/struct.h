@@ -6,7 +6,7 @@
 /*   By: achantra <achantra@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/01 14:45:47 by mcogne--          #+#    #+#             */
-/*   Updated: 2025/01/07 11:59:18 by achantra         ###   ########.fr       */
+/*   Updated: 2025/01/09 15:19:21 by achantra         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,6 +61,7 @@ typedef struct s_minishell
 	t_command			*curr_cmd;
 	t_gc				*gc;
 	char				**envp;
+	int					env_alloc;
 	int					last_err_code;
 	int					last_fd0;
 }						t_minishell;

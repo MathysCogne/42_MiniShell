@@ -6,7 +6,7 @@
 /*   By: achantra <achantra@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/08 12:21:37 by achantra          #+#    #+#             */
-/*   Updated: 2025/01/08 16:27:41 by achantra         ###   ########.fr       */
+/*   Updated: 2025/01/09 14:23:37 by achantra         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,7 @@ int	exit_b(t_minishell *env, char **arg)
 		exit_status = env->last_err_code;
 	else if (!ft_isnumeric(arg[1]))
 	{
-		ft_putstr_fd(SHELL_NAME_ERR, 2);
+		ft_putstr_fd(SHELL_NAME, 2);
 		ft_putstr_fd(": exit: ", 2);
 		ft_putstr_fd(arg[1], 2);
 		ft_putendl_fd(": numeric argument required", 2);
@@ -46,13 +46,12 @@ int	exit_b(t_minishell *env, char **arg)
 	}
 	else if (arg[2])
 	{
-		ft_putstr_fd(SHELL_NAME_ERR, 2);
+		ft_putstr_fd(SHELL_NAME, 2);
 		ft_putendl_fd(": exit: too many arguments", 2);
 		return (1);
 	}
 	else
 		exit_status = ft_atoi(arg[1]);
-    //CLEAN les HEREDOC avant de soritr
 	clean_child(env);
 	exit(exit_status);
 }

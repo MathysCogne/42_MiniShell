@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mcogne-- <mcogne--@student.42.fr>          +#+  +:+       +#+        */
+/*   By: achantra <achantra@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/13 12:52:28 by mcogne--          #+#    #+#             */
-/*   Updated: 2025/01/09 01:07:09 by mcogne--         ###   ########.fr       */
+/*   Updated: 2025/01/09 16:00:27 by achantra         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,6 @@
 // # define _GNU_SOURCE
 
 # include "ft_printf.h"
-# include "get_next_line.h"
 # include "libft.h"
 # include "libft_extra.h"
 # include "struct.h"
@@ -39,8 +38,7 @@
 /*******************************/
 
 # define TOKEN_SEPARATOR " \t\n\v\f\r"
-# define SHELL_NAME_ERR "bzh"
-# define SHELL_NAME "bzh "
+# define SHELL_NAME "bzh"
 # define ERR_SYNTAX "Syntax error: "
 
 /*******************************/
@@ -81,6 +79,7 @@ char			*expand_last_err_code(t_minishell *env, char *var);
 /*******************************/
 void			debug_print_input(t_input *input);
 void			debug_print_commands(t_command *commands);
+void			free_input(t_input *input);
 void			delete_input(t_minishell *env);
 short			init_struct_env(t_minishell *env);
 void			free_split(char **tab);
@@ -96,11 +95,14 @@ void			free_split(char **tab);
 # define NO_FILE 14
 # define EOF_HERE 15
 # define EXIT_NF 127
+# define BUFFER_SIZE 1000
 
 // Exec process
+void			clean_environ(t_minishell *env);
 void			clean_child(t_minishell *env);
-void			clean_heredoc(t_command *cmd);
+void			clean_heredoc(t_minishell *env);
 int				open_redir(t_command *cmd);
+char			*get_next_line_b(int fd);
 int				find_heredoc(t_command *cmds);
 short			exec(t_minishell *env);
 void			pr_error(int e, char *element);
@@ -109,10 +111,10 @@ int				child_process(int *p_end, t_minishell *env, t_command *cmd);
 void			setup_signal(void);
 void			setup_signal_in_process(void);
 // Builtins
-int				export_b(char **args);
+int				export_b(t_minishell *env, char **args);
 int				exit_b(t_minishell *env, char **arg);
 int				echo(char **args);
-int				env_b(void);
+int				env_b(t_minishell *env);
 int				pwd_b(void);
 int				cd(char **args);
 int				exec_builtin(t_minishell *env, t_command *cmd);
@@ -151,9 +153,9 @@ short			is_builtin_command(char *token);
 # define UDERLINE "\033[4m"
 # define C_RESET "\033[0m"
 
-#define TURQUOISE_BLUE "\033[38;2;0;184;169m"
-#define DARK_GRAY "\033[38;2;47;52;59m"
-#define PALE_PINK "\033[38;2;245;166;195m"
-#define MINT_GREEN "\033[38;2;136;199;153m"
+# define TURQUOISE_BLUE "\033[38;2;0;184;169m"
+# define DARK_GRAY "\033[38;2;47;52;59m"
+# define PALE_PINK "\033[38;2;245;166;195m"
+# define MINT_GREEN "\033[38;2;136;199;153m"
 
 #endif

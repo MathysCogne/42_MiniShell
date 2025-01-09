@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exec.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mcogne-- <mcogne--@student.42.fr>          +#+  +:+       +#+        */
+/*   By: achantra <achantra@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/20 14:35:07 by achantra          #+#    #+#             */
-/*   Updated: 2025/01/09 01:22:24 by mcogne--         ###   ########.fr       */
+/*   Updated: 2025/01/09 15:55:33 by achantra         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ int	handle_process_error(t_minishell *env, int *p_end)
 	}
 	if (env->last_fd0)
 		close(env->last_fd0);
-	perror(SHELL_NAME_ERR);
+	perror(SHELL_NAME);
 	return (EXIT_FAILURE);
 }
 
@@ -64,12 +64,20 @@ int	simple_cmd(t_minishell *env)
 {
 	if (open_redir(env->cmds))
 		return (EXIT_FAILURE);
-	if (!ft_strcmp(env->cmds->cmd->value, "cd"))
-		return (cd(env->cmds->str_args));
+	if (!ft_strcmp(env->cmds->cmd->value, "echo"))
+		return (echo(env->cmds->str_args));
+	else if (!ft_strcmp(env->cmds->cmd->value, "env"))
+		return (env_b(env));
 	else if (!ft_strcmp(env->cmds->cmd->value, "exit"))
 		return (ft_putendl_fd("exit", 1), exit_b(env, env->cmds->str_args));
+	else if (!ft_strcmp(env->cmds->cmd->value, "pwd"))
+		return (pwd_b());
+	if (!ft_strcmp(env->cmds->cmd->value, "cd"))
+		return (cd(env->cmds->str_args));
 	else if (!ft_strcmp(env->cmds->cmd->value, "export"))
-		return (export_b(env->cmds->str_args));
+		return (export_b(env, env->cmds->str_args));
+	/*else if (!ft_strcmp(env->cmds->cmd->value, "unset"))
+		return (unset_b(env, env->cmds->str_args));*/
 	return (0);
 }
 
@@ -87,23 +95,24 @@ short	exec(t_minishell *env)
 
 	env->last_fd0 = 0;
 	find_heredoc(env->cmds);
-	if (!env->cmds->is_pipe && (!ft_strcmp(env->cmds->cmd->value, "cd")
-			|| !ft_strcmp(env->cmds->cmd->value, "exit")
-			|| !ft_strcmp(env->cmds->cmd->value, "export")))
+	if (!env->cmds->is_pipe && env->cmds->cmd->type == TOKEN_BUILTIN)
 	{
 		env->last_err_code = simple_cmd(env);
-		return (0);
+		return (clean_heredoc(env), 0);
 	}
-	env->curr_cmd = env->cmds;
-	if (main_process(env, p_end))
-		return (EXIT_FAILURE);
-	env->curr_cmd = env->cmds;
-	while (env->curr_cmd)
+	else
 	{
-		waitpid(env->curr_cmd->pid, &status, 0);
-		clean_heredoc(env->curr_cmd);
-		env->curr_cmd = env->curr_cmd->next;
+		env->curr_cmd = env->cmds;
+		if (main_process(env, p_end))
+			return (EXIT_FAILURE);
+		env->curr_cmd = env->cmds;
+		while (env->curr_cmd)
+		{
+			waitpid(env->curr_cmd->pid, &status, 0);
+			env->curr_cmd = env->curr_cmd->next;
+		}
 	}
+	clean_heredoc(env);
 	env->last_err_code = status;
 	return (close(p_end[0]), close(p_end[1]), 0);
 }

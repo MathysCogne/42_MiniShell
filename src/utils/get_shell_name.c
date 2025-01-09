@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   get_shell_name.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mcogne-- <mcogne--@student.42.fr>          +#+  +:+       +#+        */
+/*   By: achantra <achantra@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/04 23:18:14 by mcogne--          #+#    #+#             */
-/*   Updated: 2025/01/09 00:52:28 by mcogne--         ###   ########.fr       */
+/*   Updated: 2025/01/09 11:36:39 by achantra         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ char	*get_current_pwd(void)
 	char	*tmp2;
 
 	pwd = getcwd(NULL, 0);
-	tmp1 = ft_strjoin(YELLOW BOLD"[" C_RESET ITALIC"~", pwd);
+	tmp1 = ft_strjoin(YELLOW BOLD" [" C_RESET ITALIC"~", pwd);
 	if (!tmp1)
 		return (NULL);
 	free(pwd);
