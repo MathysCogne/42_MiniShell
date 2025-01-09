@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   init_struct_env.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: achantra <achantra@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mcogne-- <mcogne--@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/14 22:32:41 by mcogne--          #+#    #+#             */
-/*   Updated: 2025/01/09 15:19:41 by achantra         ###   ########.fr       */
+/*   Updated: 2025/01/09 16:59:31 by mcogne--         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,5 +27,6 @@ short	init_struct_env(t_minishell *env)
 	env->envp = NULL;
 	env->env_alloc = 0;
 	env->last_fd0 = 0;
+	env->error_msg = NULL;
 	return (0);
 }
