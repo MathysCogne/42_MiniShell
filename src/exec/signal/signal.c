@@ -6,16 +6,25 @@
 /*   By: mcogne-- <mcogne--@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/24 20:05:06 by mcogne--          #+#    #+#             */
-/*   Updated: 2025/01/07 22:17:05 by mcogne--         ###   ########.fr       */
+/*   Updated: 2025/01/09 00:02:01 by mcogne--         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
 /*
+** Reset signal for shild process
+*/
+void	setup_signal_in_process(void)
+{
+	signal(SIGINT, SIG_DFL);
+	signal(SIGQUIT, SIG_DFL);
+}
+
+/*
 ** CTRL-C
-** Clear line and Prompt a new line
-** Interactive mode: Just prompt new line
+** Clear line and prompt a new line
+** In process: Just prompt new line
 */
 void	handler_sigint(int sig, siginfo_t *info, void *context)
 {

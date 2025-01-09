@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: achantra <achantra@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mcogne-- <mcogne--@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/13 12:52:28 by mcogne--          #+#    #+#             */
-/*   Updated: 2025/01/08 14:34:58 by achantra         ###   ########.fr       */
+/*   Updated: 2025/01/09 01:07:09 by mcogne--         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,7 @@
 
 # define _POSIX_SOURCE 1
 # define _POSIX_C_SOURCE 200809L
+// # define _GNU_SOURCE
 
 # include "ft_printf.h"
 # include "get_next_line.h"
@@ -39,7 +40,7 @@
 
 # define TOKEN_SEPARATOR " \t\n\v\f\r"
 # define SHELL_NAME_ERR "bzh"
-# define SHELL_NAME "bzh » "
+# define SHELL_NAME "bzh "
 # define ERR_SYNTAX "Syntax error: "
 
 /*******************************/
@@ -106,6 +107,7 @@ void			pr_error(int e, char *element);
 int				child_process(int *p_end, t_minishell *env, t_command *cmd);
 // Signal
 void			setup_signal(void);
+void			setup_signal_in_process(void);
 // Builtins
 int				export_b(char **args);
 int				exit_b(t_minishell *env, char **arg);
@@ -148,5 +150,10 @@ short			is_builtin_command(char *token);
 # define ITALIC "\033[3m"
 # define UDERLINE "\033[4m"
 # define C_RESET "\033[0m"
+
+#define TURQUOISE_BLUE "\033[38;2;0;184;169m"
+#define DARK_GRAY "\033[38;2;47;52;59m"
+#define PALE_PINK "\033[38;2;245;166;195m"
+#define MINT_GREEN "\033[38;2;136;199;153m"
 
 #endif

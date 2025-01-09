@@ -6,7 +6,7 @@
 /*   By: mcogne-- <mcogne--@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/13 13:09:07 by mcogne--          #+#    #+#             */
-/*   Updated: 2025/01/07 17:17:21 by mcogne--         ###   ########.fr       */
+/*   Updated: 2025/01/09 00:49:32 by mcogne--         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,11 +40,16 @@ short	get_input(t_minishell *env)
 {
 	char	*input;
 	char	**tab_input;
+	char	*prompt;
 
 	tab_input = NULL;
-	input = readline(get_shell_name());
-	if (!input)
+	prompt = get_shell_name();
+	if (!prompt)
 		return (1);
+	input = readline(prompt);
+	if (!input)
+		return (free(prompt), 1);
+	free(prompt);
 	add_history(input);
 	gc_add(env->gc, input);
 	if (check_single_quotes(input))
