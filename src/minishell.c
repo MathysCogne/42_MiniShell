@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: achantra <achantra@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mcogne-- <mcogne--@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/13 12:52:35 by mcogne--          #+#    #+#             */
-/*   Updated: 2025/01/08 12:09:54 by achantra         ###   ########.fr       */
+/*   Updated: 2025/01/09 00:06:32 by mcogne--         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,18 +18,15 @@ static short	minishell(t_minishell *env)
 	while (1)
 	{
 		if (parsing(env))
-		{
-			ft_printf(RED "DEBUG: Exit in parsing part\n" C_RESET);
 			return (1);
-		}
-		env->last_fd0 = 0;
 		if (env->cmds)
 		{
+			env->last_fd0 = 0;
 			if (exec(env))
-			{
-				ft_printf(RED "DEBUG: Exit in exec part\n" C_RESET);
 				return (1);
-			}
+			if (WIFSIGNALED(env->last_err_code)
+				&& WTERMSIG(env->last_err_code) == SIGQUIT)
+				printf("\t%d quit (core dumped)\n", env->cmds->pid);
 		}
 		delete_input(env);
 	}

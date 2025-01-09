@@ -3,14 +3,22 @@
 /*                                                        :::      ::::::::   */
 /*   export.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: achantra <achantra@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mcogne-- <mcogne--@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/08 12:04:51 by achantra          #+#    #+#             */
-/*   Updated: 2025/01/08 16:19:03 by achantra         ###   ########.fr       */
+/*   Updated: 2025/01/09 01:20:52 by mcogne--         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
+
+// Coucou,
+// Tous les trois git que j'ai ete voir
+// On une liste dans env, qui est une copie de l'environnement
+// Et il utilise ca, apres du coup c'est pas vrm export vu que c'est pas 
+// Accecible dans les autres environnements que notre shell,
+// Donc pour moi c'est clairement de la triche de faire cela
+// Et pareil pour unset du coup
 
 int	ft_setenv(char *arg)
 {

@@ -3,14 +3,20 @@
 /*                                                        :::      ::::::::   */
 /*   exec.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: achantra <achantra@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mcogne-- <mcogne--@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/20 14:35:07 by achantra          #+#    #+#             */
-/*   Updated: 2025/01/08 15:58:16 by achantra         ###   ########.fr       */
+/*   Updated: 2025/01/09 01:22:24 by mcogne--         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
+
+// Coucou
+// J'ai test | echo "coucou"
+// Et ca marche alors que sa devrait pas, (On est sense rien affiche)
+// Tu veux que je reset mes msg d'error,
+// Ou tu le protege dans l'exec si une commande et vide on s'arrete ?
 
 int	handle_process_error(t_minishell *env, int *p_end)
 {
@@ -37,7 +43,10 @@ int	main_process(t_minishell *env, int *p_end)
 		if (pid < 0)
 			return (handle_process_error(env, p_end));
 		else if (pid == 0)
+		{
+			setup_signal_in_process();
 			exit(child_process(p_end, env, env->curr_cmd));
+		}
 		else
 		{
 			env->curr_cmd->pid = pid;
@@ -79,7 +88,8 @@ short	exec(t_minishell *env)
 	env->last_fd0 = 0;
 	find_heredoc(env->cmds);
 	if (!env->cmds->is_pipe && (!ft_strcmp(env->cmds->cmd->value, "cd")
-			|| !ft_strcmp(env->cmds->cmd->value, "exit") || !ft_strcmp(env->cmds->cmd->value, "export")))
+			|| !ft_strcmp(env->cmds->cmd->value, "exit")
+			|| !ft_strcmp(env->cmds->cmd->value, "export")))
 	{
 		env->last_err_code = simple_cmd(env);
 		return (0);
