@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: achantra <achantra@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mcogne-- <mcogne--@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/13 12:52:28 by mcogne--          #+#    #+#             */
-/*   Updated: 2025/01/09 16:00:27 by achantra         ###   ########.fr       */
+/*   Updated: 2025/01/09 16:53:10 by mcogne--         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,6 +63,8 @@ short			add_arg_command(t_token *token, t_command *command);
 void			add_back_command(t_command **commands, t_command *new_command);
 t_command		*create_command(void);
 short			find_path_and_cmd(t_minishell *env, t_command *command);
+short			handler_validate_command(t_minishell *env, t_input *input,
+					t_command *command);
 
 /*******************************/
 /*         QUOTE EXPAND        */
