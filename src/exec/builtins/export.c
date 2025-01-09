@@ -6,7 +6,7 @@
 /*   By: achantra <achantra@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/08 12:04:51 by achantra          #+#    #+#             */
-/*   Updated: 2025/01/09 16:05:07 by achantra         ###   ########.fr       */
+/*   Updated: 2025/01/09 16:58:10 by achantra         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,34 @@
 // Accecible dans les autres environnements que notre shell,
 // Donc pour moi c'est clairement de la triche de faire cela
 // Et pareil pour unset du coup
+
+int	realloc_env(char *arg)
+{
+	int			len;
+	int			i;
+	extern char	**environ;
+	char		**new_environ;
+
+	len = 0;
+	while (environ && environ[len])
+		len++;
+	new_environ = malloc(sizeof(char *) * (len + 2));
+	if (!new_environ)
+		return (free(arg), perror("malloc"), 1);
+	new_environ[len + 1] = NULL;
+	i = 0;
+	while (i < len)
+	{
+		new_environ[i] = ft_strdup(environ[i]);
+		if (!new_environ[i])
+			return (free(arg), free_split(new_environ), 1);
+		i ++;
+	}
+	new_environ[len] = arg;
+	free_split(environ);
+	environ = new_environ;
+	return (0);	
+}
 
 int	ft_setenv(t_minishell *env, char *arg)
 {
@@ -48,9 +76,12 @@ int	ft_setenv(t_minishell *env, char *arg)
 			if (env->env_alloc)
 				free(environ[i]);
 			environ[i] = ft_strjoin(key, p_eq);
+			break;
 		}
 		i++;
 	}
+	if (!environ[i])
+		realloc_env(ft_strjoin(key, p_eq));
 	if (key)
 		free(key);
 	if (value)
@@ -88,9 +119,9 @@ int	alloc_env(t_minishell *env)
 int	export_b(t_minishell *env, char **arg)
 {
 	int	i;
-	int	err;
+	int	status;
 
-	err = 0;
+	status = 0;
 	if (!arg[1])
 		return (0);
 	if (!env->env_alloc)
@@ -103,15 +134,15 @@ int	export_b(t_minishell *env, char **arg)
 	{
 		if (arg[i][0] == '=')
 		{
-			err = 1;
+			status = 1;
 			ft_putstr_fd(SHELL_NAME, 2);
 			ft_putstr_fd(": export: ", 2);
 			ft_putstr_fd(arg[i], 2);
 			ft_putendl_fd(": not valid identifier", 2);
 		}
 		else if (ft_setenv(env, arg[i]))
-			err = 1;
+			status = 1;
 		i++;
 	}
-	return (err);
+	return (status);
 }

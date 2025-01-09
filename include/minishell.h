@@ -6,7 +6,7 @@
 /*   By: achantra <achantra@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/13 12:52:28 by mcogne--          #+#    #+#             */
-/*   Updated: 2025/01/09 16:00:27 by achantra         ###   ########.fr       */
+/*   Updated: 2025/01/09 16:08:24 by achantra         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,11 +21,12 @@
 # include "libft.h"
 # include "libft_extra.h"
 # include "struct.h"
+# include <stdio.h>
 # include <fcntl.h>
 # include <readline/history.h>
 # include <readline/readline.h>
 # include <signal.h>
-# include <stdio.h>
+
 # include <stdlib.h>
 # include <string.h>
 # include <sys/stat.h>
