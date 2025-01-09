@@ -6,7 +6,7 @@
 /*   By: achantra <achantra@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/20 15:34:29 by achantra          #+#    #+#             */
-/*   Updated: 2025/01/09 11:37:11 by achantra         ###   ########.fr       */
+/*   Updated: 2025/01/09 16:08:40 by achantra         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -112,7 +112,7 @@ int	child_process(int *p_end, t_minishell *env, t_command *cmd)
 {
 	int	fd_in;
 	int	fd_out;
-	int	error;
+	int	status;
 
 	close(p_end[0]);
 	if (open_redir(cmd))
@@ -132,6 +132,6 @@ int	child_process(int *p_end, t_minishell *env, t_command *cmd)
 			EXIT_NF);
 	else if (cmd->cmd->type == TOKEN_BUILTIN)
 		return (exec_builtin(env, cmd));
-	error = execve(cmd->cmd_path, cmd->str_args, env->envp);
-	return (perror(SHELL_NAME), clean_child(env), error);
+	status = execve(cmd->cmd_path, cmd->str_args, env->envp);
+	return (perror(SHELL_NAME), clean_child(env), status);
 }
