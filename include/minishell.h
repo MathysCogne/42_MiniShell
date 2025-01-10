@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: achantra <achantra@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mcogne-- <mcogne--@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/13 12:52:28 by mcogne--          #+#    #+#             */
-/*   Updated: 2025/01/10 10:21:32 by achantra         ###   ########.fr       */
+/*   Updated: 2025/01/10 10:42:52 by mcogne--         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -113,7 +113,7 @@ int				child_process(int *p_end, t_minishell *env, t_command *cmd);
 void			setup_signal(void);
 void			setup_signal_in_process(void);
 // Builtins
-int             alloc_env(t_minishell *env);
+int				alloc_env(t_minishell *env);
 void			export_error(char *arg);
 int				export_b(t_minishell *env, char **args);
 int				exit_b(t_minishell *env, char **arg);
