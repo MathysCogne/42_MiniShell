@@ -6,7 +6,7 @@
 /*   By: mcogne-- <mcogne--@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/06 22:31:42 by mcogne--          #+#    #+#             */
-/*   Updated: 2025/01/06 22:51:16 by mcogne--         ###   ########.fr       */
+/*   Updated: 2025/01/10 10:43:50 by mcogne--         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,8 @@ short	is_redir(char const *s, size_t i)
 {
 	if (i >= ft_strlen(s))
 		return (0);
+	if (s[i] == '|')
+		return (1);
 	if (i == 0)
 	{
 		if (s[i] == '>' || s[i] == '<')
