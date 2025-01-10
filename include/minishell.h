@@ -6,7 +6,7 @@
 /*   By: mcogne-- <mcogne--@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/13 12:52:28 by mcogne--          #+#    #+#             */
-/*   Updated: 2025/01/10 10:49:35 by mcogne--         ###   ########.fr       */
+/*   Updated: 2025/01/10 11:27:11 by achantra         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -121,6 +121,7 @@ int				echo(char **args);
 int				env_b(t_minishell *env);
 int				pwd_b(void);
 int				cd(char **args);
+int				unset_b(t_minishell *env, char **arg);
 int				exec_builtin(t_minishell *env, t_command *cmd);
 
 /*******************************/
