@@ -6,7 +6,7 @@
 /*   By: mcogne-- <mcogne--@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/13 12:52:28 by mcogne--          #+#    #+#             */
-/*   Updated: 2025/01/10 10:42:52 by mcogne--         ###   ########.fr       */
+/*   Updated: 2025/01/10 10:49:35 by mcogne--         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,7 @@
 
 # define TOKEN_SEPARATOR " \t\n\v\f\r"
 # define SHELL_NAME "bzh"
-# define ERR_SYNTAX "Syntax error: "
+# define ERR_SYNTAX "bzh: syntax error near unexpected token "
 
 /*******************************/
 /*         TOKENISATION        */

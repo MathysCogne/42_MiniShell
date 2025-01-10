@@ -6,7 +6,7 @@
 /*   By: mcogne-- <mcogne--@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/13 12:52:35 by mcogne--          #+#    #+#             */
-/*   Updated: 2025/01/09 18:40:13 by mcogne--         ###   ########.fr       */
+/*   Updated: 2025/01/10 10:51:32 by mcogne--         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ static short	minishell(t_minishell *env)
 				return (1);
 			if (WIFSIGNALED(env->last_err_code)
 				&& WTERMSIG(env->last_err_code) == SIGQUIT)
-				printf("\t%d quit (core dumped)\n", env->cmds->pid);
+				ft_fprintf(2, "\t%d quit (core dumped)\n", env->cmds->pid);
 		}
 		delete_input(env);
 	}
