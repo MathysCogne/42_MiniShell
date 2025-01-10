@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cleanup.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: achantra <achantra@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mcogne-- <mcogne--@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/14 22:27:24 by mcogne--          #+#    #+#             */
-/*   Updated: 2025/01/09 14:16:33 by achantra         ###   ########.fr       */
+/*   Updated: 2025/01/09 18:51:16 by mcogne--         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,6 +79,7 @@ static void	reset_input(t_minishell *env)
 	env->input = NULL;
 	env->cmds = NULL;
 	env->envp = NULL;
+	env->error_msg = NULL;
 }
 
 /*
@@ -106,6 +107,8 @@ void	delete_input(t_minishell *env)
 	free_input(env->input);
 	if (env->envp)
 		free_split(env->envp);
+	if (env->error_msg)
+		free(env->error_msg);
 	delete_commands(env);
 	reset_input(env);
 }

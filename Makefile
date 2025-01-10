@@ -17,6 +17,7 @@ SRC = minishell.c \
 			parsing/analyse_semantic/extract_args.c \
 			parsing/analyse_semantic/redirection_handler.c \
 			parsing/analyse_semantic/find_path_and_cmd.c \
+			parsing/analyse_semantic/validate_command.c \
 \
 			parsing/quote_expand/expand.c \
 			parsing/quote_expand/quote_expand.c \
