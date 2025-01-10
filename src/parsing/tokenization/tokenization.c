@@ -6,7 +6,7 @@
 /*   By: mcogne-- <mcogne--@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/14 22:59:31 by mcogne--          #+#    #+#             */
-/*   Updated: 2025/01/03 20:28:58 by mcogne--         ###   ########.fr       */
+/*   Updated: 2025/01/10 12:26:10 by mcogne--         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,15 +26,15 @@
 t_token_type	tokenization(t_minishell *env, char *token)
 {
 	(void)env;
-	if (!strcmp(token, "<"))
+	if (!ft_strcmp(token, "<"))
 		return (TOKEN_REDIRECTION_IN);
-	else if (!strcmp(token, ">"))
+	else if (!ft_strcmp(token, ">"))
 		return (TOKEN_REDIRECTION_OUT);
-	else if (!strcmp(token, "<<"))
+	else if (!ft_strcmp(token, "<<"))
 		return (TOKEN_HEREDOC);
-	else if (!strcmp(token, ">>"))
+	else if (!ft_strcmp(token, ">>"))
 		return (TOKEN_REDIRECTION_APPEND_OUT);
-	else if (!strcmp(token, "|"))
+	else if (!ft_strcmp(token, "|"))
 		return (TOKEN_PIPE);
 	else
 		return (TOKEN_ARGUMENT);

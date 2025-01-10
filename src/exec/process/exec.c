@@ -6,7 +6,7 @@
 /*   By: achantra <achantra@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/20 14:35:07 by achantra          #+#    #+#             */
-/*   Updated: 2025/01/10 11:24:43 by achantra         ###   ########.fr       */
+/*   Updated: 2025/01/10 12:53:16 by achantra         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,7 +90,8 @@ short	exec(t_minishell *env)
 		return (ft_putendl_fd(env->error_msg, 2), 0);
 	env->last_fd0 = 0;
 	find_heredoc(env->cmds);
-	if (!env->cmds->is_pipe && env->cmds->cmd->type == TOKEN_BUILTIN)
+	if (env->cmds && !env->cmds->is_pipe && env->cmds->cmd
+		&& env->cmds->cmd->type == TOKEN_BUILTIN)
 		return (env->last_err_code = simple_cmd(env), clean_heredoc(env), 0);
 	else
 	{

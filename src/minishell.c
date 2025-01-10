@@ -6,7 +6,7 @@
 /*   By: mcogne-- <mcogne--@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/13 12:52:35 by mcogne--          #+#    #+#             */
-/*   Updated: 2025/01/10 10:51:32 by mcogne--         ###   ########.fr       */
+/*   Updated: 2025/01/10 13:10:50 by mcogne--         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,7 @@
 static short	minishell(t_minishell *env)
 {
 	setup_signal();
+	kill(0, SIGINT);
 	while (1)
 	{
 		if (parsing(env))

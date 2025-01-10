@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   command_utils.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: achantra <achantra@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mcogne-- <mcogne--@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/24 22:36:10 by mcogne--          #+#    #+#             */
-/*   Updated: 2025/01/07 11:59:03 by achantra         ###   ########.fr       */
+/*   Updated: 2025/01/10 12:09:26 by mcogne--         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,7 +65,8 @@ short	add_arg_command(t_token *token, t_command *command)
 		i = 0;
 		while (command->args[i])
 			i++;
-		command->args = realloc(command->args, sizeof(t_token *) * (i + 2));
+		command->args = ft_realloc(command->args, sizeof(t_token *)
+				* (i), sizeof(t_token *) * (i + 2));
 		if (!command->args)
 			return (1);
 		command->args[i] = token;
