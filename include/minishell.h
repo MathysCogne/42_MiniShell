@@ -6,7 +6,7 @@
 /*   By: achantra <achantra@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/13 12:52:28 by mcogne--          #+#    #+#             */
-/*   Updated: 2025/01/10 10:21:32 by achantra         ###   ########.fr       */
+/*   Updated: 2025/01/10 11:27:11 by achantra         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -113,7 +113,7 @@ int				child_process(int *p_end, t_minishell *env, t_command *cmd);
 void			setup_signal(void);
 void			setup_signal_in_process(void);
 // Builtins
-int             alloc_env(t_minishell *env);
+int				alloc_env(t_minishell *env);
 void			export_error(char *arg);
 int				export_b(t_minishell *env, char **args);
 int				exit_b(t_minishell *env, char **arg);
@@ -121,6 +121,7 @@ int				echo(char **args);
 int				env_b(t_minishell *env);
 int				pwd_b(void);
 int				cd(char **args);
+int				unset_b(t_minishell *env, char **arg);
 int				exec_builtin(t_minishell *env, t_command *cmd);
 
 /*******************************/

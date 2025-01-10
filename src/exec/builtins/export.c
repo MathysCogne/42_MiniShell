@@ -6,13 +6,13 @@
 /*   By: achantra <achantra@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/08 12:04:51 by achantra          #+#    #+#             */
-/*   Updated: 2025/01/10 10:28:44 by achantra         ###   ########.fr       */
+/*   Updated: 2025/01/10 10:58:02 by achantra         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-int	realloc_env(char *arg)
+static int	realloc_env(char *arg)
 {
 	int			len;
 	int			i;
@@ -31,7 +31,7 @@ int	realloc_env(char *arg)
 	{
 		new_environ[i] = ft_strdup(environ[i]);
 		if (!new_environ[i])
-			return (free_split(new_environ), 1);
+			return (free_split(new_environ), 2);
 		i++;
 	}
 	new_environ[len] = arg;
@@ -40,38 +40,34 @@ int	realloc_env(char *arg)
 	return (0);
 }
 
-int	add_key(t_minishell *env, char *arg, char *key)
+static int	add_key(char *arg, char *key)
 {
 	int			i;
 	extern char	**environ;
 
-	i = 0;
-	while (environ[i])
+	i = -1;
+	while (environ[++i])
 	{
 		if (!ft_strncmp(key, environ[i], ft_strlen(key))
 			&& environ[i][ft_strlen(key)] == '=')
 		{
-			if (env->env_alloc)
-				free(environ[i]);
-			environ[i] = ft_strdup(arg);
-			if (!environ[i])
-				return (free(key), 2);
+			environ[i] = arg;
 			break ;
 		}
-		i++;
 	}
 	if (!environ[i])
 	{
 		if (realloc_env(arg))
-			return (free(key), 2);
+			return (2);
 	}
 	return (0);
 }
 
-int	ft_setenv(t_minishell *env, char *arg)
+static int	ft_setenv(char *arg)
 {
 	char	*key;
 	char	*p_eq;
+	char	*add_arg;
 
 	p_eq = ft_strchr(arg, '=');
 	if (p_eq)
@@ -79,15 +75,17 @@ int	ft_setenv(t_minishell *env, char *arg)
 		key = ft_substr(arg, 0, ft_strlen(arg) - ft_strlen(p_eq));
 		if (!key)
 			return (2);
+		add_arg = ft_strdup(arg);
 	}
 	else
 	{
 		key = ft_strdup(arg);
 		if (!key)
 			return (2);
+		add_arg = ft_strjoin(arg, "=");
 	}
-	if (add_key(env, arg, key))
-		return (2);
+	if (add_key(add_arg, key))
+		return (free(key), free(add_arg), 2);
 	return (free(key), 0);
 }
 
@@ -139,7 +137,7 @@ int	export_b(t_minishell *env, char **arg)
 			status = 1;
 			export_error(arg[i]);
 		}
-		else if (ft_setenv(env, arg[i]))
+		else if (ft_setenv(arg[i]))
 			return (perror("malloc"), 2);
 		i++;
 	}
