@@ -6,17 +6,11 @@
 /*   By: achantra <achantra@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/20 14:35:07 by achantra          #+#    #+#             */
-/*   Updated: 2025/01/10 14:53:54 by achantra         ###   ########.fr       */
+/*   Updated: 2025/01/10 15:28:48 by achantra         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
-
-// Coucou
-// J'ai test | echo "coucou"
-// Et ca marche alors que sa devrait pas, (On est sense rien affiche)
-// Tu veux que je reset mes msg d'error,
-// Ou tu le protege dans l'exec si une commande et vide on s'arrete ?
 
 int	handle_process_error(t_minishell *env, int *p_end)
 {
