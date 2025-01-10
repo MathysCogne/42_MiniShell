@@ -6,7 +6,7 @@
 /*   By: mcogne-- <mcogne--@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/15 00:18:43 by mcogne--          #+#    #+#             */
-/*   Updated: 2025/01/10 11:20:25 by mcogne--         ###   ########.fr       */
+/*   Updated: 2025/01/10 11:58:18 by mcogne--         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,7 +78,7 @@ static char	*check_absolute_or_relative_path(t_minishell *env,
 	(void)env;
 	if (access(command, X_OK) == 0)
 	{
-		cmd_path = strdup(command);
+		cmd_path = ft_strdup(command);
 		if (!cmd_path)
 			return (NULL);
 		gc_add(env->gc, cmd_path);

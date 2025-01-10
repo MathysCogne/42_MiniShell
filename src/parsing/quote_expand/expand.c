@@ -6,7 +6,7 @@
 /*   By: mcogne-- <mcogne--@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/01 23:22:56 by mcogne--          #+#    #+#             */
-/*   Updated: 2025/01/07 21:45:10 by mcogne--         ###   ########.fr       */
+/*   Updated: 2025/01/10 11:58:29 by mcogne--         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,7 @@ static char	*chr_var_to_expand(char *token)
 	i = 0;
 	while (var_expand[i] && var_expand[i] != ' ')
 		i++;
-	var_expand = strndup(var_expand + 1, i - 1);
+	var_expand = ft_strndup(var_expand + 1, i - 1);
 	if (!var_expand)
 		return (NULL);
 	return (var_expand);

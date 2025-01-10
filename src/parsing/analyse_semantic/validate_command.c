@@ -6,7 +6,7 @@
 /*   By: mcogne-- <mcogne--@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/01 20:20:47 by mcogne--          #+#    #+#             */
-/*   Updated: 2025/01/10 10:49:53 by mcogne--         ###   ########.fr       */
+/*   Updated: 2025/01/10 12:52:28 by mcogne--         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,6 +67,8 @@ short	handler_validate_command(t_minishell *env, t_input *input,
 	prev_token = NULL;
 	if (input->prev)
 		prev_token = input->prev->token;
+	if (input->token->type == TOKEN_PIPE)
+		env->error_msg = ft_strdup(ERR_SYNTAX "token `|'");
 	if (env->error_msg)
 		return (0);
 	while (input)

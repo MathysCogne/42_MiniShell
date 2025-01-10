@@ -6,7 +6,7 @@
 /*   By: mcogne-- <mcogne--@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/01 23:22:56 by mcogne--          #+#    #+#             */
-/*   Updated: 2025/01/06 21:33:44 by mcogne--         ###   ########.fr       */
+/*   Updated: 2025/01/10 11:58:25 by mcogne--         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ short	handler_quote(t_token *token)
 	if ((token->value[0] == '"' && token->value[len - 1] == '"')
 		|| (token->value[0] == '\'' && token->value[len - 1] == '\''))
 	{
-		new_token = strndup(token->value + 1, len - 2);
+		new_token = ft_strndup(token->value + 1, len - 2);
 		if (!new_token)
 			return (1);
 		if (token->value[0] == '"')
