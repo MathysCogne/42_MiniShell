@@ -6,7 +6,7 @@
 /*   By: mcogne-- <mcogne--@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/15 00:18:43 by mcogne--          #+#    #+#             */
-/*   Updated: 2025/01/07 21:47:47 by mcogne--         ###   ########.fr       */
+/*   Updated: 2025/01/10 11:20:25 by mcogne--         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -97,6 +97,8 @@ char	*is_external_command(t_minishell *env, char *token)
 
 	if (!token || !token[0])
 		return (0);
+	if (token[0] == '.' && token[1] == '/')
+		return (token);
 	path_cmd = NULL;
 	if (token[0] == '/' || ft_strncmp(token, "./", 2) == 0 || ft_strncmp(token,
 			"../", 3) == 0)
