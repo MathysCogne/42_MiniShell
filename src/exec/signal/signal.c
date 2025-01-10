@@ -6,7 +6,7 @@
 /*   By: mcogne-- <mcogne--@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/24 20:05:06 by mcogne--          #+#    #+#             */
-/*   Updated: 2025/01/10 13:09:38 by mcogne--         ###   ########.fr       */
+/*   Updated: 2025/01/10 15:21:16 by mcogne--         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ void	setup_signal_in_process(void)
 */
 void	handler_sigint(int sig, siginfo_t *info, void *context)
 {
-	static pid_t	pid_shell;
+	static pid_t	pid_shell = 0;
 
 	(void)sig;
 	(void)context;
@@ -37,11 +37,11 @@ void	handler_sigint(int sig, siginfo_t *info, void *context)
 		pid_shell = info->si_pid;
 		return ;
 	}
-	if (info->si_pid == pid_shell)
+	if (info->si_pid && info->si_pid == pid_shell)
 	{
 		rl_replace_line("", 0);
 		rl_on_new_line();
-		ft_printf("\n");
+		ft_printf(YELLOW BOLD "\n");
 		rl_redisplay();
 	}
 	else
@@ -58,4 +58,5 @@ void	setup_signal(void)
 	sigaction(SIGINT, &sa, NULL);
 	sa.sa_handler = SIG_IGN;
 	sigaction(SIGQUIT, &sa, NULL);
+	kill(0, SIGINT);
 }
