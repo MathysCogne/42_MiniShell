@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cleanup.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mcogne-- <mcogne--@student.42.fr>          +#+  +:+       +#+        */
+/*   By: achantra <achantra@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/14 22:27:24 by mcogne--          #+#    #+#             */
-/*   Updated: 2025/01/09 18:51:16 by mcogne--         ###   ########.fr       */
+/*   Updated: 2025/01/10 10:20:09 by achantra         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,7 +71,6 @@ static void	delete_commands(t_minishell *env)
 		free(current);
 		current = next;
 	}
-	env->cmds = NULL;
 }
 
 static void	reset_input(t_minishell *env)
@@ -85,12 +84,12 @@ static void	reset_input(t_minishell *env)
 /*
 ** Clean and free input and token after use
 */
-void	free_input(t_input *input)
+void	delete_input(t_minishell *env)
 {
 	t_input	*current;
 	t_input	*next;
 
-	current = input;
+	current = env->input;
 	while (current)
 	{
 		next = current->next;
@@ -99,12 +98,6 @@ void	free_input(t_input *input)
 		free(current);
 		current = next;
 	}
-	input = NULL;
-}
-
-void	delete_input(t_minishell *env)
-{
-	free_input(env->input);
 	if (env->envp)
 		free_split(env->envp);
 	if (env->error_msg)

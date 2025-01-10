@@ -6,7 +6,7 @@
 /*   By: achantra <achantra@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/08 12:04:51 by achantra          #+#    #+#             */
-/*   Updated: 2025/01/10 09:58:16 by achantra         ###   ########.fr       */
+/*   Updated: 2025/01/10 10:28:44 by achantra         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,14 +24,14 @@ int	realloc_env(char *arg)
 		len++;
 	new_environ = malloc(sizeof(char *) * (len + 2));
 	if (!new_environ)
-		return (free(arg), perror("malloc"), 1);
+		return (perror("malloc"), 1);
 	new_environ[len + 1] = NULL;
 	i = 0;
 	while (i < len)
 	{
 		new_environ[i] = ft_strdup(environ[i]);
 		if (!new_environ[i])
-			return (free(arg), free_split(new_environ), 1);
+			return (free_split(new_environ), 1);
 		i++;
 	}
 	new_environ[len] = arg;
@@ -40,34 +40,11 @@ int	realloc_env(char *arg)
 	return (0);
 }
 
-int	find_key(char *arg, char **key)
-{
-	char	*p_eq;
-
-	p_eq = ft_strchr(arg, '=');
-	if (p_eq)
-	{
-		*key = ft_substr(arg, 0, ft_strlen(arg) - ft_strlen(p_eq));
-		if (!*key)
-			return (2);
-	}
-	else
-	{
-		*key = ft_strdup(arg);
-		if (!*key)
-			return (2);
-	}
-	return (0);
-}
-
-int	ft_setenv(t_minishell *env, char *arg)
+int	add_key(t_minishell *env, char *arg, char *key)
 {
 	int			i;
-	char		*key;
 	extern char	**environ;
 
-	if (find_key(arg, &key))
-		return (2);
 	i = 0;
 	while (environ[i])
 	{
@@ -88,6 +65,29 @@ int	ft_setenv(t_minishell *env, char *arg)
 		if (realloc_env(arg))
 			return (free(key), 2);
 	}
+	return (0);
+}
+
+int	ft_setenv(t_minishell *env, char *arg)
+{
+	char	*key;
+	char	*p_eq;
+
+	p_eq = ft_strchr(arg, '=');
+	if (p_eq)
+	{
+		key = ft_substr(arg, 0, ft_strlen(arg) - ft_strlen(p_eq));
+		if (!key)
+			return (2);
+	}
+	else
+	{
+		key = ft_strdup(arg);
+		if (!key)
+			return (2);
+	}
+	if (add_key(env, arg, key))
+		return (2);
 	return (free(key), 0);
 }
 

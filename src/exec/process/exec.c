@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exec.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mcogne-- <mcogne--@student.42.fr>          +#+  +:+       +#+        */
+/*   By: achantra <achantra@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/20 14:35:07 by achantra          #+#    #+#             */
-/*   Updated: 2025/01/09 18:21:34 by mcogne--         ###   ########.fr       */
+/*   Updated: 2025/01/10 10:17:07 by achantra         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,27 +81,17 @@ int	simple_cmd(t_minishell *env)
 	return (0);
 }
 
-/*
-** HOLA ! Tu peux me set last error pour ces cas:
-**
-** 32512 -> Pas les droits exec (Correspond a 126)
-** 32512 -> Cmd introuvable (Correspond a 127)
-*/
-
 short	exec(t_minishell *env)
 {
 	int	p_end[2];
 	int	status;
 
 	if (env->error_msg)
-		return (ft_fprintf(2, "%s\n", env->error_msg), 0);
+		return (ft_putendl_fd(env->error_msg, 2), 0);
 	env->last_fd0 = 0;
 	find_heredoc(env->cmds);
 	if (!env->cmds->is_pipe && env->cmds->cmd->type == TOKEN_BUILTIN)
-	{
-		env->last_err_code = simple_cmd(env);
-		return (clean_heredoc(env), 0);
-	}
+		return (env->last_err_code = simple_cmd(env), clean_heredoc(env), 0);
 	else
 	{
 		env->curr_cmd = env->cmds;
@@ -114,7 +104,6 @@ short	exec(t_minishell *env)
 			env->curr_cmd = env->curr_cmd->next;
 		}
 	}
-	clean_heredoc(env);
 	env->last_err_code = status;
-	return (close(p_end[0]), close(p_end[1]), 0);
+	return (clean_heredoc(env), close(p_end[0]), close(p_end[1]), 0);
 }
