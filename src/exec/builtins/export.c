@@ -6,7 +6,7 @@
 /*   By: achantra <achantra@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/08 12:04:51 by achantra          #+#    #+#             */
-/*   Updated: 2025/01/10 10:58:02 by achantra         ###   ########.fr       */
+/*   Updated: 2025/01/10 14:59:50 by achantra         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,6 +51,7 @@ static int	add_key(char *arg, char *key)
 		if (!ft_strncmp(key, environ[i], ft_strlen(key))
 			&& environ[i][ft_strlen(key)] == '=')
 		{
+			free(environ[i]);
 			environ[i] = arg;
 			break ;
 		}
