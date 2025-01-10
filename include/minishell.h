@@ -6,8 +6,7 @@
 /*   By: mcogne-- <mcogne--@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/13 12:52:28 by mcogne--          #+#    #+#             */
-/*   Updated: 2025/01/09 16:53:10 by mcogne--         ###   ########.fr       */
-/*   Updated: 2025/01/09 16:08:24 by achantra         ###   ########.fr       */
+/*   Updated: 2025/01/10 09:41:52 by achantra         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,12 +21,11 @@
 # include "libft.h"
 # include "libft_extra.h"
 # include "struct.h"
-# include <stdio.h>
 # include <fcntl.h>
 # include <readline/history.h>
 # include <readline/readline.h>
 # include <signal.h>
-
+# include <stdio.h>
 # include <stdlib.h>
 # include <string.h>
 # include <sys/stat.h>
@@ -115,6 +113,7 @@ int				child_process(int *p_end, t_minishell *env, t_command *cmd);
 void			setup_signal(void);
 void			setup_signal_in_process(void);
 // Builtins
+void			export_error(char *arg);
 int				export_b(t_minishell *env, char **args);
 int				exit_b(t_minishell *env, char **arg);
 int				echo(char **args);

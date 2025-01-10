@@ -6,7 +6,7 @@
 /*   By: achantra <achantra@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/28 22:39:46 by achantra          #+#    #+#             */
-/*   Updated: 2025/01/09 11:37:11 by achantra         ###   ########.fr       */
+/*   Updated: 2025/01/10 09:42:14 by achantra         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,4 +54,12 @@ void	pr_error(int e, char *element)
 	}
 	else
 		pr_error2(e, element);
+}
+
+void	export_error(char *arg)
+{
+	ft_putstr_fd(SHELL_NAME, 2);
+	ft_putstr_fd(": export: ", 2);
+	ft_putstr_fd(arg, 2);
+	ft_putendl_fd(": not valid identifier", 2);
 }
