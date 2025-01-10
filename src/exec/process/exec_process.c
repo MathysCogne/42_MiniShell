@@ -6,7 +6,7 @@
 /*   By: achantra <achantra@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/20 15:34:29 by achantra          #+#    #+#             */
-/*   Updated: 2025/01/09 16:08:40 by achantra         ###   ########.fr       */
+/*   Updated: 2025/01/10 11:47:37 by achantra         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -119,8 +119,7 @@ int	child_process(int *p_end, t_minishell *env, t_command *cmd)
 		return (close(p_end[1]), clean_child(env), EXIT_FAILURE);
 	fd_in = find_fd_in(env, cmd);
 	if (fd_in < 0)
-		return (close(p_end[1]), perror(SHELL_NAME), clean_child(env),
-			EXIT_FAILURE);
+		return (close(p_end[1]), perror(SHELL_NAME), clean_child(env), 1);
 	fd_out = find_fd_out(p_end, cmd);
 	if (fd_out < 0)
 		return (close(p_end[1]), close(fd_in), perror(SHELL_NAME),
@@ -128,10 +127,12 @@ int	child_process(int *p_end, t_minishell *env, t_command *cmd)
 	if (dup_fd(fd_in, fd_out) < 0)
 		return (perror(SHELL_NAME), clean_child(env), EXIT_FAILURE);
 	if (cmd->cmd->type == TOKEN_ARGUMENT)
-		return (pr_error(NOT_FOUND_ERROR, cmd->cmd->value), clean_child(env),
+		return (pr_error(NF_ERROR, cmd->cmd->value), clean_child(env),
 			EXIT_NF);
 	else if (cmd->cmd->type == TOKEN_BUILTIN)
 		return (exec_builtin(env, cmd));
+	if (access(cmd->cmd_path, X_OK) != 0)
+		return (pr_error(PERM_ERROR, cmd->cmd_path), clean_child(env), 126);
 	status = execve(cmd->cmd_path, cmd->str_args, env->envp);
 	return (perror(SHELL_NAME), clean_child(env), status);
 }

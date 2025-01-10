@@ -6,7 +6,7 @@
 /*   By: achantra <achantra@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/28 22:39:46 by achantra          #+#    #+#             */
-/*   Updated: 2025/01/10 09:42:14 by achantra         ###   ########.fr       */
+/*   Updated: 2025/01/10 11:47:51 by achantra         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,7 @@ void	pr_error(int e, char *element)
 		ft_putstr_fd(element, 2);
 		ft_putstr_fd(": permission denied\n", 2);
 	}
-	else if (e == NOT_FOUND_ERROR)
+	else if (e == NF_ERROR)
 	{
 		ft_putstr_fd(SHELL_NAME, 2);
 		ft_putstr_fd(": ", 2);

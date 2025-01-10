@@ -6,7 +6,7 @@
 /*   By: achantra <achantra@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/03 14:51:42 by achantra          #+#    #+#             */
-/*   Updated: 2025/01/09 14:36:39 by achantra         ###   ########.fr       */
+/*   Updated: 2025/01/10 11:36:52 by achantra         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,12 +16,13 @@ char	*find_file_name(void)
 {
 	char	*file;
 
-	// Remplacer par une gestion aleatoire de nom de fichier.
-	file = ft_strjoin("tmp", "000");
+	file = ft_strjoin("tmp", "0000");
 	if (!file)
 		return (NULL);
 	while (access(file, F_OK) == 0)
 	{
+		if (ft_isprint(file[6] + 1))
+			file[6] += 1;
 		if (ft_isprint(file[5] + 1))
 			file[5] += 1;
 		else if (ft_isprint(file[4] + 1))

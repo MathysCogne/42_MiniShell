@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mcogne-- <mcogne--@student.42.fr>          +#+  +:+       +#+        */
+/*   By: achantra <achantra@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/13 12:52:28 by mcogne--          #+#    #+#             */
-/*   Updated: 2025/01/10 11:27:11 by achantra         ###   ########.fr       */
+/*   Updated: 2025/01/10 11:48:04 by achantra         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -92,7 +92,7 @@ void			free_split(char **tab);
 # define FATAL_ERROR 2
 # define PERM_ERROR_END 10
 # define PERM_ERROR 11
-# define NOT_FOUND_ERROR 12
+# define NF_ERROR 12
 # define NO_PATH 13
 # define NO_FILE 14
 # define EOF_HERE 15
