@@ -6,7 +6,7 @@
 /*   By: mcogne-- <mcogne--@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/01 23:22:56 by mcogne--          #+#    #+#             */
-/*   Updated: 2025/01/07 17:23:19 by mcogne--         ###   ########.fr       */
+/*   Updated: 2025/01/11 00:55:27 by mcogne--         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,11 +18,14 @@ static short	handler_expand(t_minishell *env, t_token *token)
 
 	if (ft_strlen(token->value) < 2)
 		return (0);
-	new_token = expand_var(env, token);
-	if (!new_token)
-		return (1);
-	free(token->value);
-	token->value = new_token;
+	while (ft_strchr(token->value, '$'))
+	{
+		new_token = expand_var(env, token);
+		if (!new_token)
+			return (1);
+		free(token->value);
+		token->value = new_token;
+	}
 	return (0);
 }
 

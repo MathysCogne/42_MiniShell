@@ -6,7 +6,7 @@
 /*   By: mcogne-- <mcogne--@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/13 13:09:07 by mcogne--          #+#    #+#             */
-/*   Updated: 2025/01/09 00:49:32 by mcogne--         ###   ########.fr       */
+/*   Updated: 2025/01/11 00:47:54 by mcogne--         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,7 +50,8 @@ short	get_input(t_minishell *env)
 	if (!input)
 		return (free(prompt), 1);
 	free(prompt);
-	add_history(input);
+	if (input[0] != '\0')
+		add_history(input);
 	gc_add(env->gc, input);
 	if (check_single_quotes(input))
 	{
