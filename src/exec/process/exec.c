@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exec.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: achantra <achantra@student.42.fr>          +#+  +:+       +#+        */
+/*   By: achantra <achantra@42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/20 14:35:07 by achantra          #+#    #+#             */
-/*   Updated: 2025/01/10 15:28:48 by achantra         ###   ########.fr       */
+/*   Updated: 2025/01/12 22:23:59 by achantra         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,30 @@ int	handle_process_error(t_minishell *env, int *p_end)
 		close(env->last_fd0);
 	perror(SHELL_NAME);
 	return (EXIT_FAILURE);
+}
+
+int	open_redir(t_command *cmd)
+{
+	int		fd;
+	t_input	*tmp;
+
+	tmp = cmd->redir_lst;
+	while (tmp)
+	{
+		if (tmp->token->type == TOKEN_REDIRECTION_IN
+			|| tmp->token->type == TOKEN_HEREDOC)
+			fd = open(tmp->token->value, O_RDONLY);
+		else if (tmp->token->type == TOKEN_REDIRECTION_OUT)
+			fd = open(tmp->token->value, O_CREAT | O_WRONLY | O_TRUNC, 0644);
+		else if (tmp->token->type == TOKEN_REDIRECTION_APPEND_OUT)
+			fd = open(tmp->token->value, O_CREAT | O_WRONLY | O_APPEND, 0644);
+		if (fd < 0)
+			return (ft_putstr_fd(SHELL_NAME, 2), ft_putstr_fd(": ", 2),
+				perror(tmp->token->value), 1);
+		close(fd);
+		tmp = tmp->next;
+	}
+	return (0);
 }
 
 int	main_process(t_minishell *env, int *p_end)
@@ -56,6 +80,7 @@ int	main_process(t_minishell *env, int *p_end)
 
 int	simple_cmd(t_minishell *env)
 {
+	env->is_child = 0;
 	if (open_redir(env->cmds))
 		return (EXIT_FAILURE);
 	else if (!ft_strcmp(env->cmds->cmd->value, "env"))
@@ -95,6 +120,7 @@ short	exec(t_minishell *env)
 			waitpid(env->curr_cmd->pid, &env->last_err_code, 0);
 			env->curr_cmd = env->curr_cmd->next;
 		}
+		env->is_child = 1;
 	}
 	return (clean_heredoc(env), close(p_end[0]), close(p_end[1]), 0);
 }

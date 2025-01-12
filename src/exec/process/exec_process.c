@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exec_process.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: achantra <achantra@student.42.fr>          +#+  +:+       +#+        */
+/*   By: achantra <achantra@42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/20 15:34:29 by achantra          #+#    #+#             */
-/*   Updated: 2025/01/10 13:38:11 by achantra         ###   ########.fr       */
+/*   Updated: 2025/01/12 21:46:24 by achantra         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,30 +63,6 @@ short	find_fd_in(t_minishell *env, t_command *cmd)
 	return (env->last_fd0);
 }
 
-int	open_redir(t_command *cmd)
-{
-	int		fd;
-	t_input	*tmp;
-
-	tmp = cmd->redir_lst;
-	while (tmp)
-	{
-		if (tmp->token->type == TOKEN_REDIRECTION_IN
-			|| tmp->token->type == TOKEN_HEREDOC)
-			fd = open(tmp->token->value, O_RDONLY);
-		else if (tmp->token->type == TOKEN_REDIRECTION_OUT)
-			fd = open(tmp->token->value, O_CREAT | O_WRONLY | O_TRUNC, 0644);
-		else if (tmp->token->type == TOKEN_REDIRECTION_APPEND_OUT)
-			fd = open(tmp->token->value, O_CREAT | O_WRONLY | O_APPEND, 0644);
-		if (fd < 0)
-			return (ft_putstr_fd(SHELL_NAME, 2), ft_putstr_fd(": ", 2),
-				perror(tmp->token->value), 1);
-		close(fd);
-		tmp = tmp->next;
-	}
-	return (0);
-}
-
 int	dup_fd(int fd_in, int fd_out)
 {
 	int	err;
@@ -105,6 +81,15 @@ int	dup_fd(int fd_in, int fd_out)
 		if (err)
 			return (err);
 	}
+	return (0);
+}
+
+int	path_error(t_minishell *env, char *cmd_path)
+{
+	if (access(cmd_path, F_OK) != 0)
+		return (pr_error(NO_FILE, cmd_path), clean_child(env), 1);
+	else if (access(cmd_path, X_OK) != 0)
+		return (pr_error(PERM_ERROR, cmd_path), clean_child(env), 126);
 	return (0);
 }
 
@@ -131,8 +116,8 @@ int	child_process(int *p_end, t_minishell *env, t_command *cmd)
 		return (pr_error(NF_ERROR, cmd->cmd->value), clean_child(env), 127);
 	else if (cmd->cmd->type == TOKEN_BUILTIN)
 		return (exec_builtin(env, cmd));
-	if (access(cmd->cmd_path, X_OK) != 0)
-		return (pr_error(PERM_ERROR, cmd->cmd_path), clean_child(env), 126);
+	if (access(cmd->cmd_path, F_OK) != 0 || access(cmd->cmd_path, X_OK) != 0)
+		return (path_error(env, cmd->cmd_path));
 	execve(cmd->cmd_path, cmd->str_args, env->envp);
 	return (perror(SHELL_NAME), clean_child(env), 1);
 }

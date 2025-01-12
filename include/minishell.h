@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: achantra <achantra@student.42.fr>          +#+  +:+       +#+        */
+/*   By: achantra <achantra@42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/13 12:52:28 by mcogne--          #+#    #+#             */
-/*   Updated: 2025/01/10 14:55:17 by achantra         ###   ########.fr       */
+/*   Updated: 2025/01/12 21:32:21 by achantra         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,10 +22,10 @@
 # include "libft_extra.h"
 # include "struct.h"
 # include <fcntl.h>
+# include <stdio.h>
 # include <readline/history.h>
 # include <readline/readline.h>
 # include <signal.h>
-# include <stdio.h>
 # include <stdlib.h>
 # include <string.h>
 # include <sys/stat.h>

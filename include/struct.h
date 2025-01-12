@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   struct.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mcogne-- <mcogne--@student.42.fr>          +#+  +:+       +#+        */
+/*   By: achantra <achantra@42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/01 14:45:47 by mcogne--          #+#    #+#             */
-/*   Updated: 2025/01/09 16:39:32 by mcogne--         ###   ########.fr       */
+/*   Updated: 2025/01/12 22:22:37 by achantra         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,6 +63,7 @@ typedef struct s_minishell
 	char				**envp;
 	int					env_alloc;
 	int					last_err_code;
+	int					is_child;
 	int					last_fd0;
 	char				*error_msg;
 }						t_minishell;
