@@ -1,6 +1,4 @@
 <div align="center">
-<h1>42 - MiniShell</h1>
-
 <img src="subject/cover.png" alt="Covers" width="650" />
 
 </br>
@@ -37,6 +35,8 @@
   - `Ctrl+D` (exits the shell if pressed at an empty prompt)
   - `Ctrl+\` (ignored in interactive mode).
 
+</br>
+
 ## Parsing Part
 
 The parsing stage is the backbone of the shell, as it transforms the raw input into a structured format for execution. It consists of two main steps: **tokenization** and **semantic analysis**.
@@ -57,7 +57,8 @@ The tokenization process splits the user's input into tokens, which are the smal
 3. **Ignore whitespace**: Skips unnecessary spaces while separating meaningful components.
 4. **Classify tokens**: Assigns a type to each token (e.g., `TOKEN_COMMAND`, `TOKEN_ARGUMENT`, `TOKEN_PIPE`, etc.).
 
-#### Example:
+</br>
+
 Input:
 
 ```bash
@@ -75,6 +76,8 @@ Tokens generated:
 [TOKEN_ARGUMENT: output.txt]
 ```
 
+</br>
+
 ### **2. Semantic Analysis**
 
 The semantic analysis phase transforms the list of tokens into a hierarchy of commands and redirections while validating the syntax. This ensures that the input is both logical and executable.
@@ -89,7 +92,8 @@ The semantic analysis phase transforms the list of tokens into a hierarchy of co
 3. **Handle Logical Constructs**:
    - Maps pipes (`|`) to connect commands in a pipeline.
 
-#### Example:
+</br>
+
 Input:
 
 ```bash
@@ -110,6 +114,7 @@ Command 2:
 ```
 
 </br>
+
 
 ## Execution Part
 
@@ -149,8 +154,11 @@ make test
 
 </br>
 
+
+⊹ ࣪ ﹏𓊝﹏𓂁﹏⊹ ࣪ ˖
+
+</br>
+
 ## Disclaimer
 > At 42 School, most projects must comply with the [Norm](https://github.com/42School/norminette/blob/master/pdf/en.norm.pdf).
 
-
-⊹ ࣪ ﹏𓊝﹏𓂁﹏⊹ ࣪ ˖
