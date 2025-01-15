@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: achantra <achantra@42.fr>                  +#+  +:+       +#+        */
+/*   By: achantra <achantra@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/13 12:52:28 by mcogne--          #+#    #+#             */
-/*   Updated: 2025/01/12 21:32:21 by achantra         ###   ########.fr       */
+/*   Updated: 2025/01/13 18:10:57 by achantra         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -103,6 +103,8 @@ void			free_split(char **tab);
 void			clean_environ(t_minishell *env);
 void			clean_child(t_minishell *env);
 void			clean_heredoc(t_minishell *env);
+short			f_fd_out(t_command *cmd);
+int				check_redir(t_command *cmds);
 int				open_redir(t_command *cmd);
 char			*get_next_line_b(int fd);
 int				find_heredoc(t_command *cmds);
@@ -117,12 +119,12 @@ int				alloc_env(t_minishell *env);
 void			export_error(char *arg);
 int				export_b(t_minishell *env, char **args);
 int				exit_b(t_minishell *env, char **arg);
-int				echo(char **args);
+int				echo(char **args, int fd_out);
 int				env_b(t_minishell *env);
-int				pwd_b(void);
+int				pwd_b(int fd_out);
 int				cd(char **args);
 int				unset_b(t_minishell *env, char **arg);
-int				exec_builtin(t_minishell *env, t_command *cmd);
+int				exec_builtin(t_minishell *env, t_command *cmd, int fd_out);
 
 /*******************************/
 /*            UTILS            */

@@ -6,13 +6,13 @@
 /*   By: achantra <achantra@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/04 21:07:12 by achantra          #+#    #+#             */
-/*   Updated: 2025/01/10 14:54:54 by achantra         ###   ########.fr       */
+/*   Updated: 2025/01/13 17:20:58 by achantra         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-int	echo(char **arg)
+int	echo(char **arg, int fd_out)
 {
 	int	i;
 	int	optn;
@@ -26,12 +26,12 @@ int	echo(char **arg)
 	}
 	while (arg[i])
 	{
-		ft_putstr_fd(arg[i], 1);
+		ft_putstr_fd(arg[i], fd_out);
 		i++;
 		if (arg[i])
-			ft_putchar_fd(' ', 1);
+			ft_putchar_fd(' ', fd_out);
 	}
 	if (!optn)
-		ft_putchar_fd('\n', 1);
+		ft_putchar_fd('\n', fd_out);
 	return (0);
 }

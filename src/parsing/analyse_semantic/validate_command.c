@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   validate_command.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mcogne-- <mcogne--@student.42.fr>          +#+  +:+       +#+        */
+/*   By: achantra <achantra@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/01 20:20:47 by mcogne--          #+#    #+#             */
-/*   Updated: 2025/01/10 12:52:28 by mcogne--         ###   ########.fr       */
+/*   Updated: 2025/01/13 16:08:16 by achantra         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,7 +45,8 @@ static short	validate_pipe_token(t_minishell *env, t_input *input,
 {
 	(void)command;
 	(void)prev_token;
-	if (!input->next || (input->next->token->type != TOKEN_ARGUMENT))
+	if (!input->next || !(input->next->token->type >= TOKEN_ARGUMENT
+			&& input->next->token->type <= TOKEN_REDIRECTION_APPEND_OUT))
 	{
 		env->error_msg = ft_strdup(ERR_SYNTAX "token `|'");
 		return (1);
