@@ -6,7 +6,7 @@
 /*   By: achantra <achantra@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/07 18:17:07 by achantra          #+#    #+#             */
-/*   Updated: 2025/01/10 11:38:18 by achantra         ###   ########.fr       */
+/*   Updated: 2025/01/13 16:00:35 by achantra         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,10 @@ void	clean_heredoc(t_minishell *env)
 		while (tmp)
 		{
 			if (tmp->token->type == TOKEN_HEREDOC)
+			{
 				unlink(tmp->token->value);
+				free(tmp->token->value);
+			}
 			tmp = tmp->next;
 		}
 		tmp_cmd = tmp_cmd->next;

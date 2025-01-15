@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exec_process.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: achantra <achantra@42.fr>                  +#+  +:+       +#+        */
+/*   By: achantra <achantra@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/20 15:34:29 by achantra          #+#    #+#             */
-/*   Updated: 2025/01/12 21:46:24 by achantra         ###   ########.fr       */
+/*   Updated: 2025/01/13 17:19:49 by achantra         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -115,7 +115,7 @@ int	child_process(int *p_end, t_minishell *env, t_command *cmd)
 	if (cmd->cmd->type == TOKEN_ARGUMENT)
 		return (pr_error(NF_ERROR, cmd->cmd->value), clean_child(env), 127);
 	else if (cmd->cmd->type == TOKEN_BUILTIN)
-		return (exec_builtin(env, cmd));
+		return (exec_builtin(env, cmd, fd_out));
 	if (access(cmd->cmd_path, F_OK) != 0 || access(cmd->cmd_path, X_OK) != 0)
 		return (path_error(env, cmd->cmd_path));
 	execve(cmd->cmd_path, cmd->str_args, env->envp);

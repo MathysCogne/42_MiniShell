@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exec.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: achantra <achantra@42.fr>                  +#+  +:+       +#+        */
+/*   By: achantra <achantra@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/20 14:35:07 by achantra          #+#    #+#             */
-/*   Updated: 2025/01/12 22:23:59 by achantra         ###   ########.fr       */
+/*   Updated: 2025/01/13 18:11:25 by achantra         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,49 +78,60 @@ int	main_process(t_minishell *env, int *p_end)
 	return (0);
 }
 
-int	simple_cmd(t_minishell *env)
+void	simple_cmd(t_minishell *env)
 {
+	int	fd_out;
+
 	env->is_child = 0;
-	if (open_redir(env->cmds))
-		return (EXIT_FAILURE);
+	fd_out = check_redir(env->cmds);
+	if (fd_out < 0)
+		return (env->last_err_code = EXIT_FAILURE, clean_child(env));
 	else if (!ft_strcmp(env->cmds->cmd->value, "env"))
-		return (env_b(env));
+		env->last_err_code = env_b(env);
 	else if (!ft_strcmp(env->cmds->cmd->value, "exit"))
-		return (ft_putendl_fd("exit", 1), exit_b(env, env->cmds->str_args));
+	{
+		ft_putendl_fd("exit", 1);
+		env->last_err_code = exit_b(env, env->cmds->str_args);
+	}
 	if (!ft_strcmp(env->cmds->cmd->value, "cd"))
-		return (cd(env->cmds->str_args));
+		env->last_err_code = cd(env->cmds->str_args);
 	else if (!ft_strcmp(env->cmds->cmd->value, "export"))
-		return (export_b(env, env->cmds->str_args));
+		env->last_err_code = export_b(env, env->cmds->str_args);
 	else if (!ft_strcmp(env->cmds->cmd->value, "unset"))
-		return (unset_b(env, env->cmds->str_args));
-	return (0);
+		env->last_err_code = unset_b(env, env->cmds->str_args);
+	else if (!ft_strcmp(env->cmds->cmd->value, "echo"))
+		env->last_err_code = echo(env->cmds->str_args, fd_out);
+	else if (!ft_strcmp(env->cmds->cmd->value, "pwd"))
+		env->last_err_code = pwd_b(fd_out);
+	if (fd_out > 2)
+		close(fd_out);
 }
 
 short	exec(t_minishell *env)
 {
 	int	p_end[2];
+	int	status;
 
 	if (env->error_msg)
 		return (ft_putendl_fd(env->error_msg, 2), 0);
 	env->last_fd0 = 0;
 	find_heredoc(env->cmds);
 	if (env->cmds && !env->cmds->is_pipe && env->cmds->cmd
-		&& env->cmds->cmd->type == TOKEN_BUILTIN
-		&& ft_strcmp(env->cmds->cmd->value, "echo")
-		&& ft_strcmp(env->cmds->cmd->value, "pwd"))
-		return (env->last_err_code = simple_cmd(env), clean_heredoc(env), 0);
+		&& env->cmds->cmd->type == TOKEN_BUILTIN)
+		return (simple_cmd(env), clean_heredoc(env), 0);
 	else
 	{
+		env->is_child = 1;
 		env->curr_cmd = env->cmds;
 		if (main_process(env, p_end))
 			return (EXIT_FAILURE);
 		env->curr_cmd = env->cmds;
 		while (env->curr_cmd)
 		{
-			waitpid(env->curr_cmd->pid, &env->last_err_code, 0);
+			waitpid(env->curr_cmd->pid, &status, 0);
 			env->curr_cmd = env->curr_cmd->next;
 		}
-		env->is_child = 1;
 	}
+	env->last_err_code = status;
 	return (clean_heredoc(env), close(p_end[0]), close(p_end[1]), 0);
 }
